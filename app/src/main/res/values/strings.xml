@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ProjectDIA</string>
+    <string name="haveAccount">Have an account?</string>
+    <string name="buttonRegister">Sign up</string>
+    <string name="hintPin">Password</string>
+    <string name="hintEmail">Email</string>
+    <string name="home">Home</string>
+    <string name="application">Applied</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profile</string>
+    <string name="PickImage">Pick Image</string>
+    <string name="Movie">Movie</string>
+    <string name="login">Login</string>
+    <string name="NoAccount">Don\'t have an account ?</string>
+    <string name="forgotPin">Forgot Password?</string>
+    <string name="sigUp">Sign-up</string>
+    <string name="hintName">Full Name</string>
+    <string name="SignUpTitle">Sign-up here</string>
+    <string name="LoginTitle">Log-in here</string>
+</resources>
