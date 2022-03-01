@@ -13,30 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectDIA"
         android:usesCleartextTraffic="true">
-
         <activity
-            android:name="com.example.diateamproject.activity.JobDetailsActivity"
+            android:name=".activity.RecentJobActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.diateamproject.activity.MenuActivity"
+            android:name=".activity.JobDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.diateamproject.activity.SignupActivity"
+            android:name=".activity.SignupActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.diateamproject.activity.MainJobActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.diateamproject.activity.SplashScreenActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity
-            android:name="com.example.diateamproject.activity.JobActivity"
+            android:name=".activity.MenuActivity"
             android:exported="false"/>
         <activity
-            android:name="com.example.diateamproject.activity.LoginActivity"
-            android:exported="true">
-
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

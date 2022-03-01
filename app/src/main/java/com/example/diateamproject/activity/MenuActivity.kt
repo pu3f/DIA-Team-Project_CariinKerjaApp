@@ -17,8 +17,8 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val fragmentt: Fragment = HomeFragment()
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.content, fragmentt).commit()
+        val transactionn: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transactionn.replace(R.id.content, fragmentt).commit()
         binding.navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menuOne -> {

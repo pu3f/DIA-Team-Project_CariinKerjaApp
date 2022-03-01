@@ -59,6 +59,8 @@ dependencies {
 
     //easyPrefs
     implementation 'com.pixplicity.easyprefs:EasyPrefs:1.10.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -83,7 +85,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-//view model
+    //view model
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'

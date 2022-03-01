@@ -4,28 +4,49 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.ActivitySignupBinding
+import com.example.diateamproject.viewmodel.RegisterViewModel
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
+    private val viewModel: RegisterViewModel by lazy {
+        ViewModelProviders.of(this).get(RegisterViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val view = binding.root
+        setContentView(view)
 
         binding.cvSignUp.setOnClickListener {
-            if (binding.etPin.text.toString() == "123") {
-                val intent = Intent(this, Class.forName("com.example.projectdia.activity.LoginActivity"))
-                this.startActivity(intent)
-            } else {
-                Toast.makeText(this, "Pin Salah", Toast.LENGTH_SHORT).show()
-            }
+            viewModel.postRegister(
+                binding.etName.text.toString(),
+                binding.etEmail.text.toString(),
+                binding.etPin.text.toString()
+            )
         }
+        setObserver()
 
-        binding.tvSignup.setOnClickListener {
+        binding.tvLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun setObserver() {
+        viewModel.listResponse().observe(this, Observer {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Signup Success", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.getIsError().observe(this, Observer {
+            if (it) {
+                Toast.makeText(this, "User Already Exist", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

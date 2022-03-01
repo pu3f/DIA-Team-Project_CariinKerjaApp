@@ -1,18 +1,19 @@
 package com.example.diateamproject.viewmodel
 
+import android.text.Editable
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diateamproject.data.di.DaggerAppComponent
-import com.example.diateamproject.model.login.LoginResponse
-import com.example.diateamproject.model.requestlogin.RequestLogin
 import com.example.diateamproject.data.repository.AppRepository
+import com.example.diateamproject.model.login.LoginResponse
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
+import retrofit2.http.Query
 import javax.inject.Inject
 
 class LoginViewModel : ViewModel() {
@@ -27,9 +28,9 @@ class LoginViewModel : ViewModel() {
         DaggerAppComponent.create().injectView(this)
     }
 
-    fun postLogin(requestLogin: RequestLogin) {
+    fun postLogin(jobseekerEmail: String, jobseekerPassword: String) {
         compositeDisposable.add(
-            repository.postLogin(requestLogin)
+            repository.postLogin(jobseekerEmail,jobseekerPassword)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<LoginResponse>() {

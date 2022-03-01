@@ -1,41 +1,34 @@
 package com.example.diateamproject.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.diateamproject.adapter.JobAdapter
+import com.example.diateamproject.activity.JobDetailsActivity
+import com.example.diateamproject.activity.RecentJobActivity
+import com.example.diateamproject.adapter.AllJobAdapter
+import com.example.diateamproject.adapter.JobClickListener
 import com.example.diateamproject.databinding.FragmentHomeBinding
-import com.example.diateamproject.model.getalljob.Data
-import com.example.diateamproject.viewmodel.FragmentJobViewModel
+import com.example.diateamproject.util.PrefsLogin
+import com.example.diateamproject.util.PrefsLoginConstant
+import com.example.diateamproject.viewmodel.RecentJobViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), JobClickListener {
 
     private var param1: String? = null
     private var param2: String? = null
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter = JobAdapter()
-    private val viewModel: FragmentJobViewModel by lazy {
-        ViewModelProviders.of(this).get(FragmentJobViewModel::class.java)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val adapter = AllJobAdapter()
+    private val viewModelRecent: RecentJobViewModel by lazy {
+        ViewModelProviders.of(this).get(RecentJobViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -44,8 +37,9 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return  view
 
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,18 +48,34 @@ class HomeFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListJob.layoutManager = layoutManager
 
-        viewModel.getAllJob()
+        viewModelRecent.getRecentJobs()
         setObserver()
+
+        //get jobseekerName from login activity
+        val username = getActivity()?.getIntent()?.getStringExtra("username")
+        binding.tvHello.text = "Hello, $username"
+
+//        val username =binding.tvHello.text.toString()
+//        PrefsLogin.loadString(PrefsLoginConstant.JOBSEEKERNAME,username)
+
+        Log.d("data", "not null")
+
+
+        binding.tvShowMore.setOnClickListener {
+            val intent = Intent(requireContext(), RecentJobActivity::class.java)
+            startActivity(intent)
+        }
+        //set jobClickListener from adapter
+        adapter.jobClickListener = this
 
     }
 
     private fun setObserver() {
-        viewModel.listResponse().observe(this, Observer {
+        viewModelRecent.allListResponse().observe(viewLifecycleOwner, Observer {
             binding.rvListJob.adapter = adapter
             Log.d("listapp", "if22")
-            adapter.initData(it.data as ArrayList<Data>)
+            adapter.initData(it)
         })
-
     }
 
     override fun onDestroyView() {
@@ -73,14 +83,12 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onCLickItem(jobId: Int) {
+        Toast.makeText(requireContext(), "Click $jobId", Toast.LENGTH_SHORT).show()
+        var intent = Intent(requireContext(), JobDetailsActivity::class.java)
+        Log.d("Success byJobId ", jobId.toString())
+        intent.putExtra("jobId", jobId)
+        startActivity(intent)
+
     }
 }

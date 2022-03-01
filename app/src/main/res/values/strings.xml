@@ -17,4 +17,19 @@
     <string name="hintName">Full Name</string>
     <string name="SignUpTitle">Sign-up here</string>
     <string name="LoginTitle">Log-in here</string>
+    <string name="JobListTitle">Recent Job Available</string>
+    <string name="Show">Show more</string>
+    <string name="helloUsername">Hello Username,</string>
+    <string name="searchTitle">Lets find your dream job!</string>
+    <string name="applicationTitle">Application Status</string>
+    <string name="noApplication">No Application Available</string>
+    <string name="applyNow">Apply Now!</string>
+    <string name="profilTitle">Profile</string>
+    <string name="searchHere">Search here</string>
+    <string name="uploadPhoto">upload your photo profile</string>
+    <string name="jobDetail">Job Details</string>
+    <string name="Apply">Apply Now</string>
+    <string name="jobDesc">Job Description</string>
+    <string name="jobRequire">Job Requirement</string>
+    <string name="aboutCompany">About Company</string>
 </resources>

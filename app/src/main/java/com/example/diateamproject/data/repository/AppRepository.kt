@@ -1,11 +1,21 @@
 package com.example.diateamproject.data.repository
 
-import com.example.diateamproject.model.getalljob.JobResponse
+import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.login.LoginResponse
-import com.example.diateamproject.model.requestlogin.RequestLogin
+import com.example.diateamproject.model.register.RegisterResponse
 import io.reactivex.Single
+import retrofit2.http.Query
 
 interface AppRepository {
-    fun getAllJob (): Single<JobResponse>
-    fun postLogin (requestLogin: RequestLogin):Single<LoginResponse>
+    fun getAllJobs (): Single<AllJobsResponse>
+    fun getRecentJobs (): Single<AllJobsResponse>
+    fun postLogin(
+        @Query("jobseekerEmail") jobseekerEmail: String?,
+        @Query("jobseekerPassword") jobseekerPassword: String?
+    ): Single<LoginResponse>
+    fun postRegister(
+        @Query("jobseekerName") jobseekerName: String?,
+        @Query("jobseekerEmail") jobseekerEmail: String?,
+        @Query("jobseekerPassword") jobseekerPassword: String?
+    ): Single<RegisterResponse>
 }

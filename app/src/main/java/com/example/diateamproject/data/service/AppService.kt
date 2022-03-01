@@ -1,20 +1,30 @@
 package com.example.diateamproject.data.service
 
-import com.example.diateamproject.model.getalljob.JobResponse
+import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.login.LoginResponse
-import com.example.diateamproject.model.requestlogin.RequestLogin
+import com.example.diateamproject.model.register.RegisterResponse
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AppService {
-    @GET("api/v1/jobs")
-    fun getAllJob():Single<JobResponse>
+    //    request params
+    @POST("api/v1/jobseeker/login?")
+    fun postLogin(
+        @Query("jobseekerEmail") jobseekerEmail: String?,
+        @Query("jobseekerPassword") jobseekerPassword: String?
+    ): Single<LoginResponse>
 
-    @POST("api/v1/user/login")
-    fun postLogin(@Body requestLogin: RequestLogin):Single<LoginResponse>
+    @POST("api/v1/jobseeker/register?")
+    fun postRegister(
+        @Query("jobseekerName") jobseekerName: String?,
+        @Query("jobseekerEmail") jobseekerEmail: String?,
+        @Query("jobseekerPassword") jobseekerPassword: String?
+    ): Single<RegisterResponse>
 
+    @GET("api/v1/jobseeker/jobs")
+    fun getAllJobs(): Single<AllJobsResponse>
 
+    @GET("api/v1/jobseeker/recent")
+    fun getRecentJobs(): Single<AllJobsResponse>
 
 }

@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diateamproject.data.di.DaggerAppComponent
-import com.example.diateamproject.model.getalljob.JobResponse
 import com.example.diateamproject.data.repository.AppRepository
+import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,8 +14,8 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class FragmentJobViewModel : ViewModel() {
-    private val list = MutableLiveData<JobResponse>()
+class RecentJobViewModel : ViewModel() {
+    private val allList = MutableLiveData<AllJobsResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
 
@@ -26,15 +26,15 @@ class FragmentJobViewModel : ViewModel() {
         DaggerAppComponent.create().injectView(this)
     }
 
-    fun getAllJob() {
+    fun getRecentJobs() {
         compositeDisposable.add(
-            repository.getAllJob()
+            repository.getRecentJobs()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<JobResponse>() {
-                    override fun onSuccess(t: JobResponse) {
-                        if (t.code == 200) {
-                            list.value = t
+                .subscribeWith(object : DisposableSingleObserver<AllJobsResponse>() {
+                    override fun onSuccess(t: AllJobsResponse) {
+                        if (t.isNotEmpty()) {
+                            allList.value = t
                             Log.d("testJob", "notError = " + t.toString())
                         } else {
                             isError.value = true
@@ -49,7 +49,7 @@ class FragmentJobViewModel : ViewModel() {
                             val gson = Gson()
                             val error = gson.fromJson(
                                 errorBody?.string(),
-                                JobResponse::class.java
+                                AllJobsResponse::class.java
                             )
                             Log.d("testJobError", "Error = " + error)
                         }
@@ -58,8 +58,9 @@ class FragmentJobViewModel : ViewModel() {
         )
     }
 
-    fun listResponse(): MutableLiveData<JobResponse> {
-        return list
+
+    fun allListResponse(): MutableLiveData<AllJobsResponse> {
+        return allList
     }
 
     fun getIsError(): MutableLiveData<Boolean> {

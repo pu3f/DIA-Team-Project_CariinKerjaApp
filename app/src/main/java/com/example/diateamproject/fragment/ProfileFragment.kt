@@ -9,28 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.diateamproject.databinding.FragmentProfileBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 class ProfileFragment : Fragment() {
 
-    private var param1: String? = null
-    private var param2: String? = null
-
+    //view binding fragment declaration
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val REQUEST_CODE = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,17 +24,17 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        binding.btnPickImage.setOnClickListener {
+        binding.ivProfile.setOnClickListener {
             openGallery()
         }
         return view
     }
-
+    //clean resource to avoid memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
+    //function open gallery
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -62,16 +46,5 @@ class ProfileFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_CODE) {
             binding.ivProfile.setImageURI(data?.data)
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

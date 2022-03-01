@@ -1,14 +1,21 @@
 package com.example.diateamproject.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityLoginBinding
-import com.example.diateamproject.model.requestlogin.RequestLogin
+import com.example.diateamproject.fragment.HomeFragment
+import com.example.diateamproject.util.PrefsLogin
+import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.LoginViewModel
+import com.pixplicity.easyprefs.library.Prefs
 
 
 class LoginActivity : AppCompatActivity() {
@@ -25,10 +32,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.cvLogin.setOnClickListener {
             viewModel.postLogin(
-                RequestLogin(
-                    binding.etEmail.text.toString(),
-                    binding.etPassword.text.toString()
-                )
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
             )
         }
         setObserver()
@@ -42,10 +47,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
+            //get response from prefs
+//            val username = it.data.jobseekerName
+//            PrefsLogin.saveString(PrefsLoginConstant.JOBSEEKERNAME,username)
+
             val intent = Intent(this, MenuActivity::class.java)
-            intent.putExtra("id", it.data.userId.toString())
-            intent.putExtra("name", it.data.userName.toString())
-            intent.putExtra("email", it.data.userEmail.toString())
+            intent.putExtra("username", it.data.jobseekerName)
+
             startActivity(intent)
         })
         viewModel.getIsError().observe(this, Observer {
