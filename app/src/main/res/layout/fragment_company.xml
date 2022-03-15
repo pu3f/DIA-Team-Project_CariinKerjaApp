@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingHorizontal="24dp"
         android:layout_marginTop="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-black"
             android:padding="4dp"
             android:text="@string/aboutCompany"
@@ -23,9 +23,10 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tvAboutCompany"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="24dp"
+            android:paddingStart="8dp"
             android:fontFamily="sans-serif"
             android:padding="4dp"
             android:text="content"

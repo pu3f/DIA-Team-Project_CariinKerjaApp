@@ -1,5 +1,6 @@
 package com.example.diateamproject.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,16 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diateamproject.activity.JobDetailsActivity
 import com.example.diateamproject.activity.RecentJobActivity
 import com.example.diateamproject.adapter.AllJobAdapter
-import com.example.diateamproject.adapter.JobClickListener
 import com.example.diateamproject.databinding.FragmentHomeBinding
+import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.RecentJobViewModel
 
-class HomeFragment : Fragment(), JobClickListener {
+class HomeFragment : Fragment() {
 
-    private var param1: String? = null
-    private var param2: String? = null
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val adapter = AllJobAdapter()
@@ -51,6 +50,8 @@ class HomeFragment : Fragment(), JobClickListener {
         viewModelRecent.getRecentJobs()
         setObserver()
 
+        action()
+
         //get jobseekerName from login activity
         val username = getActivity()?.getIntent()?.getStringExtra("username")
         binding.tvHello.text = "Hello, $username"
@@ -65,8 +66,6 @@ class HomeFragment : Fragment(), JobClickListener {
             val intent = Intent(requireContext(), RecentJobActivity::class.java)
             startActivity(intent)
         }
-        //set jobClickListener from adapter
-        adapter.jobClickListener = this
 
     }
 
@@ -83,12 +82,21 @@ class HomeFragment : Fragment(), JobClickListener {
         _binding = null
     }
 
-    override fun onCLickItem(jobId: Int) {
-        Toast.makeText(requireContext(), "Click $jobId", Toast.LENGTH_SHORT).show()
-        var intent = Intent(requireContext(), JobDetailsActivity::class.java)
-        Log.d("Success byJobId ", jobId.toString())
-        intent.putExtra("jobId", jobId)
-        startActivity(intent)
+    private fun action() {
+        //use function from adapter
+        adapter.setOnClickItemListener(object : OnItemClickListener {
+            override fun onItemClick(item: View, position: Int) {
+                Intent(requireContext(), JobDetailsActivity::class.java).also {
+                    it.putExtra("jobName", adapter.list[position].jobName)
+                    it.putExtra("companyName", adapter.list[position].recruiterCompany)
+                    it.putExtra("jobLocation", adapter.list[position].jobAddress)
+                    it.putExtra("jobDescription", adapter.list[position].jobDesc)
+                    it.putExtra("jobRequirement", adapter.list[position].jobRequirement)
+                    it.putExtra("companyDescription", adapter.list[position].recruiterDesc)
+                    startActivity(it)
+                }
+            }
 
+        })
     }
 }

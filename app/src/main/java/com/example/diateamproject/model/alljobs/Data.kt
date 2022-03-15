@@ -11,6 +11,6 @@ data class Data(
     val jobSalary: Int,
     val jobStatus: String,
     val recruiterCompany: String,
-    val recruiterId: Int,
-    val recruiterImage: Any
+    val recruiterDesc: String,
+    val recruiterImage: String
 )

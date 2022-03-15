@@ -2,6 +2,7 @@ package com.example.diateamproject.data.repository
 
 import com.example.diateamproject.data.remote.AppRemoteDataSource
 import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import io.reactivex.Single
@@ -16,6 +17,10 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
 
     override fun getRecentJobs(): Single<AllJobsResponse> {
         return remoteDataSource.getRecentJobs()
+    }
+
+    override fun getApplicationStatus(): Single<ApplicationStatusResponse> {
+        return remoteDataSource.getApplicationStatus()
     }
 
     override fun postLogin(

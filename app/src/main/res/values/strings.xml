@@ -13,7 +13,7 @@
     <string name="login">Login</string>
     <string name="NoAccount">Don\'t have an account ?</string>
     <string name="forgotPin">Forgot Password?</string>
-    <string name="sigUp">Sign-up</string>
+    <string name="singUp">Sign-up</string>
     <string name="hintName">Full Name</string>
     <string name="SignUpTitle">Sign-up here</string>
     <string name="LoginTitle">Log-in here</string>
@@ -24,12 +24,24 @@
     <string name="applicationTitle">Application Status</string>
     <string name="noApplication">No Application Available</string>
     <string name="applyNow">Apply Now!</string>
-    <string name="profilTitle">Profile</string>
+    <string name="profileTitle">Profile</string>
     <string name="searchHere">Search here</string>
     <string name="uploadPhoto">upload your photo profile</string>
     <string name="jobDetail">Job Details</string>
-    <string name="Apply">Apply Now</string>
+    <string name="Apply">Apply</string>
     <string name="jobDesc">Job Description</string>
     <string name="jobRequire">Job Requirement</string>
     <string name="aboutCompany">About Company</string>
+    <string name="aboutYou">About you</string>
+    <string name="hintBio">Tell  us about you</string>
+    <string name="fullName">Full Name</string>
+    <string name="hintFullName">Full name</string>
+    <string name="personalInfo">Personal Information</string>
+    <string name="hintPhone">Phone number</string>
+    <string name="hintBirth">Date of birth</string>
+    <string name="hintAddress">Current address</string>
+    <string name="education">Education Background</string>
+    <string name="hintDegree">Degree</string>
+    <string name="cv">Curriculum Vitae</string>
+    <string name="statusSent">Sent</string>
 </resources>

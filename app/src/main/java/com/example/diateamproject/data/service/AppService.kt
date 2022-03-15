@@ -1,6 +1,7 @@
 package com.example.diateamproject.data.service
 
 import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import io.reactivex.Single
@@ -26,5 +27,8 @@ interface AppService {
 
     @GET("api/v1/jobseeker/recent")
     fun getRecentJobs(): Single<AllJobsResponse>
+
+    @GET("api/v1/jobseeker/apply/9")
+    fun getApplicationStatus(): Single<ApplicationStatusResponse>
 
 }

@@ -1,68 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.ProfileFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/rlPageTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?actionBarSize"
+        android:paddingHorizontal="16dp">
 
-        <RelativeLayout
-            android:id="@+id/rlPageTitle"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_back" />
 
-            <ImageView
-                android:id="@+id/ivBack"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/ic_back" />
+        <TextView
+            android:id="@+id/tvProfileTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/profileTitle"
+            android:textColor="@color/dark_black"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tvProfileTittle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/profilTitle"
-                android:textColor="@color/dark_black"
-                android:textSize="24sp" />
+        <ImageView
+            android:id="@+id/ivLogout"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_logout" />
 
-        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
 
         <ImageView
             android:id="@+id/ivProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/upload_image_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rlPageTitle" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/upload_image_background" />
 
         <TextView
             android:id="@+id/tvPickImage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/ivProfile"
             android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:paddingTop="8dp"
             android:text="@string/uploadPhoto"
             android:textColor="@color/dark_black"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivProfile"/>
+            android:textSize="12sp" />
+    </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/aboutYou"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintBio"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfBio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/personalInfo"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintFullName"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintEmail"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintPhone"
+                android:textAlignment="center"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:prefixText="+62"
+                app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="13"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintBirth"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_date"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintAddress"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/education"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintDegree"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfDegree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/cv"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfCV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_file"
+                    android:fontFamily="sans-serif-light"
+                    android:padding="10dp"
+                    android:text="resume.pdf"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSaveProfile"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/button_background"
+                android:fontFamily="sans-serif-black"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

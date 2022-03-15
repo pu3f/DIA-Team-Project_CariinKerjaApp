@@ -1,14 +1,17 @@
 package com.example.diateamproject.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.databinding.ActivityRecentJobBinding
+import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.viewmodel.AllJobViewModel
 
 class RecentJobActivity : AppCompatActivity() {
@@ -28,6 +31,8 @@ class RecentJobActivity : AppCompatActivity() {
         viewModelAll.getAllJobs()
         setObserver()
 
+        action()
+
         binding.ivBack.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
@@ -43,5 +48,25 @@ class RecentJobActivity : AppCompatActivity() {
 
         })
 
+    }
+
+    private fun action() {
+        adapter.setOnClickItemListener(object : OnItemClickListener {
+            override fun onItemClick(item: View, position: Int) {
+                Intent(this@RecentJobActivity, JobDetailsActivity::class.java).also {
+                    it.putExtra("jobName", adapter.list[position].jobName)
+                    it.putExtra("companyName", adapter.list[position].recruiterCompany)
+                    it.putExtra("jobLocation", adapter.list[position].jobAddress)
+                    it.putExtra("jobDescription", adapter.list[position].jobDesc)
+                    it.putExtra("jobRequirement", adapter.list[position].jobRequirement)
+                    it.putExtra("companyDescription", adapter.list[position].recruiterDesc)
+
+                    startActivity(it)
+                }
+
+
+            }
+
+        })
     }
 }

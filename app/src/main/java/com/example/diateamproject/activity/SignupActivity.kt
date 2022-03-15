@@ -21,11 +21,11 @@ class SignupActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.cvSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
             viewModel.postRegister(
                 binding.etName.text.toString(),
                 binding.etEmail.text.toString(),
-                binding.etPin.text.toString()
+                binding.etPassword.text.toString()
             )
         }
         setObserver()
@@ -40,12 +40,12 @@ class SignupActivity : AppCompatActivity() {
         viewModel.listResponse().observe(this, Observer {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Signup Success", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Signup Success", Toast.LENGTH_LONG).show()
         })
 
         viewModel.getIsError().observe(this, Observer {
             if (it) {
-                Toast.makeText(this, "User Already Exist", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "User Already Exist", Toast.LENGTH_LONG).show()
             }
         })
     }

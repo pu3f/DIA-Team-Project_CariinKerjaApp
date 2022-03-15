@@ -2,6 +2,7 @@ package com.example.diateamproject.data.remote
 
 import com.example.diateamproject.data.service.AppService
 import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import io.reactivex.Single
@@ -16,6 +17,10 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
 
     override fun getRecentJobs(): Single<AllJobsResponse> {
         return service.getRecentJobs()
+    }
+
+    override fun getApplicationStatus(): Single<ApplicationStatusResponse> {
+        return  service.getApplicationStatus()
     }
 
     override fun postLogin(

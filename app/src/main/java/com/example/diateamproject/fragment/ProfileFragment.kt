@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -29,6 +30,15 @@ class ProfileFragment : Fragment() {
         }
         return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.ivBack.setOnClickListener {
+            val intent = Intent(requireContext(), MenuActivity::class.java)
+            startActivity(intent)
+        }
+    }
     //clean resource to avoid memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
@@ -37,7 +47,9 @@ class ProfileFragment : Fragment() {
     //function open gallery
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
+//        val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
+//        intent.type = "application/pdf"
         startActivityForResult(intent, REQUEST_CODE)
     }
 

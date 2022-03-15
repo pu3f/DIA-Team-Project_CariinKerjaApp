@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.cvLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             viewModel.postLogin(
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString()
@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
         })
         viewModel.getIsError().observe(this, Observer {
             if (it) {
-                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
             }
         })
     }
