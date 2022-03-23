@@ -26,9 +26,9 @@ class ApplicationStatusViewModel : ViewModel() {
         DaggerAppComponent.create().injectView(this)
     }
 
-    fun getApplicationStatus() {
+    fun getApplicationStatus(id: Int) {
         compositeDisposable.add(
-            repository.getApplicationStatus()
+            repository.getApplicationStatus(id)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<ApplicationStatusResponse>() {

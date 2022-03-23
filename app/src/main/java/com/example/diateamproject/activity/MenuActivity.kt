@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityMenuBinding
-
-
 import com.example.diateamproject.fragment.*
 
 class MenuActivity : AppCompatActivity() {

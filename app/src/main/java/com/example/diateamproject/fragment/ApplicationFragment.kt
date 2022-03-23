@@ -17,6 +17,8 @@ import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.adapter.ApplicationStatusAdapter
 import com.example.diateamproject.databinding.FragmentApplicationBinding
 import com.example.diateamproject.databinding.FragmentHomeBinding
+import com.example.diateamproject.util.PrefsLogin
+import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.ApplicationStatusViewModel
 import com.example.diateamproject.viewmodel.RecentJobViewModel
 
@@ -42,10 +44,11 @@ class ApplicationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListApplication.layoutManager = layoutManager
 
-        viewModelApplication.getApplicationStatus()
+        viewModelApplication.getApplicationStatus(userId)
         setObserver()
 
         binding.ivBack.setOnClickListener {

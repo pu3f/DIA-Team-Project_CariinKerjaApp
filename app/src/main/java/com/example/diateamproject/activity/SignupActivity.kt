@@ -42,11 +42,11 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
             Toast.makeText(this, "Signup Success", Toast.LENGTH_LONG).show()
         })
-
         viewModel.getIsError().observe(this, Observer {
-            if (it) {
-                Toast.makeText(this, "User Already Exist", Toast.LENGTH_LONG).show()
+            if (binding.etName.text!!.isEmpty() && binding.etEmail.text!!.isEmpty() && binding.etPassword.text!!.isEmpty()) {
+                Toast.makeText(this, "Complete the Form", Toast.LENGTH_LONG).show()
             }
+            Toast.makeText(this, "User Already Exist", Toast.LENGTH_LONG).show()
         })
     }
 }

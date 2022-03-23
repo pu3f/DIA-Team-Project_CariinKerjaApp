@@ -1,9 +1,10 @@
 package com.example.diateamproject.util
 
 object PrefsLoginConstant {
-    const val JOBSEEKERID = "jobseekerId"
-    const val JOBSEEKERNAME = "jobseekerName"
-    const val JOBSEEKEREMAIL = "jobseekerEmail"
-    const val IS_LOGIN = "is_login"
+    const val USERID = "JOBSEEKERID"
+    const val USERNAME = "JOBSEEKERNAME"
+    const val EMAIL = "JOBSEEKEREMAIL"
+    const val PASSWORD = "JOBSEEKERPASSWORD"
+    const val IS_LOGIN = "IS_LOGIN"
 
 }

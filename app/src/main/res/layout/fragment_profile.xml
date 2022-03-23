@@ -49,12 +49,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivProfile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/upload_image_background" />
+            android:background="@drawable/icon_upload_image"
+            app:civ_border_width="0.5dp"
+            app:civ_border_color="@color/blue_primary"/>
 
         <TextView
             android:id="@+id/tvPickImage"
@@ -124,20 +126,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/hintFullName"
                 app:boxStrokeColor="@color/grey"
-                app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/fullName"
                     android:inputType="textCapWords"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:enabled="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -145,7 +147,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/hintEmail"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:hintTextAppearance="?textAppearanceCaption">
@@ -154,11 +155,13 @@
                     android:id="@+id/tfEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/hintEmail"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:enabled="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,7 +175,6 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:hintTextAppearance="?textAppearanceCaption"
-                app:prefixText="+62"
                 app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -268,25 +270,18 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            <EditText
+                android:id="@+id/tfCV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:boxStrokeColor="@color/grey"
-                app:boxStrokeWidth="1dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tfCV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_file"
-                    android:fontFamily="sans-serif-light"
-                    android:padding="10dp"
-                    android:text="resume.pdf"
-                    android:textSize="12sp"
-                    android:textStyle="normal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:background="@drawable/bg_edit_text_border"
+                android:drawableEnd="@drawable/ic_file"
+                android:editable="false"
+                android:fontFamily="sans-serif-light"
+                android:hint="resume.pdf"
+                android:padding="10dp"
+                android:textSize="12sp"
+                android:textStyle="normal" />
 
             <Button
                 android:id="@+id/btnSaveProfile"
@@ -294,11 +289,11 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/bg_button"
                 android:fontFamily="sans-serif-black"
                 android:text="Save"
                 android:textAllCaps="false"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.diateamproject.databinding.CardApplicationBinding
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.applicationstatus.Data
@@ -46,6 +47,9 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                 binding.tvStatus.text = applicationStatus
                 val dateString= simpleDateFormat.format(createdAt)
                 binding.tvPostDate.text = String.format("%s", dateString)
+                Glide.with(context!!)
+                    .load("http://54.255.4.75:9091/resources/meta.png")
+                    .into(binding.ivJob)
 
             }
         }

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +20,7 @@ import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.RecentJobViewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -37,7 +36,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
-        return  view
+        return view
 
     }
 
@@ -52,12 +51,10 @@ class HomeFragment : Fragment() {
 
         action()
 
-        //get jobseekerName from login activity
-        val username = getActivity()?.getIntent()?.getStringExtra("username")
-        binding.tvHello.text = "Hello, $username"
+        //get jobseekerName from prefsLoginConstant
+        val username = PrefsLogin.loadString(PrefsLoginConstant.USERNAME, "userName")
+        binding.tvHello.text = "Hello, $username".toUpperCase()
 
-//        val username =binding.tvHello.text.toString()
-//        PrefsLogin.loadString(PrefsLoginConstant.JOBSEEKERNAME,username)
 
         Log.d("data", "not null")
 
@@ -93,10 +90,12 @@ class HomeFragment : Fragment() {
                     it.putExtra("jobDescription", adapter.list[position].jobDesc)
                     it.putExtra("jobRequirement", adapter.list[position].jobRequirement)
                     it.putExtra("companyDescription", adapter.list[position].recruiterDesc)
+                    it.putExtra("companyImage", adapter.list[position].recruiterImage)
                     startActivity(it)
                 }
             }
 
         })
     }
+
 }

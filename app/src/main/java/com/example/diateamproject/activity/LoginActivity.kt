@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -31,6 +32,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.btnLogin.setOnClickListener {
+            if (binding.etEmail.text!!.isEmpty() && binding.etPassword.text!!.isEmpty()) {
+                Toast.makeText(this, "Complete the Form", Toast.LENGTH_LONG).show()
+            }
             viewModel.postLogin(
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString()
@@ -47,19 +51,22 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
-            //get response from prefs
-//            val username = it.data.jobseekerName
-//            PrefsLogin.saveString(PrefsLoginConstant.JOBSEEKERNAME,username)
-
+            //move to other activity
             val intent = Intent(this, MenuActivity::class.java)
-            intent.putExtra("username", it.data.jobseekerName)
-
             startActivity(intent)
+
+            //get response from prefs
+            val userId = it.data.jobseekerId
+            val userName = it.data.jobseekerName
+            val email = it.data.jobseekerEmail
+            PrefsLogin.saveInt(PrefsLoginConstant.USERID, userId)
+            PrefsLogin.saveString(PrefsLoginConstant.USERNAME, userName)
+            PrefsLogin.saveString(PrefsLoginConstant.EMAIL, email)
+            Prefs.putBoolean(PrefsLoginConstant.IS_LOGIN, true)
         })
+
         viewModel.getIsError().observe(this, Observer {
-            if (it) {
-                Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
-            }
+            Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
         })
     }
 

@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.diateamproject.R
 import com.example.diateamproject.databinding.CardJobBinding
 import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.alljobs.Data
+import com.example.diateamproject.util.Path
 import java.text.SimpleDateFormat
 import kotlin.time.toDuration
 
@@ -33,8 +35,6 @@ class AllJobAdapter : RecyclerView.Adapter<AllJobAdapter.ViewHolder>() {
         }
 
         override fun onClick(p0: View?) {
-            //implement interface passing jobId
-            var jobName = list[position].jobName
 
         }
     }
@@ -55,8 +55,10 @@ class AllJobAdapter : RecyclerView.Adapter<AllJobAdapter.ViewHolder>() {
                 val dateString= simpleDateFormat.format(createdAt)
                 binding.tvPostDate.text = String.format("%s", dateString)
                 Glide.with(context!!)
-                    .load("http://54.255.4.75:9091/resources/meta.png")
+                    .load(Path.IMAGE_URL + recruiterImage)
+                    .placeholder(R.drawable.ic_placeholder_list)
                     .into(binding.ivJob)
+
             }
         }
     }
