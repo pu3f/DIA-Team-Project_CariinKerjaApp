@@ -1,5 +1,6 @@
 package com.example.diateamproject.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -27,12 +28,5 @@ class SplashScreenActivity : AppCompatActivity() {
                 this.startActivity(intent)
             }
         },1000)
-
-//        Prefs.Builder()
-//            .setContext(this)
-//            .setMode(MODE_PRIVATE)
-//            .setPrefsName(packageName)
-//            .setUseDefaultSharedPreference(true)
-//            .build()
     }
 }

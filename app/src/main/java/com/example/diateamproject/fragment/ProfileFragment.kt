@@ -1,5 +1,6 @@
 package com.example.diateamproject.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -8,6 +9,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.provider.Telephony
@@ -22,6 +24,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -30,10 +33,7 @@ import com.example.diateamproject.R
 import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
-import com.example.diateamproject.util.Path
-import com.example.diateamproject.util.PrefsLogin
-import com.example.diateamproject.util.PrefsLoginConstant
-import com.example.diateamproject.util.getFileName
+import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
 import com.example.diateamproject.viewmodel.RecentJobViewModel
 import okhttp3.MediaType
@@ -66,6 +66,7 @@ class ProfileFragment : Fragment() {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +74,9 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        // call function requestPermission from menu activity
+        (activity as MenuActivity).requestPermission()
 
         binding.ivProfile.setOnClickListener {
             openGallery()
@@ -185,9 +189,16 @@ class ProfileFragment : Fragment() {
             Toast.makeText(activity, "Select an Image", Toast.LENGTH_SHORT).show()
         }
         val id = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-            .toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        var file: File = File(selectedImageUri.toString())
+        //get image path using URI Path Helper function
+        val uriPathHelper = URIPathHelper()
+        var pathImage = ""
+        selectedImageUri?.let {  pathImage =
+            uriPathHelper.getPath(requireContext(), it).toString()
+        }
+
+        var file: File = File(pathImage)
         val requestImage: RequestBody =
             file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
         val bodyImage: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -202,7 +213,14 @@ class ProfileFragment : Fragment() {
         val id = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
             .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        var files: File = File(selectedPdfUri.toString())
+        //get image path using URI Path Helper function
+        val uriPathHelper = URIPathHelper()
+        var pathFile = ""
+        selectedPdfUri?.let {  pathFile =
+            uriPathHelper.getPath(requireContext(), it).toString()
+        }
+
+        var files: File = File(pathFile)
         val requestFile: RequestBody =
             RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
         val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -262,18 +280,18 @@ class ProfileFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_IMAGE) {
             selectedImageUri = data?.data
             Log.i("xximage", "xximage $selectedImageUri")
+
             //put selectedImage to ivProfile
             binding.ivProfile.setImageURI(selectedImageUri)
-//            Glide.with(requireContext())
-//                .load(selectedImageUri)
-//                .into(binding.ivProfile)
             binding.tvPickImage.isGone = true
             updateImageProfile()
 
         } else
             if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_FILE) {
                 selectedPdfUri = data?.data
-                binding.tfCV.setText(Html.fromHtml(selectedPdfUri!!.lastPathSegment))
+                Log.i("xximage", "xximage $selectedPdfUri")
+                binding.tfCV.setText(
+                    selectedPdfUri!!.path!!.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1))
             }
     }
 

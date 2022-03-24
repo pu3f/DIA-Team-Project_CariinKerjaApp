@@ -99,7 +99,9 @@
                 android:hint="@string/hintBio"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfBio"
@@ -127,7 +129,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 app:boxStrokeColor="@color/grey"
-                app:boxStrokeWidth="1dp">
+                app:boxStrokeWidth="1dp"
+                android:requiresFadingEdge="vertical"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfFullName"
@@ -138,8 +143,7 @@
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:enabled="false"/>
+                    android:textStyle="normal"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -175,7 +179,9 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:hintTextAppearance="?textAppearanceCaption"
-                app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+                app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfPhone"
@@ -218,7 +224,9 @@
                 android:hint="@string/hintAddress"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfAddress"
@@ -248,7 +256,9 @@
                 android:hint="@string/hintDegree"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfDegree"

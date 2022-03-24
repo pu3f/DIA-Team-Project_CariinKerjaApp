@@ -1,7 +1,10 @@
 package com.example.diateamproject.activity
 
+import android.Manifest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.diateamproject.R
@@ -42,5 +45,12 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun requestPermission() {
+
+        val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        this.requestPermissions(permissions, 5)
     }
 }
