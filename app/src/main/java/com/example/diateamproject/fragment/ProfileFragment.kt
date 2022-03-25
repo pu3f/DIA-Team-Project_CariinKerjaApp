@@ -1,23 +1,18 @@
 package com.example.diateamproject.fragment
 
-import android.Manifest
+import android.R.attr.data
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentResolver
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.OpenableColumns
-import android.provider.Telephony
-import android.text.Html
-import android.text.TextUtils.lastIndexOf
-import android.text.TextUtils.substring
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +20,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.net.toUri
 import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -35,21 +32,14 @@ import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
-import com.example.diateamproject.viewmodel.RecentJobViewModel
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.parse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.internal.http.hasBody
-import retrofit2.http.Body
-import retrofit2.http.Part
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
+
 
 @SuppressLint("SimpleDateFormat")
 class ProfileFragment : Fragment() {
@@ -214,9 +204,15 @@ class ProfileFragment : Fragment() {
             .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         //get image path using URI Path Helper function
+        Log.d("pdfuri","$selectedPdfUri")
         val uriPathHelper = URIPathHelper()
         var pathFile = ""
-        selectedPdfUri?.let {  pathFile =
+        var tes = getFileName(selectedPdfUri!!)
+        binding.tfCV.setText(tes)
+        tes = "/document/"+tes
+//        tes = "content://com.android.providers.downloads.documents/document/"+tes
+        Log.d("pdfuri","$tes")
+      tes!!.toUri().let {  pathFile =
             uriPathHelper.getPath(requireContext(), it).toString()
         }
 
@@ -289,6 +285,7 @@ class ProfileFragment : Fragment() {
         } else
             if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_FILE) {
                 selectedPdfUri = data?.data
+                Log.d("pdfuri","$selectedPdfUri ==trai")
                 Log.i("xximage", "xximage $selectedPdfUri")
                 binding.tfCV.setText(
                     selectedPdfUri!!.path!!.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1))
@@ -311,5 +308,33 @@ class ProfileFragment : Fragment() {
             alertLogout.show()
         }
     }
+    @SuppressLint("Range")
+    fun getFileName(uri: Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            // arrayOf(MediaStore.Images.ImageColumns.DATA)
+            val cursor: Cursor? = requireActivity().contentResolver.query(uri,null, null, null, null)
+            try {
+                var ea = requireActivity().contentResolver.openInputStream(uri)
+                Log.d("pdfuri","$ea ====ea")
+                if (cursor != null && cursor.moveToFirst()) {
+                    Log.d("pdfuri","$result ====content")
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            } finally {
+                cursor?.close()
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            Log.d("pdfuri","$result ====path")
+//            val cut = result!!.lastIndexOf('/')
+//            if (cut != -1) {
+//                result = result.substring(cut + 1)
+//            }
+        }
+        return result
+    }
+
 }
 
