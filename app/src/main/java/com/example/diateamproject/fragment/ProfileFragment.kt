@@ -209,10 +209,10 @@ class ProfileFragment : Fragment() {
         var pathFile = ""
         var tes = getFileName(selectedPdfUri!!)
         binding.tfCV.setText(tes)
-        tes = "/document/"+tes
+//        tes = ""+tes
 //        tes = "content://com.android.providers.downloads.documents/document/"+tes
         Log.d("pdfuri","$tes")
-      tes!!.toUri().let {  pathFile =
+        selectedPdfUri!!.let {  pathFile =
             uriPathHelper.getPath(requireContext(), it).toString()
         }
 
