@@ -71,4 +71,12 @@ interface AppService {
         @Part("jobseekerId") jobseekerId: RequestBody,
         @Part file: MultipartBody.Part
     ): Single<UpdateProfileResponse>
+
+    @Multipart
+    @PATCH("api/v1/jobseeker/job/apply")
+    fun postApply(
+        @Part("jobId") jobId: RequestBody,
+        @Part("jobseekerId") jobseekerId: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Single<UpdateProfileResponse>
 }

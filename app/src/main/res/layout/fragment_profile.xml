@@ -187,7 +187,6 @@
                     android:id="@+id/tfPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:maxLength="13"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -211,9 +210,11 @@
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_date"
                     android:padding="10dp"
+                    android:inputType="none"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

@@ -98,4 +98,7 @@ dependencies {
 
     compileOnly 'com.github.pengrad:jdk9-deps:1.0'
 
+    // fragment
+    implementation('androidx.fragment:fragment-ktx:1.4.0-alpha02')
+
 }

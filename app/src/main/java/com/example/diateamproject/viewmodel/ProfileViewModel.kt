@@ -52,7 +52,7 @@ class ProfileViewModel : ViewModel() {
                                 errorBody?.string(),
                                 ProfileResponse::class.java
                             )
-                            Log.d("testLoginError", "error = " + error)
+                            Log.d("testGetProfileError", "error = " + error)
                         }
                     }
                 })
@@ -86,7 +86,7 @@ class ProfileViewModel : ViewModel() {
                     override fun onSuccess(t: UpdateProfileResponse) {
                         if (t.code == 200) {
                             listProfile.value = t
-                            Log.d("testProfile", "notError = " + t.toString())
+                            Log.d("testUpdateProfile", "notError = " + t.toString())
                         } else {
                             isError.value = true
                         }
@@ -101,7 +101,7 @@ class ProfileViewModel : ViewModel() {
                                 errorBody?.string(),
                                 UpdateProfileResponse::class.java
                             )
-                            Log.d("testLoginError", "error = " + error)
+                            Log.d("testUpdateProfileError", "error = " + error)
                         }
                     }
                 })
@@ -117,7 +117,7 @@ class ProfileViewModel : ViewModel() {
                     override fun onSuccess(t: UpdateProfileResponse) {
                         if (t.code == 200) {
                             listImage.value = t
-                            Log.d("testProfile", "notError = " + t.toString())
+                            Log.d("testImageProfile", "notError = " + t.toString())
                         } else {
                             isError.value = true
                         }
@@ -132,7 +132,7 @@ class ProfileViewModel : ViewModel() {
                                 errorBody?.string(),
                                 UpdateProfileResponse::class.java
                             )
-                            Log.d("testLoginError", "error = " + error)
+                            Log.d("testImageProfileError", "error = " + error)
                         }
                     }
                 })
@@ -148,7 +148,7 @@ class ProfileViewModel : ViewModel() {
                     override fun onSuccess(t: UpdateProfileResponse) {
                         if (t.code == 200) {
                             listFile.value = t
-                            Log.d("testProfile", "notError = " + t.toString())
+                            Log.d("testFileProfile", "notError = " + t.toString())
                         } else {
                             isError.value = true
                         }
@@ -163,7 +163,7 @@ class ProfileViewModel : ViewModel() {
                                 errorBody?.string(),
                                 UpdateProfileResponse::class.java
                             )
-                            Log.d("testLoginError", "error = " + error)
+                            Log.d("testFileProfileError", "error = " + error)
                         }
                     }
                 })

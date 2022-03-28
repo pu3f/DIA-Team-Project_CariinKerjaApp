@@ -1,21 +1,15 @@
 package com.example.diateamproject.fragment
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentResolver
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.provider.Telephony
-import android.text.Html
-import android.text.TextUtils.lastIndexOf
-import android.text.TextUtils.substring
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,21 +29,14 @@ import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
-import com.example.diateamproject.viewmodel.RecentJobViewModel
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.parse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.internal.http.hasBody
-import retrofit2.http.Body
-import retrofit2.http.Part
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
+import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 class ProfileFragment : Fragment() {
@@ -59,7 +46,7 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private val REQUEST_IMAGE = 1
     private val REQUEST_FILE = 2
-    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+    val formatDate = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
     private var selectedImageUri: Uri? = null
     private var selectedPdfUri: Uri? = null
     private val viewModelProfile: ProfileViewModel by lazy {
@@ -99,8 +86,14 @@ class ProfileFragment : Fragment() {
         binding.btnSaveProfile.setOnClickListener {
             updateProfile()
 
-            viewModelProfile.getProfile(userId)
+//            viewModelProfile.getProfile(userId)
 
+        }
+
+        binding.apply {
+            binding.tfBirth.setOnClickListener {
+                datePicker()
+            }
         }
 
         binding.ivBack.setOnClickListener {
@@ -119,9 +112,12 @@ class ProfileFragment : Fragment() {
             binding.tfPhone.setText(it.jobseekerPhone)
             binding.tfAddress.setText(it.jobseekerAddress)
             binding.tfDegree.setText(it.jobseekerEducation)
+
             val dateProfile = it.jobseekerDateOfBirth
-            val dateString = simpleDateFormat.format(dateProfile)
-            binding.tfBirth.setText(String.format("%s", dateString))
+            if(dateProfile > 0) {
+                val dateString = formatDate.format(dateProfile)
+                binding.tfBirth.setText(String.format("%s", dateString))
+            }
 
             //get image from profile response
             if (it.jobseekerImage != null) {
@@ -145,11 +141,11 @@ class ProfileFragment : Fragment() {
         })
 
         viewModelProfile.listResponseImage().observe(viewLifecycleOwner, Observer {
-            Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Image Updated", Toast.LENGTH_SHORT).show()
         })
 
         viewModelProfile.listResponseFile().observe(viewLifecycleOwner, Observer {
-            Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Resume Updated", Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -213,10 +209,17 @@ class ProfileFragment : Fragment() {
         val id = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
             .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        //get image path using URI Path Helper function
+        //get file path using URI Path Helper function
+        Log.d("pdfuri","$selectedPdfUri")
         val uriPathHelper = URIPathHelper()
         var pathFile = ""
-        selectedPdfUri?.let {  pathFile =
+
+        //get file name using getFileName function
+        var tes = getFileName(selectedPdfUri!!)
+        binding.tfCV.setText(tes)
+
+        Log.d("pdfuri","$tes")
+        selectedPdfUri!!.let {  pathFile =
             uriPathHelper.getPath(requireContext(), it).toString()
         }
 
@@ -234,6 +237,26 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun datePicker() {
+        val datePickerFragment = DatePickerFragment()
+        val supportFragmentManager = requireActivity().supportFragmentManager
+
+        // we have to implement setFragmentResultListener
+        supportFragmentManager.setFragmentResultListener(
+            "REQUEST_KEY",
+            viewLifecycleOwner
+        ) { resultKey, bundle ->
+            if (resultKey == "REQUEST_KEY") {
+                val date = bundle.getString("SELECTED_DATE")
+                Log.d("testDate","$date ====new date")
+                binding.tfBirth.setText(date)
+            }
+        }
+
+        // show
+        datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
     }
 
     private fun updateResume() {
@@ -289,10 +312,39 @@ class ProfileFragment : Fragment() {
         } else
             if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_FILE) {
                 selectedPdfUri = data?.data
-                Log.i("xximage", "xximage $selectedPdfUri")
-                binding.tfCV.setText(
-                    selectedPdfUri!!.path!!.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1))
+                Log.i("xxfile", "$selectedPdfUri ==try")
+                binding.tfCV.setText(selectedPdfUri?.path)
+
+//                    selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1)
             }
+    }
+
+    @SuppressLint("Range")
+    fun getFileName(uri: Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            // arrayOf(MediaStore.Images.ImageColumns.DATA)
+            val cursor: Cursor? = requireActivity().contentResolver.query(uri,null, null, null, null)
+            try {
+                var ea = requireActivity().contentResolver.openInputStream(uri)
+                Log.d("pdfuri","$ea ====ea")
+                if (cursor != null && cursor.moveToFirst()) {
+                    Log.d("pdfuri","$result ====content")
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            } finally {
+                cursor?.close()
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            Log.d("pdfuri","$result ====path")
+//            val cut = result!!.lastIndexOf('/')
+//            if (cut != -1) {
+//                result = result.substring(cut + 1)
+//            }
+        }
+        return result
     }
 
     @Suppress("MoveLambdaOutsideParentheses")
