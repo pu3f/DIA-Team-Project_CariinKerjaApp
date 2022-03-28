@@ -2,6 +2,7 @@ package com.example.diateamproject.data.service
 
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
+import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
@@ -73,10 +74,10 @@ interface AppService {
     ): Single<UpdateProfileResponse>
 
     @Multipart
-    @PATCH("api/v1/jobseeker/job/apply")
+    @PUT("api/v1/jobseeker/job/apply")
     fun postApply(
         @Part("jobId") jobId: RequestBody,
         @Part("jobseekerId") jobseekerId: RequestBody,
-        @Part file: MultipartBody.Part
-    ): Single<UpdateProfileResponse>
+        @Part file: MultipartBody.Part?
+    ): Single<ApplyResponse>
 }

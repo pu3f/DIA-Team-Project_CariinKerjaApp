@@ -13,4 +13,5 @@ interface AppComponent {
     fun injectView(allJobViewModel: AllJobViewModel)
     fun injectView(applicationStatusViewModel: ApplicationStatusViewModel)
     fun injectView(profileViewModel: ProfileViewModel)
+    fun injectView(applyViewModel: ApplyViewModel)
 }

@@ -1,33 +1,42 @@
 package com.example.diateamproject.activity
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.example.diateamproject.R
 import com.example.diateamproject.adapter.DetailJobAdapter
 import com.example.diateamproject.databinding.ActivityJobDetailsBinding
-import com.example.diateamproject.fragment.ApplicationFragment
 import com.example.diateamproject.fragment.CompanyFragment
 import com.example.diateamproject.fragment.DescriptionFragment
+import com.example.diateamproject.util.PrefsJobConstant
+import com.example.diateamproject.util.PrefsLogin
+import com.example.diateamproject.util.PrefsLoginConstant
+import com.example.diateamproject.viewmodel.ApplicationStatusViewModel
+import com.example.diateamproject.viewmodel.ApplyViewModel
 import com.google.android.material.tabs.TabLayout
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class JobDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJobDetailsBinding
     private lateinit var btnApplyDialog : Button
+    private val viewModelApply: ApplyViewModel by lazy {
+        ViewModelProviders.of(this).get(ApplyViewModel::class.java)
+    }
+    private val viewModelApplication: ApplicationStatusViewModel by lazy {
+        ViewModelProviders.of(this).get(ApplicationStatusViewModel::class.java)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +90,7 @@ class JobDetailsActivity : AppCompatActivity() {
             dialog.setContentView(R.layout.apply_dialog)
 
             val btnClose = dialog.findViewById<ImageView>(R.id.ivClose)
-            val btnApplyNow = dialog.findViewById<Button>(R.id.btnApplyNow)
+            val btnJustApply = dialog.findViewById<Button>(R.id.btnJustApply)
             val btnUpload = dialog.findViewById<Button>(R.id.btnUploadCv)
 
             btnClose.setOnClickListener {
@@ -90,15 +99,37 @@ class JobDetailsActivity : AppCompatActivity() {
             btnUpload.setOnClickListener {
 
             }
-            btnApplyNow.setOnClickListener {
+            btnJustApply.setOnClickListener {
+                applyJob()
+                setObserver()
                 dialog.dismiss()
-                binding.btnApply.isClickable = false
-                Toast.makeText(this, "Success Applied", Toast.LENGTH_LONG).show()
+//                binding.btnApply.isClickable = false
             }
             dialog.show()
         }
+    }
+
+    private fun setObserver() {
+        viewModelApply.responseApply().observe(this, Observer {
+            val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+            viewModelApplication.getApplicationStatus(userId)
+            Toast.makeText(this, "Success Applied", Toast.LENGTH_LONG).show()
+        })
+    }
+
+    private fun applyJob() {
+        val jobId = PrefsLogin.loadInt(PrefsJobConstant.JOBID, 0)
+            .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val jobaseekerId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+            .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val file = null
+
+        Log.d("testApply", "=====this is apply")
+        viewModelApply.postApply(jobId, jobaseekerId, null)
 
     }
+
+
 
 
 }

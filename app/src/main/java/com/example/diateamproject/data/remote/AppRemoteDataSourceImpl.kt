@@ -3,6 +3,7 @@ package com.example.diateamproject.data.remote
 import com.example.diateamproject.data.service.AppService
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
+import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
@@ -69,12 +70,26 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
         )
     }
 
-    override fun updateImageProfile(jobseekerId: RequestBody, image: MultipartBody.Part): Single<UpdateProfileResponse> {
+    override fun updateImageProfile(
+        jobseekerId: RequestBody,
+        image: MultipartBody.Part
+    ): Single<UpdateProfileResponse> {
         return service.updateImageProfile(jobseekerId, image)
     }
 
-    override fun updateFileProfile(jobseekerId: RequestBody, file: MultipartBody.Part): Single<UpdateProfileResponse> {
+    override fun updateFileProfile(
+        jobseekerId: RequestBody,
+        file: MultipartBody.Part
+    ): Single<UpdateProfileResponse> {
         return service.updateFileProfile(jobseekerId, file)
+    }
+
+    override fun postApply(
+        jobId: RequestBody,
+        jobseekerId: RequestBody,
+        file: MultipartBody.Part?
+    ): Single<ApplyResponse> {
+        return service.postApply(jobId, jobseekerId, file)
     }
 
 }

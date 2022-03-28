@@ -3,6 +3,7 @@ package com.example.diateamproject.data.repository
 import com.example.diateamproject.data.remote.AppRemoteDataSource
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
+import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
@@ -12,7 +13,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 
-class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRemoteDataSource):
+class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRemoteDataSource) :
     AppRepository {
 
     override fun getAllJobs(): Single<AllJobsResponse> {
@@ -35,7 +36,7 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         jobseekerEmail: String?,
         jobseekerPassword: String?
     ): Single<LoginResponse> {
-        return remoteDataSource.postLogin(jobseekerEmail,jobseekerPassword)
+        return remoteDataSource.postLogin(jobseekerEmail, jobseekerPassword)
     }
 
     override fun postRegister(
@@ -43,7 +44,7 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         jobseekerEmail: String?,
         jobseekerPassword: String?
     ): Single<RegisterResponse> {
-        return remoteDataSource.postRegister(jobseekerName,jobseekerEmail,jobseekerPassword)
+        return remoteDataSource.postRegister(jobseekerName, jobseekerEmail, jobseekerPassword)
     }
 
     override fun updateProfile(
@@ -68,11 +69,25 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         )
     }
 
-    override fun updateImageProfile(jobseekerId: RequestBody, image: MultipartBody.Part): Single<UpdateProfileResponse> {
+    override fun updateImageProfile(
+        jobseekerId: RequestBody,
+        image: MultipartBody.Part
+    ): Single<UpdateProfileResponse> {
         return remoteDataSource.updateImageProfile(jobseekerId, image)
     }
 
-    override fun updateFileProfile(jobseekerId: RequestBody, file: MultipartBody.Part): Single<UpdateProfileResponse> {
+    override fun updateFileProfile(
+        jobseekerId: RequestBody,
+        file: MultipartBody.Part
+    ): Single<UpdateProfileResponse> {
         return remoteDataSource.updateFileProfile(jobseekerId, file)
+    }
+
+    override fun postApply(
+        jobId: RequestBody,
+        jobseekerId: RequestBody,
+        file: MultipartBody.Part?
+    ): Single<ApplyResponse> {
+        return remoteDataSource.postApply(jobId, jobseekerId, file)
     }
 }

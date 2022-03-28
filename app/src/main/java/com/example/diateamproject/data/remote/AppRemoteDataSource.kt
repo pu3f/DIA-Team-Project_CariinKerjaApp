@@ -2,6 +2,7 @@ package com.example.diateamproject.data.remote
 
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
+import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
@@ -54,4 +55,11 @@ interface AppRemoteDataSource {
         @Part("jobseekerId") jobseekerId: RequestBody,
         @Part file: MultipartBody.Part
     ): Single<UpdateProfileResponse>
+
+    fun postApply(
+        @Part("jobId") jobId: RequestBody,
+        @Part("jobseekerId") jobseekerId: RequestBody,
+        @Part file: MultipartBody.Part?
+    ): Single<ApplyResponse>
+
 }

@@ -47,7 +47,7 @@
                     android:backgroundTint="@color/grey"/>
 
                 <Button
-                    android:id="@+id/btnApplyNow"
+                    android:id="@+id/btnJustApply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
