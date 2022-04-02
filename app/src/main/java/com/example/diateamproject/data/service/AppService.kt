@@ -3,6 +3,7 @@ package com.example.diateamproject.data.service
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
+import com.example.diateamproject.model.jobbyid.JobByIdResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
@@ -35,7 +36,7 @@ interface AppService {
     fun getRecentJobs(): Single<AllJobsResponse>
 
     //request URL path {}
-    @GET("api/v1/jobseeker/apply/{jobseekerId}")
+    @GET("api/v1/jobseeker/apply/status/{jobseekerId}")
     fun getApplicationStatus(
         @Path("jobseekerId") id: Int?
     ): Single<ApplicationStatusResponse>
@@ -44,6 +45,11 @@ interface AppService {
     fun getProfile(
         @Path("jobseekerId") id: Int?
     ): Single<ProfileResponse>
+
+    @GET("api/v1/jobseeker/job/{jobId}")
+    fun getJobById(
+        @Path("jobId") id: Int?
+    ): Single<JobByIdResponse>
 
     // request multipart
     @Multipart
@@ -57,6 +63,10 @@ interface AppService {
         @Part("jobseekerDateOfBirth") jobseekerDateOfBirth: RequestBody,
         @Part("jobseekerAddress") jobseekerAddress: RequestBody,
         @Part("jobseekerEducation") jobseekerEducation: RequestBody,
+        @Part("jobseekerProfession") jobseekerProfession: RequestBody,
+        @Part("jobseekerPortfolio") jobseekerPortfolio: RequestBody,
+        @Part("jobseekerSkill") jobseekerSkill: RequestBody,
+        @Part("jobseekerMedsos") jobseekerMedsos: RequestBody
     ): Single<UpdateProfileResponse>
 
     @Multipart
@@ -77,7 +87,6 @@ interface AppService {
     @PUT("api/v1/jobseeker/job/apply")
     fun postApply(
         @Part("jobId") jobId: RequestBody,
-        @Part("jobseekerId") jobseekerId: RequestBody,
-        @Part file: MultipartBody.Part?
+        @Part("jobseekerId") jobseekerId: RequestBody
     ): Single<ApplyResponse>
 }

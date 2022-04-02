@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,9 +60,16 @@ class ApplicationFragment : Fragment() {
 
     private fun setObserver() {
         viewModelApplication.allListResponse().observe(viewLifecycleOwner, Observer {
-            binding.rvListApplication.adapter = adapter
-            Log.d("listapp", "if22")
-            adapter.initData(it)
+            if (it != null) {
+                binding.rvListApplication.adapter = adapter
+                Log.d("listapp", "if22")
+                adapter.initData(it)
+                binding.tvJobList.isGone = true
+                binding.tvApplyNow.isGone = true
+            }  else {
+                binding.tvJobList.isGone = false
+                binding.tvApplyNow.isGone = false
+            }
         })
     }
 }

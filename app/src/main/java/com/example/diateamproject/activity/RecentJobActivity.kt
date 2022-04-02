@@ -12,13 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.databinding.ActivityRecentJobBinding
 import com.example.diateamproject.listener.OnItemClickListener
+import com.example.diateamproject.util.PrefsJobConstant
+import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.viewmodel.AllJobViewModel
+import com.example.diateamproject.viewmodel.JobDetailViewModel
 
 class RecentJobActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecentJobBinding
     private val adapter = AllJobAdapter()
     private val viewModelAll: AllJobViewModel by lazy {
         ViewModelProviders.of(this).get(AllJobViewModel::class.java)
+    }
+    private val viewModelJobDetail: JobDetailViewModel by lazy {
+        ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +51,6 @@ class RecentJobActivity : AppCompatActivity() {
             Log.d("listapp", "if22")
             adapter.initData(it)
 
-
         })
 
     }
@@ -54,13 +59,7 @@ class RecentJobActivity : AppCompatActivity() {
         adapter.setOnClickItemListener(object : OnItemClickListener {
             override fun onItemClick(item: View, position: Int) {
                 Intent(this@RecentJobActivity, JobDetailsActivity::class.java).also {
-                    it.putExtra("jobName", adapter.list[position].jobName)
-                    it.putExtra("companyName", adapter.list[position].recruiterCompany)
-                    it.putExtra("jobLocation", adapter.list[position].jobAddress)
-                    it.putExtra("jobDescription", adapter.list[position].jobDesc)
-                    it.putExtra("jobRequirement", adapter.list[position].jobRequirement)
-                    it.putExtra("companyDescription", adapter.list[position].recruiterDesc)
-
+                    it.putExtra("jobId", adapter.list[position].jobId)
                     startActivity(it)
                 }
 

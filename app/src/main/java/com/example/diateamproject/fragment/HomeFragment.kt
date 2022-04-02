@@ -16,8 +16,10 @@ import com.example.diateamproject.activity.RecentJobActivity
 import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.databinding.FragmentHomeBinding
 import com.example.diateamproject.listener.OnItemClickListener
+import com.example.diateamproject.util.PrefsJobConstant
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
+import com.example.diateamproject.viewmodel.JobDetailViewModel
 import com.example.diateamproject.viewmodel.RecentJobViewModel
 
 class HomeFragment : Fragment(){
@@ -27,6 +29,9 @@ class HomeFragment : Fragment(){
     private val adapter = AllJobAdapter()
     private val viewModelRecent: RecentJobViewModel by lazy {
         ViewModelProviders.of(this).get(RecentJobViewModel::class.java)
+    }
+    private val viewModelJobDetail: JobDetailViewModel by lazy {
+        ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -40,6 +45,7 @@ class HomeFragment : Fragment(){
 
     }
 
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,6 +77,7 @@ class HomeFragment : Fragment(){
             binding.rvListJob.adapter = adapter
             Log.d("listapp", "if22")
             adapter.initData(it)
+
         })
     }
 
@@ -84,13 +91,7 @@ class HomeFragment : Fragment(){
         adapter.setOnClickItemListener(object : OnItemClickListener {
             override fun onItemClick(item: View, position: Int) {
                 Intent(requireContext(), JobDetailsActivity::class.java).also {
-                    it.putExtra("jobName", adapter.list[position].jobName)
-                    it.putExtra("companyName", adapter.list[position].recruiterCompany)
-                    it.putExtra("jobLocation", adapter.list[position].jobAddress)
-                    it.putExtra("jobDescription", adapter.list[position].jobDesc)
-                    it.putExtra("jobRequirement", adapter.list[position].jobRequirement)
-                    it.putExtra("companyDescription", adapter.list[position].recruiterDesc)
-                    it.putExtra("companyImage", adapter.list[position].recruiterImage)
+                    it.putExtra("jobId", adapter.list[position].jobId)
                     startActivity(it)
                 }
             }

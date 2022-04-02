@@ -3,6 +3,7 @@ package com.example.diateamproject.data.remote
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
+import com.example.diateamproject.model.jobbyid.JobByIdResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
@@ -19,11 +20,15 @@ interface AppRemoteDataSource {
     fun getRecentJobs ():Single<AllJobsResponse>
 
     fun getApplicationStatus (
-        @Path("jobseekerId") Id: Int?
+        @Path("jobseekerId") id: Int?
     ): Single<ApplicationStatusResponse>
     fun getProfile (
-        @Path("jobseekerId") Id: Int?
+        @Path("jobseekerId") id: Int?
     ): Single<ProfileResponse>
+
+    fun getJobById(
+        @Path("jobId") id: Int?
+    ): Single<JobByIdResponse>
 
     fun postLogin(
         @Query("jobseekerEmail") jobseekerEmail: String?,
@@ -44,6 +49,10 @@ interface AppRemoteDataSource {
         @Part("jobseekerDateOfBirth") jobseekerDateOfBirth: RequestBody,
         @Part("jobseekerAddress") jobseekerAddress: RequestBody,
         @Part("jobseekerEducation") jobseekerEducation: RequestBody,
+        @Part("jobseekerProfession") jobseekerProfession: RequestBody,
+        @Part("jobseekerPortfolio") jobseekerPortfolio: RequestBody,
+        @Part("jobseekerSkill") jobseekerSkill: RequestBody,
+        @Part("jobseekerMedsos") jobseekerMedsos: RequestBody
     ): Single<UpdateProfileResponse>
 
     fun updateImageProfile(
@@ -59,7 +68,6 @@ interface AppRemoteDataSource {
     fun postApply(
         @Part("jobId") jobId: RequestBody,
         @Part("jobseekerId") jobseekerId: RequestBody,
-        @Part file: MultipartBody.Part?
     ): Single<ApplyResponse>
 
 }

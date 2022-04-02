@@ -10,6 +10,9 @@ import com.bumptech.glide.Glide
 import com.example.diateamproject.databinding.CardApplicationBinding
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.applicationstatus.Data
+import com.example.diateamproject.util.PrefsJobConstant
+import com.example.diateamproject.util.PrefsLogin
+import com.example.diateamproject.util.PrefsLoginConstant
 import java.text.SimpleDateFormat
 
 class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.ViewHolder>() {
@@ -22,9 +25,7 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
 
     inner class ViewHolder(val binding: CardApplicationBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
-        init {
-
-        }
+        init {}
 
         override fun onClick(p0: View?) {
 
@@ -47,6 +48,7 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                 binding.tvStatus.text = applicationStatus
                 val dateString= simpleDateFormat.format(createdAt)
                 binding.tvPostDate.text = String.format("%s", dateString)
+//                var companyLogo = recruiterImage
                 Glide.with(context!!)
                     .load("http://54.255.4.75:9091/resources/meta.png")
                     .into(binding.ivJob)

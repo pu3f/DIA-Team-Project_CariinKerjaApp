@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profileFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -55,8 +56,8 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/icon_upload_image"
-            app:civ_border_width="0.5dp"
-            app:civ_border_color="@color/blue_primary"/>
+            app:civ_border_color="@color/blue_primary"
+            app:civ_border_width="1dp" />
 
         <TextView
             android:id="@+id/tvPickImage"
@@ -99,15 +100,17 @@
                 android:hint="@string/hintBio"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary">
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfBio"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
+                    android:gravity="top"
                     android:inputType="textMultiLine"
+                    android:lines="3"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
@@ -124,15 +127,18 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tflName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:requiresFadingEdge="vertical"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                android:requiresFadingEdge="vertical"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary">
+                app:endIconTint="@color/blue_primary"
+                app:helperText="@string/helperName"
+                app:helperTextTextColor="@android:color/holo_red_dark">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfFullName"
@@ -140,10 +146,11 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/fullName"
                     android:inputType="textCapWords"
+                    android:maxLength="50"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal"/>
+                    android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -159,13 +166,13 @@
                     android:id="@+id/tfEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:hint="@string/hintEmail"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:enabled="false"/>
+                    android:textStyle="normal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -178,15 +185,16 @@
                 android:textAlignment="center"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption"
-                app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary">
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:maxLength="13"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -209,15 +217,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_date"
-                    android:padding="10dp"
+                    android:focusable="false"
                     android:inputType="none"
+                    android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:focusable="false"/>
+                    android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tflAddress"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -225,9 +234,11 @@
                 android:hint="@string/hintAddress"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary">
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:helperText="@string/helperName"
+                app:helperTextTextColor="@android:color/holo_red_dark">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfAddress"
@@ -257,15 +268,131 @@
                 android:hint="@string/hintDegree"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary">
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfDegree"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tflProfession"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintProfession"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:helperText="@string/helperName"
+                app:helperTextTextColor="@android:color/holo_red_dark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfProfession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/skill"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tflSkill"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintSkill"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:helperText="@string/helperName"
+                app:helperTextTextColor="@android:color/holo_red_dark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfSkill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/link"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintSosmed"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfSosmed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textWebEditText"
+                    android:padding="10dp"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/hintPorto"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/grey"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfPorto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textWebEditText"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
@@ -281,18 +408,59 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/tfCV"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tflResume"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_edit_text_border"
-                android:drawableEnd="@drawable/ic_file"
-                android:editable="false"
-                android:fontFamily="sans-serif-light"
-                android:hint="resume.pdf"
-                android:padding="10dp"
+                android:hint="@string/hintResume"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/blue_primary"
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:helperText="@string/helperName"
+                app:helperTextTextColor="@android:color/holo_red_dark">
+
+                <EditText
+                    android:id="@+id/tfCV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_border_grey"
+                    android:drawableEnd="@drawable/ic_file"
+                    android:editable="false"
+                    android:fontFamily="sans-serif-light"
+                    android:padding="10dp"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="4dp"
+                android:text="@string/fileRequired"
+                android:textColor="@color/dark_black"
                 android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textAlignment="center"
+                app:drawableStartCompat="@drawable/ic_important" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="4dp"
+                android:text="@string/fileRequired1"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                app:drawableStartCompat="@drawable/ic_important"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/btnSaveProfile"
@@ -300,7 +468,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_button_primary"
                 android:fontFamily="sans-serif-black"
                 android:text="Save"
                 android:textAllCaps="false"

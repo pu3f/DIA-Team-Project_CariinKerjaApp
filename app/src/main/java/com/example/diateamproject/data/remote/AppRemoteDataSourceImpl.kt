@@ -4,6 +4,7 @@ import com.example.diateamproject.data.service.AppService
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
+import com.example.diateamproject.model.jobbyid.JobByIdResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
@@ -24,12 +25,16 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
         return service.getRecentJobs()
     }
 
-    override fun getApplicationStatus(Id: Int?): Single<ApplicationStatusResponse> {
-        return service.getApplicationStatus(Id)
+    override fun getApplicationStatus(id: Int?): Single<ApplicationStatusResponse> {
+        return service.getApplicationStatus(id)
     }
 
-    override fun getProfile(Id: Int?): Single<ProfileResponse> {
-        return service.getProfile(Id)
+    override fun getProfile(id: Int?): Single<ProfileResponse> {
+        return service.getProfile(id)
+    }
+
+    override fun getJobById(id: Int?): Single<JobByIdResponse> {
+        return service.getJobById(id)
     }
 
     override fun postLogin(
@@ -56,7 +61,11 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
         jobseekerPhone: RequestBody,
         jobseekerDateOfBirth: RequestBody,
         jobseekerAddress: RequestBody,
-        jobseekerEducation: RequestBody
+        jobseekerEducation: RequestBody,
+        jobseekerProfession: RequestBody,
+        jobseekerPortfolio: RequestBody,
+        jobseekerSkill: RequestBody,
+        jobseekerMedsos: RequestBody
     ): Single<UpdateProfileResponse> {
         return service.updateProfile(
             jobseekerId,
@@ -66,7 +75,11 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
             jobseekerPhone,
             jobseekerDateOfBirth,
             jobseekerAddress,
-            jobseekerEducation
+            jobseekerEducation,
+            jobseekerProfession,
+            jobseekerPortfolio,
+            jobseekerSkill,
+            jobseekerMedsos
         )
     }
 
@@ -86,10 +99,9 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
 
     override fun postApply(
         jobId: RequestBody,
-        jobseekerId: RequestBody,
-        file: MultipartBody.Part?
+        jobseekerId: RequestBody
     ): Single<ApplyResponse> {
-        return service.postApply(jobId, jobseekerId, file)
+        return service.postApply(jobId, jobseekerId)
     }
 
 }

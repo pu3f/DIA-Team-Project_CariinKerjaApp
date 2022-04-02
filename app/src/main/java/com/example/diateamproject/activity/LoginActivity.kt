@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
 
-            //get response from prefs
+            //put response to prefs
             val userId = it.data.jobseekerId
             val userName = it.data.jobseekerName
             val email = it.data.jobseekerEmail

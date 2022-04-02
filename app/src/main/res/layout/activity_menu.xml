@@ -23,5 +23,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation_menu" />
+        app:menu="@menu/navigation_menu"
+        android:background="@drawable/bg_top_border"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

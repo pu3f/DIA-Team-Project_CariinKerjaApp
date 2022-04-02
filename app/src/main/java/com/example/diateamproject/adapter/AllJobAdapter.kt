@@ -14,6 +14,8 @@ import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.alljobs.Data
 import com.example.diateamproject.util.Path
+import com.example.diateamproject.util.PrefsJobConstant
+import com.example.diateamproject.util.PrefsLogin
 import java.text.SimpleDateFormat
 import kotlin.time.toDuration
 
@@ -52,13 +54,12 @@ class AllJobAdapter : RecyclerView.Adapter<AllJobAdapter.ViewHolder>() {
                 binding.tvJobPosition.text = jobName
                 binding.tvCompanyName.text = recruiterCompany
                 binding.tvLocation.text = jobAddress
-                val dateString= simpleDateFormat.format(createdAt)
+                val dateString = simpleDateFormat.format(createdAt)
                 binding.tvPostDate.text = String.format("%s", dateString)
                 Glide.with(context!!)
                     .load(Path.IMAGE_URL + recruiterImage)
                     .placeholder(R.drawable.ic_placeholder_list)
                     .into(binding.ivJob)
-
             }
         }
     }

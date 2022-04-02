@@ -3,26 +3,45 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable-v24/bg_border_primary.xml" value="0.1" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable-v24/bg_button_secondary.xml" value="0.1" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_btn_secondary.xml" value="0.1" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_button.xml" value="0.15" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_button_primary.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_dialog_view.xml" value="0.1" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_edit_text.xml" value="0.15" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_edit_text_border.xml" value="0.15" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_searchbar.xml" value="0.15" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/bg_top_border.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/button_background.xml" value="0.153" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/card_background.xml" value="0.153" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/edit_text_background.xml" value="0.1485" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/edit_text_border.xml" value="0.153" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_back.xml" value="0.164" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1295" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_close.xml" value="0.15" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_date.xml" value="0.1485" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_file.xml" value="0.15" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_home.xml" value="0.164" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_important.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_job.xml" value="0.1295" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.164" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_link.xml" value="0.159" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_location.xml" value="0.15" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_logout.xml" value="0.164" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_outline_emergency_24.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_placeholder_list.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_profile.xml" value="0.164" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_salary.xml" value="0.147" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_send.xml" value="0.1" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_time.xml" value="0.147" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_upload_image.xml" value="0.1135" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/ic_web.xml" value="0.147" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/image_view_border.xml" value="0.1135" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/drawable/searchbar_background.xml" value="0.164" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/activity_job.xml" value="0.17342342342342343" />
-        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/activity_job_details.xml" value="0.17342342342342343" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/activity_job_details.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/activity_main_job.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/activity_menu.xml" value="0.1" />
@@ -35,7 +54,8 @@
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/card_job.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/date_picker_fragment.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_application.xml" value="0.24169184290030213" />
-        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_company.xml" value="0.16126126126126125" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_apply_dialog.xml" value="0.12064777327935222" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_company.xml" value="0.32222222222222224" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_description.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_movie.xml" value="0.17342342342342343" />

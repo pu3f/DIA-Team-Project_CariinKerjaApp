@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
+        android:paddingHorizontal="8dp"
         android:layout_marginTop="20dp">
 
         <TextView
@@ -46,7 +46,26 @@
             android:layout_height="match_parent"
             android:text="requirement list"
             android:fontFamily="sans-serif"
+            android:padding="8dp"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/jobBenefit"
+            android:fontFamily="sans-serif-black"
             android:padding="4dp"
+            android:textColor="@color/dark_black"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/tvJobBenefit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="benefit list"
+            android:fontFamily="sans-serif"
+            android:padding="8dp"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
 

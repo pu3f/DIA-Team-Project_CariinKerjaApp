@@ -68,6 +68,10 @@ class ProfileViewModel : ViewModel() {
         jobseekerDateOfBirth: RequestBody,
         jobseekerAddress: RequestBody,
         jobseekerEducation: RequestBody,
+        jobseekerProfession: RequestBody,
+        jobseekerPortfolio: RequestBody,
+        jobseekerSkill: RequestBody,
+        jobseekerMedsos: RequestBody
     ) {
         compositeDisposable.add(
             repository.updateProfile(
@@ -79,6 +83,10 @@ class ProfileViewModel : ViewModel() {
                 jobseekerDateOfBirth,
                 jobseekerAddress,
                 jobseekerEducation,
+                jobseekerProfession,
+                jobseekerPortfolio,
+                jobseekerSkill,
+                jobseekerMedsos
             )
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

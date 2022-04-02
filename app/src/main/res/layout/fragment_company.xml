@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:layout_marginTop="20dp">
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -20,10 +20,30 @@
             android:padding="4dp"
             android:text="@string/aboutCompany"
             android:textColor="@color/dark_black"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tvAboutCompany"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="8dp"
+            android:fontFamily="sans-serif"
+            android:padding="4dp"
+            android:text="content"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-black"
+            android:padding="4dp"
+            android:text="@string/industries"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tvIndustries"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="8dp"
@@ -31,7 +51,148 @@
             android:padding="4dp"
             android:text="content"
             android:textColor="@color/dark_black"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-black"
+            android:padding="4dp"
+            android:text="@string/employee"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tvEmployee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="8dp"
+            android:fontFamily="sans-serif"
+            android:padding="4dp"
+            android:text="content"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-black"
+            android:padding="4dp"
+            android:text="@string/culture"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tvCulture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="8dp"
+            android:fontFamily="sans-serif"
+            android:padding="4dp"
+            android:text="content"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-black"
+            android:padding="4dp"
+            android:text="@string/contactLink"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_link"/>
+
+            <TextView
+                android:id="@+id/tvWebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif"
+                android:text="link"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/icon_linkedin"/>
+
+            <TextView
+                android:id="@+id/tvLinkedin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif"
+                android:text="link"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/icon_facebook"/>
+
+            <TextView
+                android:id="@+id/tvFb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif"
+                android:text="link"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/icon_instagram"/>
+
+            <TextView
+                android:id="@+id/tvIg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif"
+                android:text="link"
+                android:textColor="@color/dark_black"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

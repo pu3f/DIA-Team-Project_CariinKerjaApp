@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.diateamproject.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentCompanyBinding
-import com.example.diateamproject.databinding.FragmentDescriptionBinding
+import com.example.diateamproject.viewmodel.JobDetailViewModel
 
 
 class CompanyFragment : Fragment() {
 
     private var _binding: FragmentCompanyBinding? = null
     private val binding get() = _binding!!
+    private val viewModelJobDetail: JobDetailViewModel by lazy {
+        ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +31,21 @@ class CompanyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //get allJobResponse from previous activity
-        val aboutCompany = activity?.intent?.getStringExtra("companyDescription")
-        binding.tvAboutCompany.text = "$aboutCompany"
+
+        val jobId = activity?.intent!!.getIntExtra("jobId",0)
+        viewModelJobDetail.getJobById(jobId)
+        setObserver()
+
+    }
+
+    private fun setObserver() {
+        viewModelJobDetail.listJobResponse().observe(viewLifecycleOwner, Observer {
+            binding.tvAboutCompany.text = it.data.recruiterDesc
+            binding.tvIndustries.text = it.data.recruiterIndustry
+            binding.tvEmployee.text = it.data.recruiterStaff.toString()
+            binding.tvLinkedin.text = it.data.recruiterLinkedin
+            binding.tvFb.text = it.data.recruiterFb
+            binding.tvIg.text = it.data.recruiterIg
+        })
     }
 }

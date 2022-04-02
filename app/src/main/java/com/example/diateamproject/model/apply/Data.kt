@@ -6,5 +6,5 @@ data class Data(
     val createdAt: Long,
     val jobId: Int,
     val jobseekerId: Int,
-    val jobseekerResume: String?
+    val jobseekerResume: String
 )

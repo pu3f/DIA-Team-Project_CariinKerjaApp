@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide
 import com.example.diateamproject.R
 import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.MenuActivity
+import com.example.diateamproject.activity.SplashScreenActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
@@ -47,6 +48,7 @@ class ProfileFragment : Fragment() {
     private val REQUEST_IMAGE = 1
     private val REQUEST_FILE = 2
     val formatDate = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+    val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
     private var selectedImageUri: Uri? = null
     private var selectedPdfUri: Uri? = null
     private val viewModelProfile: ProfileViewModel by lazy {
@@ -78,15 +80,17 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
         viewModelProfile.getProfile(userId)
-
         setObserver()
 
-        binding.btnSaveProfile.setOnClickListener {
-            updateProfile()
+        fullnameFocusListener()
+        addressFocusListener()
+        professionFocusListener()
+        skillFocusListener()
+        resumeFocusListener()
 
-//            viewModelProfile.getProfile(userId)
+        binding.btnSaveProfile.setOnClickListener {
+            saveProfile()
 
         }
 
@@ -104,6 +108,7 @@ class ProfileFragment : Fragment() {
 
     }
 
+
     private fun setObserver() {
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
             binding.tfBio.setText(it.jobseekerAbout)
@@ -112,6 +117,10 @@ class ProfileFragment : Fragment() {
             binding.tfPhone.setText(it.jobseekerPhone)
             binding.tfAddress.setText(it.jobseekerAddress)
             binding.tfDegree.setText(it.jobseekerEducation)
+            binding.tfSkill.setText(it.jobseekerSkill)
+            binding.tfProfession.setText(it.jobseekerProfession)
+            binding.tfSosmed.setText(it.jobseekerMedsos)
+            binding.tfPorto.setText(it.jobseekerPortfolio)
 
             val dateProfile = it.jobseekerDateOfBirth
             if(dateProfile > 0) {
@@ -137,6 +146,7 @@ class ProfileFragment : Fragment() {
         })
 
         viewModelProfile.listResponseProfile().observe(viewLifecycleOwner, Observer {
+            viewModelProfile.getProfile(userId)
             Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
         })
 
@@ -151,8 +161,7 @@ class ProfileFragment : Fragment() {
 
     private fun updateProfile() {
         //parse input text to request body
-        val id = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-            .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateBio = binding.tfBio.text.toString()
             .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateName = binding.tfFullName.text.toString()
@@ -167,6 +176,14 @@ class ProfileFragment : Fragment() {
             .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateEducation = binding.tfDegree.text.toString()
             .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val updateProfession = binding.tfProfession.text.toString()
+            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val updatePortfolio = binding.tfPorto.text.toString()
+            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val updateSkill = binding.tfSkill.text.toString()
+            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val updateMedsos = binding.tfSosmed.text.toString()
+            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         viewModelProfile.updateProfile(
             id,
@@ -177,6 +194,10 @@ class ProfileFragment : Fragment() {
             updateDateOfBirth,
             updateAddress,
             updateEducation,
+            updateProfession,
+            updatePortfolio,
+            updateSkill,
+            updateMedsos
         )
     }
 
@@ -206,8 +227,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateFileProfile() {
-        val id = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-            .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         //get file path using URI Path Helper function
         Log.d("pdfuri","$selectedPdfUri")
@@ -254,7 +274,6 @@ class ProfileFragment : Fragment() {
                 binding.tfBirth.setText(date)
             }
         }
-
         // show
         datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
     }
@@ -280,6 +299,26 @@ class ProfileFragment : Fragment() {
             updateFileProfile()
             resumeAlertDialog.dismiss()
         }
+
+    }
+
+    private fun saveProfile() {
+        binding.tflName.helperText = validName()
+        binding.tflAddress.helperText = validAddress()
+        binding.tflProfession.helperText = validProfession()
+        binding.tflSkill.helperText = validSkill()
+        binding.tflResume.helperText = validCv()
+
+        val validName = binding.tflName.helperText == null
+        val validAddress = binding.tflAddress.helperText == null
+        val validProfession = binding.tflProfession.helperText == null
+        val validSkill = binding.tflSkill.helperText == null
+        val validResume = binding.tflResume.helperText == null
+
+        if (validName && validAddress && validProfession && validSkill && validResume)
+            updateProfile()
+        else
+            invalidForm()
 
     }
 
@@ -313,10 +352,98 @@ class ProfileFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_FILE) {
                 selectedPdfUri = data?.data
                 Log.i("xxfile", "$selectedPdfUri ==try")
-                binding.tfCV.setText(selectedPdfUri?.path)
-
-//                    selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1)
+                binding.tfCV.setText(selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1))
             }
+    }
+
+    private fun invalidForm() {
+        AlertDialog.Builder(activity)
+            .setTitle("Invalid Form")
+            .setMessage("Complete your profile form !")
+            .setPositiveButton("Okay"){ _,_ ->
+                // do nothing
+            }
+            .show()
+    }
+
+    private fun fullnameFocusListener() {
+        binding.tfFullName.setOnFocusChangeListener { _, focused ->
+            if (!focused) {
+                binding.tflName.helperText = validName()
+            }
+        }
+    }
+
+    private fun validName(): String? {
+        val nameText = binding.tfFullName.text.toString()
+        if (nameText.isEmpty()) {
+            return "Enter your full name"
+        }
+        return null
+    }
+
+    private fun addressFocusListener() {
+        binding.tfAddress.setOnFocusChangeListener { _, focused ->
+            if (!focused) {
+                binding.tflAddress.helperText = validAddress()
+            }
+        }
+    }
+
+    private fun validAddress(): String? {
+        val addressText = binding.tfAddress.text.toString()
+        if (addressText.isEmpty()) {
+            return "Enter your Current address"
+        }
+        return null
+    }
+
+    private fun professionFocusListener() {
+        binding.tfProfession.setOnFocusChangeListener { _, focused ->
+            if (!focused) {
+                binding.tflProfession.helperText = validProfession()
+            }
+        }
+    }
+
+    private fun validProfession(): String? {
+        val professionText = binding.tfProfession.text.toString()
+        if (professionText.isEmpty()) {
+            return "Enter your Current profession"
+        }
+        return null
+    }
+
+    private fun skillFocusListener() {
+        binding.tfSkill.setOnFocusChangeListener { _, focused ->
+            if (!focused) {
+                binding.tflSkill.helperText = validSkill()
+            }
+        }
+    }
+
+    private fun validSkill(): String? {
+        val skillText = binding.tfSkill.text.toString()
+        if (skillText.isEmpty()) {
+            return "Enter your Main skill"
+        }
+        return null
+    }
+
+    private fun resumeFocusListener() {
+        binding.tfCV.setOnFocusChangeListener { _, focused ->
+            if (!focused) {
+                binding.tflResume.helperText = validCv()
+            }
+        }
+    }
+
+    private fun validCv(): String? {
+        val cvText = binding.tfCV.text.toString()
+        if (cvText.isNullOrEmpty()) {
+            return "Upload your newest Resume"
+        }
+        return null
     }
 
     @SuppressLint("Range")
@@ -338,11 +465,7 @@ class ProfileFragment : Fragment() {
         }
         if (result == null) {
             result = uri.path
-            Log.d("pdfuri","$result ====path")
-//            val cut = result!!.lastIndexOf('/')
-//            if (cut != -1) {
-//                result = result.substring(cut + 1)
-//            }
+            Log.d("pdfuri", "$result ====path")
         }
         return result
     }
@@ -354,10 +477,9 @@ class ProfileFragment : Fragment() {
             var alertLogout = AlertDialog.Builder(activity)
             alertLogout.setTitle("Confirm Logout")
             alertLogout.setMessage("Are you sure want to logout?")
-            alertLogout.setPositiveButton("Logout", { dialog: DialogInterface?, which: Int ->
-                var intentLogin = Intent(activity, LoginActivity::class.java)
+            alertLogout.setPositiveButton("Sure", { dialog: DialogInterface?, which: Int ->
+                var intentLogin = Intent(activity, SplashScreenActivity::class.java)
                 startActivity(intentLogin)
-                Toast.makeText(activity, "Logout Success", Toast.LENGTH_SHORT).show()
             })
             alertLogout.setNegativeButton("Cancel", { dialog: DialogInterface?, which: Int -> })
             alertLogout.show()
