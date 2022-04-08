@@ -1,18 +1,12 @@
 package com.example.diateamproject.activity
 
-import android.content.Context
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityLoginBinding
-import com.example.diateamproject.fragment.HomeFragment
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.LoginViewModel
@@ -32,9 +26,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.btnLogin.setOnClickListener {
-            if (binding.etEmail.text!!.isEmpty() && binding.etPassword.text!!.isEmpty()) {
-                Toast.makeText(this, "Complete the Form", Toast.LENGTH_LONG).show()
-            }
             viewModel.postLogin(
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString()
@@ -46,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun setObserver() {
@@ -54,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
             //move to other activity
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
+            finish()
 
             //put response to prefs
             val userId = it.data.jobseekerId
@@ -66,8 +57,28 @@ class LoginActivity : AppCompatActivity() {
         })
 
         viewModel.getIsError().observe(this, Observer {
-            Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
+            logInFailed()
         })
+    }
+
+    private fun logInFailed() {
+        if (binding.etEmail.text!!.isEmpty() && binding.etPassword.text!!.isEmpty()) {
+            AlertDialog.Builder(this)
+                .setTitle("Login Failed")
+                .setMessage("Complete the Form")
+                .setPositiveButton("OK") { _, _ ->
+                    //do nothing
+                }
+                .show()
+        } else {
+            AlertDialog.Builder(this)
+                .setTitle("Login Failed")
+                .setMessage("Account not found. Email or Password wrong")
+                .setPositiveButton("OK") { _, _ ->
+                    //do nothing
+                }
+                .show()
+        }
     }
 
 }

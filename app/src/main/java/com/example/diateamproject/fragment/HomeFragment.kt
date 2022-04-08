@@ -16,7 +16,6 @@ import com.example.diateamproject.activity.RecentJobActivity
 import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.databinding.FragmentHomeBinding
 import com.example.diateamproject.listener.OnItemClickListener
-import com.example.diateamproject.util.PrefsJobConstant
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.JobDetailViewModel
@@ -42,34 +41,27 @@ class HomeFragment : Fragment(){
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
-
     }
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListJob.layoutManager = layoutManager
 
         viewModelRecent.getRecentJobs()
         setObserver()
-
         action()
 
         //get jobseekerName from prefsLoginConstant
         val username = PrefsLogin.loadString(PrefsLoginConstant.USERNAME, "userName")
         binding.tvHello.text = "Hello, $username".toUpperCase()
-
-
         Log.d("data", "not null")
-
 
         binding.tvShowMore.setOnClickListener {
             val intent = Intent(requireContext(), RecentJobActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun setObserver() {
@@ -98,5 +90,4 @@ class HomeFragment : Fragment(){
 
         })
     }
-
 }

@@ -5,6 +5,7 @@ data class Data(
     val jobName: String,
     val recruiterCompany: String,
     val recruiterAddress: String,
+    val recruiterImage: String?,
     val applicationStatus: String,
     val createdAt: Long
 )

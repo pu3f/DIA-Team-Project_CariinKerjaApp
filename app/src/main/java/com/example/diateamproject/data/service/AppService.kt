@@ -46,9 +46,10 @@ interface AppService {
         @Path("jobseekerId") id: Int?
     ): Single<ProfileResponse>
 
-    @GET("api/v1/jobseeker/job/{jobId}")
+    @GET("api/v1/jobseeker/job?")
     fun getJobById(
-        @Path("jobId") id: Int?
+        @Query("jobId") jobId: Int?,
+        @Query("jobseekerId") jobseekerId: Int?,
     ): Single<JobByIdResponse>
 
     // request multipart

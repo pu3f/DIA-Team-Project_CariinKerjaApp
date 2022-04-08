@@ -33,8 +33,8 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         return remoteDataSource.getProfile(id)
     }
 
-    override fun getJobById(id: Int?): Single<JobByIdResponse> {
-        return remoteDataSource.getJobById(id)
+    override fun getJobById(jobId: Int?, jobseekerId: Int?): Single<JobByIdResponse> {
+        return remoteDataSource.getJobById(jobId, jobseekerId)
     }
 
     override fun postLogin(

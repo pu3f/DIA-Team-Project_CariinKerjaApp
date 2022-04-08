@@ -3,7 +3,7 @@ package com.example.diateamproject.model.profile
 data class ProfileResponse(
     val jobseekerAbout: String,
     val jobseekerAddress: String,
-    val jobseekerDateOfBirth: Long,
+    val jobseekerDateOfBirth: String,
     val jobseekerEducation: String,
     val jobseekerEmail: String,
     val jobseekerId: Int,

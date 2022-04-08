@@ -1,6 +1,5 @@
 package com.example.diateamproject.activity
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.databinding.ActivityRecentJobBinding
 import com.example.diateamproject.listener.OnItemClickListener
-import com.example.diateamproject.util.PrefsJobConstant
-import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.viewmodel.AllJobViewModel
 import com.example.diateamproject.viewmodel.JobDetailViewModel
 
@@ -22,9 +19,6 @@ class RecentJobActivity : AppCompatActivity() {
     private val adapter = AllJobAdapter()
     private val viewModelAll: AllJobViewModel by lazy {
         ViewModelProviders.of(this).get(AllJobViewModel::class.java)
-    }
-    private val viewModelJobDetail: JobDetailViewModel by lazy {
-        ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,9 +44,7 @@ class RecentJobActivity : AppCompatActivity() {
             binding.rvListJob.adapter = adapter
             Log.d("listapp", "if22")
             adapter.initData(it)
-
         })
-
     }
 
     private fun action() {
@@ -62,10 +54,7 @@ class RecentJobActivity : AppCompatActivity() {
                     it.putExtra("jobId", adapter.list[position].jobId)
                     startActivity(it)
                 }
-
-
             }
-
         })
     }
 }

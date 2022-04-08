@@ -11,17 +11,12 @@ import androidx.core.view.isGone
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.diateamproject.R
 import com.example.diateamproject.activity.MenuActivity
-import com.example.diateamproject.activity.RecentJobActivity
-import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.adapter.ApplicationStatusAdapter
 import com.example.diateamproject.databinding.FragmentApplicationBinding
-import com.example.diateamproject.databinding.FragmentHomeBinding
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.ApplicationStatusViewModel
-import com.example.diateamproject.viewmodel.RecentJobViewModel
 
 class ApplicationFragment : Fragment() {
 
@@ -44,7 +39,6 @@ class ApplicationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListApplication.layoutManager = layoutManager

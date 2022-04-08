@@ -27,9 +27,9 @@ class JobDetailViewModel : ViewModel() {
         DaggerAppComponent.create().injectView(this)
     }
 
-    fun getJobById(id: Int) {
+    fun getJobById(jobId: Int?, jobseekerId: Int?) {
         compositeDisposable.add(
-            repository.getJobById(id)
+            repository.getJobById(jobId, jobseekerId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<JobByIdResponse>() {

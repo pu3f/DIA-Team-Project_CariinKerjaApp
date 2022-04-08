@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/light_grey"
     tools:context=".fragment.ProfileFragment">
 
     <RelativeLayout
@@ -64,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ivProfile"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:paddingTop="8dp"
             android:text="@string/uploadPhoto"
@@ -76,7 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,7 +104,8 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfBio"
@@ -127,7 +130,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tflName"
+                android:id="@+id/tilName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,10 +141,11 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
                 app:helperText="@string/helperName"
-                app:helperTextTextColor="@android:color/holo_red_dark">
+                app:helperTextTextColor="@android:color/holo_red_dark"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tfFullName"
+                    android:id="@+id/tfName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/fullName"
@@ -160,7 +164,8 @@
                 android:layout_marginBottom="10dp"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfEmail"
@@ -188,7 +193,8 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
                 app:hintTextAppearance="?textAppearanceCaption"
-                app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+                app:prefixTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfPhone"
@@ -210,7 +216,8 @@
                 android:hint="@string/hintBirth"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfBirth"
@@ -238,7 +245,8 @@
                 app:endIconTint="@color/blue_primary"
                 app:hintTextAppearance="?textAppearanceCaption"
                 app:helperText="@string/helperName"
-                app:helperTextTextColor="@android:color/holo_red_dark">
+                app:helperTextTextColor="@android:color/holo_red_dark"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfAddress"
@@ -270,7 +278,8 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfDegree"
@@ -296,7 +305,8 @@
                 app:endIconTint="@color/blue_primary"
                 app:hintTextAppearance="?textAppearanceCaption"
                 app:helperText="@string/helperName"
-                app:helperTextTextColor="@android:color/holo_red_dark">
+                app:helperTextTextColor="@android:color/holo_red_dark"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfProfession"
@@ -327,11 +337,13 @@
                 android:hint="@string/hintSkill"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
+                android:inputType="textCapWords"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
                 app:hintTextAppearance="?textAppearanceCaption"
                 app:helperText="@string/helperName"
-                app:helperTextTextColor="@android:color/holo_red_dark">
+                app:helperTextTextColor="@android:color/holo_red_dark"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfSkill"
@@ -363,7 +375,8 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfSosmed"
@@ -386,7 +399,8 @@
                 app:boxStrokeColor="@color/grey"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
-                app:hintTextAppearance="?textAppearanceCaption">
+                app:hintTextAppearance="?textAppearanceCaption"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfPorto"
@@ -413,27 +427,27 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hintResume"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
                 app:hintTextAppearance="?textAppearanceCaption"
                 app:helperText="@string/helperName"
-                app:helperTextTextColor="@android:color/holo_red_dark">
+                app:helperTextTextColor="@android:color/holo_red_dark"
+                app:boxBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/tfCV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints=""
-                    android:background="@drawable/bg_border_grey"
                     android:drawableEnd="@drawable/ic_file"
                     android:editable="false"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="sans-serif"
                     android:padding="10dp"
                     android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:textColor="@android:color/darker_gray"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

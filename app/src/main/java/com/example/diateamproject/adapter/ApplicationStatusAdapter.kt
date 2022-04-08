@@ -5,23 +5,21 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.diateamproject.R
 import com.example.diateamproject.databinding.CardApplicationBinding
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.applicationstatus.Data
-import com.example.diateamproject.util.PrefsJobConstant
-import com.example.diateamproject.util.PrefsLogin
-import com.example.diateamproject.util.PrefsLoginConstant
 import java.text.SimpleDateFormat
+import java.util.*
 
 class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.ViewHolder>() {
 
-    var ApplicationList = arrayListOf<Data>()
+    var applicationList = arrayListOf<Data>()
     private var context: Context? = null
-
-    @SuppressLint("SimpleDateFormat")
-    val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+    private val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
 
     inner class ViewHolder(val binding: CardApplicationBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
@@ -41,26 +39,30 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            with(ApplicationList[position]) {
+            with(applicationList[position]) {
                 binding.tvJobPosition.text = jobName
                 binding.tvCompanyName.text = recruiterCompany
                 binding.tvLocation.text = recruiterAddress
-                binding.tvStatus.text = applicationStatus
+                binding.tvStatus.text = applicationStatus.capitalize()
+                if (applicationStatus.equals("accepted")) {
+                    binding.tvStatus.setTextColor(ContextCompat.getColor(context!!,R.color.green))
+                }else if (applicationStatus.equals("rejected")) {
+                binding.tvStatus.setTextColor(ContextCompat.getColor(context!!,android.R.color.holo_red_dark))
+            }
                 val dateString= simpleDateFormat.format(createdAt)
                 binding.tvPostDate.text = String.format("%s", dateString)
-//                var companyLogo = recruiterImage
                 Glide.with(context!!)
-                    .load("http://54.255.4.75:9091/resources/meta.png")
+                    .load("http://54.255.4.75:9091/resources/$recruiterImage")
                     .into(binding.ivJob)
-
             }
         }
     }
 
-    override fun getItemCount() = ApplicationList.size
+    override fun getItemCount() = applicationList.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun initData(lists: ApplicationStatusResponse){
-        this.ApplicationList = lists
+        this.applicationList = lists
         notifyDataSetChanged()
     }
 

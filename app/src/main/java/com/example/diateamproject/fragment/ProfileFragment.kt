@@ -26,7 +26,6 @@ import com.bumptech.glide.Glide
 import com.example.diateamproject.R
 import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.MenuActivity
-import com.example.diateamproject.activity.SplashScreenActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
@@ -36,18 +35,13 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 
-@SuppressLint("SimpleDateFormat")
 class ProfileFragment : Fragment() {
-
     //view binding fragment declaration
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val REQUEST_IMAGE = 1
     private val REQUEST_FILE = 2
-    val formatDate = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
     private var selectedImageUri: Uri? = null
     private var selectedPdfUri: Uri? = null
@@ -80,18 +74,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tfCV.setHint("Upload here")
         viewModelProfile.getProfile(userId)
         setObserver()
 
-        fullnameFocusListener()
-        addressFocusListener()
-        professionFocusListener()
-        skillFocusListener()
-        resumeFocusListener()
-
         binding.btnSaveProfile.setOnClickListener {
             saveProfile()
-
         }
 
         binding.apply {
@@ -105,14 +93,12 @@ class ProfileFragment : Fragment() {
             startActivity(intentBack)
         }
         actionLogout()
-
     }
-
 
     private fun setObserver() {
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
             binding.tfBio.setText(it.jobseekerAbout)
-            binding.tfFullName.setText(it.jobseekerName)
+            binding.tfName.setText(it.jobseekerName)
             binding.tfEmail.setText(it.jobseekerEmail)
             binding.tfPhone.setText(it.jobseekerPhone)
             binding.tfAddress.setText(it.jobseekerAddress)
@@ -121,12 +107,14 @@ class ProfileFragment : Fragment() {
             binding.tfProfession.setText(it.jobseekerProfession)
             binding.tfSosmed.setText(it.jobseekerMedsos)
             binding.tfPorto.setText(it.jobseekerPortfolio)
-
             val dateProfile = it.jobseekerDateOfBirth
-            if(dateProfile > 0) {
-                val dateString = formatDate.format(dateProfile)
-                binding.tfBirth.setText(String.format("%s", dateString))
-            }
+            binding.tfBirth.setText(dateProfile)
+
+            fullnameFocusListener()
+            addressFocusListener()
+            professionFocusListener()
+            skillFocusListener()
+            resumeFocusListener()
 
             //get image from profile response
             if (it.jobseekerImage != null) {
@@ -140,7 +128,6 @@ class ProfileFragment : Fragment() {
                 Log.i("xxpick", "xxpick")
                 binding.tvPickImage.isGone = false
             }
-
             val resumeFile = it.jobseekerResume
             binding.tfCV.setText(resumeFile)
         })
@@ -164,7 +151,7 @@ class ProfileFragment : Fragment() {
         val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateBio = binding.tfBio.text.toString()
             .toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val updateName = binding.tfFullName.text.toString()
+        val updateName = binding.tfName.text.toString()
             .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateEmail = binding.tfEmail.text.toString()
             .toRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -223,7 +210,6 @@ class ProfileFragment : Fragment() {
         )
 
         viewModelProfile.updateImageProfile(id, bodyImage)
-
     }
 
     private fun updateFileProfile() {
@@ -250,7 +236,6 @@ class ProfileFragment : Fragment() {
             "jobseekerResume", files.name.trim(), requestFile
         )
         viewModelProfile.updateFileProfile(id, bodyFile)
-
     }
 
     //clean resource to avoid memory leaks
@@ -299,17 +284,16 @@ class ProfileFragment : Fragment() {
             updateFileProfile()
             resumeAlertDialog.dismiss()
         }
-
     }
 
     private fun saveProfile() {
-        binding.tflName.helperText = validName()
+        binding.tilName.helperText = validName()
         binding.tflAddress.helperText = validAddress()
         binding.tflProfession.helperText = validProfession()
         binding.tflSkill.helperText = validSkill()
         binding.tflResume.helperText = validCv()
 
-        val validName = binding.tflName.helperText == null
+        val validName = binding.tilName.helperText == null
         val validAddress = binding.tflAddress.helperText == null
         val validProfession = binding.tflProfession.helperText == null
         val validSkill = binding.tflSkill.helperText == null
@@ -319,7 +303,6 @@ class ProfileFragment : Fragment() {
             updateProfile()
         else
             invalidForm()
-
     }
 
     //function open gallery
@@ -359,23 +342,25 @@ class ProfileFragment : Fragment() {
     private fun invalidForm() {
         AlertDialog.Builder(activity)
             .setTitle("Invalid Form")
-            .setMessage("Complete your profile form !")
-            .setPositiveButton("Okay"){ _,_ ->
+            .setMessage("Complete your profile form!")
+            .setPositiveButton("OK"){ _,_ ->
                 // do nothing
             }
             .show()
     }
 
     private fun fullnameFocusListener() {
-        binding.tfFullName.setOnFocusChangeListener { _, focused ->
+        binding.tfName.setOnFocusChangeListener { _, focused ->
             if (!focused) {
-                binding.tflName.helperText = validName()
+                binding.tilName.helperText = validName()
+            } else {
+                binding.tilName.isHelperTextEnabled = false
             }
         }
     }
 
     private fun validName(): String? {
-        val nameText = binding.tfFullName.text.toString()
+        val nameText = binding.tfName.text.toString()
         if (nameText.isEmpty()) {
             return "Enter your full name"
         }
@@ -478,8 +463,9 @@ class ProfileFragment : Fragment() {
             alertLogout.setTitle("Confirm Logout")
             alertLogout.setMessage("Are you sure want to logout?")
             alertLogout.setPositiveButton("Sure", { dialog: DialogInterface?, which: Int ->
-                var intentLogin = Intent(activity, SplashScreenActivity::class.java)
+                var intentLogin = Intent(activity, LoginActivity::class.java)
                 startActivity(intentLogin)
+                activity?.finish()
             })
             alertLogout.setNegativeButton("Cancel", { dialog: DialogInterface?, which: Int -> })
             alertLogout.show()

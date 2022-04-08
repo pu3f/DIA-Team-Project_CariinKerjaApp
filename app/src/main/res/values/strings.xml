@@ -61,4 +61,7 @@
     <string name="helperName">*Required</string>
     <string name="fileRequired1">File format .pdf or .png</string>
     <string name="hintResume">Upload here</string>
+    <string name="requireTitle">Password suggestion example:</string>
+    <string name="btnSignUp">Sign Up</string>
+    <string name="pinRequired">p4ssW*rd</string>
 </resources>

@@ -17,7 +17,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class ApplyViewModel : ViewModel(){
-    private val listApply = MutableLiveData<ApplyResponse>()
+    val listApply = MutableLiveData<ApplyResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
 

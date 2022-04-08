@@ -28,7 +28,8 @@ interface AppRepository {
     ): Single<ProfileResponse>
 
     fun getJobById(
-        @Path("jobId") id: Int?
+        @Query("jobId") jobId: Int?,
+        @Query("jobseekerId") jobseekerId: Int?,
     ): Single<JobByIdResponse>
 
     fun postLogin(

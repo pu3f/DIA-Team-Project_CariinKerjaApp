@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/statusSent"
                 android:fontFamily="sans-serif-black"
-                android:textColor="@color/green"
+                android:textColor="@color/medium_blue"
                 android:layout_marginTop="4dp"/>
 
 

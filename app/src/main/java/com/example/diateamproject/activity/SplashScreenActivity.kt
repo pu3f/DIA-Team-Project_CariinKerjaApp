@@ -1,6 +1,5 @@
 package com.example.diateamproject.activity
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle

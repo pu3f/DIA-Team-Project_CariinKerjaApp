@@ -1,7 +1,7 @@
 package com.example.diateamproject.model.alljobs
 
 data class Data(
-    val createdAt: Long,
+    val createdAt: String,
     val jobAddress: String,
     val jobDesc: String,
     val jobId: Int,

@@ -15,14 +15,12 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.diateamproject.R
 import com.example.diateamproject.databinding.FragmentApplyDialogBinding
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.util.URIPathHelper
 import com.example.diateamproject.viewmodel.ApplicationStatusViewModel
 import com.example.diateamproject.viewmodel.ApplyViewModel
-import com.example.diateamproject.viewmodel.JobDetailViewModel
 import com.example.diateamproject.viewmodel.ProfileViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -34,6 +32,7 @@ class ApplyDialogFragment: DialogFragment() {
     private var _binding: FragmentApplyDialogBinding? = null
     private val binding get() = _binding!!
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+    var onApplied: (() -> Unit)? = null
     private val viewModelApply: ApplyViewModel by lazy {
         ViewModelProviders.of(this).get(ApplyViewModel::class.java)
     }
@@ -65,8 +64,6 @@ class ApplyDialogFragment: DialogFragment() {
 
         binding.btnJustApply.setOnClickListener {
             applyJob()
-            setObserver()
-            dismiss()
         }
 
         binding.tvUpdateCv.setOnClickListener {
@@ -78,25 +75,34 @@ class ApplyDialogFragment: DialogFragment() {
             updateResume()
             Toast.makeText(activity, "Resume Updated", Toast.LENGTH_LONG).show()
         }
-
+        setObserver()
     }
 
     private fun setObserver() {
-        viewModelApply.responseApply().observe(viewLifecycleOwner, Observer {
-            Log.d("testStatus", "=====status")
-            viewModelApplication.getApplicationStatus(userId)
-            Toast.makeText(activity, "Success Applied", Toast.LENGTH_LONG).show()
+        viewModelApply.listApply.observe(this, Observer {
+            test()
+            onApplied?.let {
+                it()
+            }
+            dismiss()
         })
     }
 
     private fun applyJob() {
         val idJob = activity?.intent?.getIntExtra("jobId", 0)
         val jobId = idJob.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val jobaseekerId =
+        val jobseekerId =
             userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
         Log.d("testApply", "=====$idJob")
-        viewModelApply.postApply(jobId, jobaseekerId)
+        viewModelApply.postApply(jobId, jobseekerId)
+        Log.d("testStatus", "=====apply")
+    }
+
+    private fun test() {
+        Log.d("testStatus", "=====status")
+        viewModelApplication.getApplicationStatus(userId)
+        context?.let { Toast.makeText(it, "Success Applied", Toast.LENGTH_LONG).show() }
+        Log.d("testToast", "=====toastApply")
     }
 
     private fun openDirectory() {
@@ -165,5 +171,4 @@ class ApplyDialogFragment: DialogFragment() {
         }
             return result
         }
-
 }
