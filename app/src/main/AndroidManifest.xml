@@ -12,12 +12,30 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectDIA"
         android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
         tools:targetApi="m">
+        <activity
+            android:name=".activity.ResetPasswordActivity"
+            android:exported="true">
+            <intent-filter android:label="ResetPassword">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="www.cariinkerja.com"
+                    android:scheme="http"
+                    android:path="/api/v1/jobseeker"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.RecentJobActivity"
             android:exported="false" />
@@ -32,12 +50,11 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activity.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

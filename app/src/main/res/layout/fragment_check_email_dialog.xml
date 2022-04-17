@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_view"
+    tools:context=".fragment.CheckEmailDialogFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvDialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="@string/checkEmailTitle"
+            android:textColor="@color/dark_black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/checkEmailMessage"
+            android:textAlignment="center"
+            android:textColor="@color/dark_black"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_btn_secondary"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            android:textColor="@color/blue_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/checkEmailInstruction"
+            android:textAlignment="center"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvTryAnotherAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/checkEmailInstruction1"
+            android:textAlignment="center"
+            android:textColor="@color/blue_primary"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

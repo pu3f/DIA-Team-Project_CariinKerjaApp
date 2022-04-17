@@ -1,9 +1,9 @@
-package com.example.diateamproject.model.updateprofile
+package com.example.diateamproject.model.profile
 
-data class Data(
+data class DataProfile(
     val jobseekerAbout: String,
     val jobseekerAddress: String,
-    val jobseekerDateOfBirth: Long,
+    val jobseekerDateOfBirth: String,
     val jobseekerEducation: String,
     val jobseekerEmail: String,
     val jobseekerId: Int,

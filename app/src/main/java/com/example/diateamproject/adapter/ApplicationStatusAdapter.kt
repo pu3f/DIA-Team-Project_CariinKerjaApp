@@ -12,21 +12,21 @@ import com.example.diateamproject.R
 import com.example.diateamproject.databinding.CardApplicationBinding
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.applicationstatus.Data
+import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
+import com.example.diateamproject.model.applyjobstatus.Content
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.ViewHolder>() {
 
-    var applicationList = arrayListOf<Data>()
+    var applicationList = arrayListOf<Content>()
     private var context: Context? = null
     private val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
 
     inner class ViewHolder(val binding: CardApplicationBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
-        init {}
-
-        override fun onClick(p0: View?) {
-
+        RecyclerView.ViewHolder(binding.root) {
+        init {
         }
     }
 
@@ -43,13 +43,19 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                 binding.tvJobPosition.text = jobName
                 binding.tvCompanyName.text = recruiterCompany
                 binding.tvLocation.text = recruiterAddress
+
                 binding.tvStatus.text = applicationStatus.capitalize()
                 if (applicationStatus.equals("accepted")) {
-                    binding.tvStatus.setTextColor(ContextCompat.getColor(context!!,R.color.green))
-                }else if (applicationStatus.equals("rejected")) {
-                binding.tvStatus.setTextColor(ContextCompat.getColor(context!!,android.R.color.holo_red_dark))
-            }
-                val dateString= simpleDateFormat.format(createdAt)
+                    binding.tvStatus.setTextColor(ContextCompat.getColor(context!!, R.color.green))
+                } else if (applicationStatus.equals("rejected")) {
+                    binding.tvStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context!!,
+                            android.R.color.holo_red_dark
+                        )
+                    )
+                }
+                val dateString = simpleDateFormat.format(createdAt)
                 binding.tvPostDate.text = String.format("%s", dateString)
                 Glide.with(context!!)
                     .load("http://54.255.4.75:9091/resources/$recruiterImage")
@@ -61,8 +67,13 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
     override fun getItemCount() = applicationList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun initData(lists: ApplicationStatusResponse){
-        this.applicationList = lists
+    fun initData(applyLists: ArrayList<Content>){
+        this.applicationList = applyLists
+        notifyDataSetChanged()
+    }
+
+    fun clear(){
+        applicationList.clear()
         notifyDataSetChanged()
     }
 

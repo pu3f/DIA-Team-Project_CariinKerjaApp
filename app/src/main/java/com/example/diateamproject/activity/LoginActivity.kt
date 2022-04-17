@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityLoginBinding
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
@@ -36,6 +37,11 @@ class LoginActivity : AppCompatActivity() {
         binding.tvSignup.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.tvForgotPin.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+            finish()
         }
     }
 

@@ -4,11 +4,15 @@ import com.example.diateamproject.data.remote.AppRemoteDataSource
 import com.example.diateamproject.model.alljobs.AllJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
+import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
+import com.example.diateamproject.model.emailresetpassword.EmailResetPasswordResponse
 import com.example.diateamproject.model.jobbyid.JobByIdResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
+import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
+import com.example.diateamproject.model.verifyresetpassword.VerifyResetPasswordResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -37,6 +41,18 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         return remoteDataSource.getJobById(jobId, jobseekerId)
     }
 
+    override fun getApplyJobStatus(
+        jobseekerId: Int?,
+        page: Int?,
+        size: Int?
+    ): Single<ApplyJobStatusResponse> {
+        return remoteDataSource.getApplyJobStatus(jobseekerId, page, size)
+    }
+
+    override fun getVerifyResetPassword(token: String?): Single<VerifyResetPasswordResponse> {
+        return remoteDataSource.getVerifyResetPassword(token)
+    }
+
     override fun postLogin(
         jobseekerEmail: String?,
         jobseekerPassword: String?
@@ -52,19 +68,31 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         return remoteDataSource.postRegister(jobseekerName, jobseekerEmail, jobseekerPassword)
     }
 
+    override fun postEmailResetPassword(jobseekerEmail: String?): Single<EmailResetPasswordResponse> {
+        return remoteDataSource.postEmailResetPassword(jobseekerEmail)
+    }
+
+    override fun postResetPassword(
+        email: String?,
+        password: String?,
+        confirmPassword: String?
+    ): Single<ResetPasswordResponse> {
+        return remoteDataSource.postResetPassword(email, password, confirmPassword)
+    }
+
     override fun updateProfile(
-        jobseekerId: RequestBody,
-        jobseekerAbout: RequestBody,
-        jobseekerName: RequestBody,
-        jobseekerEmail: RequestBody,
-        jobseekerPhone: RequestBody,
-        jobseekerDateOfBirth: RequestBody,
-        jobseekerAddress: RequestBody,
-        jobseekerEducation: RequestBody,
-        jobseekerProfession: RequestBody,
-        jobseekerPortfolio: RequestBody,
-        jobseekerSkill: RequestBody,
-        jobseekerMedsos: RequestBody
+        jobseekerId: Int?,
+        jobseekerAbout: String?,
+        jobseekerName: String?,
+        jobseekerEmail: String?,
+        jobseekerPhone: String?,
+        jobseekerDateOfBirth: String?,
+        jobseekerAddress: String?,
+        jobseekerEducation: String?,
+        jobseekerProfession: String?,
+        jobseekerPortfolio: String?,
+        jobseekerSkill: String?,
+        jobseekerMedsos: String?
     ): Single<UpdateProfileResponse> {
         return remoteDataSource.updateProfile(
             jobseekerId,

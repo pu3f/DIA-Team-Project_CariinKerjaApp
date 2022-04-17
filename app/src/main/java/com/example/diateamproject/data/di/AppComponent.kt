@@ -15,4 +15,6 @@ interface AppComponent {
     fun injectView(profileViewModel: ProfileViewModel)
     fun injectView(applyViewModel: ApplyViewModel)
     fun injectView(jobDetailViewModel: JobDetailViewModel)
+    fun injectView(emailResetPasswordViewModel: EmailResetPasswordViewModel)
+    fun injectView(resetPasswordViewModel: ResetPasswordViewModel)
 }

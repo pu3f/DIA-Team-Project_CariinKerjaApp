@@ -5,10 +5,9 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.ApplyDialogFragment"
-    android:background="@drawable/bg_edit_text"
+    android:background="@drawable/bg_dialog_view"
     android:orientation="vertical"
-    android:padding="10dp"
-    >
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/ivClose"

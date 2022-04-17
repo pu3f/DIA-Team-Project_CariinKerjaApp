@@ -1,11 +1,13 @@
 package com.example.diateamproject.activity
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.AttributeSet
 import android.util.Patterns
 import android.view.View
 import androidx.lifecycle.Observer

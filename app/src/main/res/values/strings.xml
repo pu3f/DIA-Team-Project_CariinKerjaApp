@@ -61,7 +61,24 @@
     <string name="helperName">*Required</string>
     <string name="fileRequired1">File format .pdf or .png</string>
     <string name="hintResume">Upload here</string>
-    <string name="requireTitle">Password suggestion example:</string>
+    <string name="requireTitle">Password suggestion:</string>
     <string name="btnSignUp">Sign Up</string>
     <string name="pinRequired">p4ssW*rd</string>
+    <string name="fpinTitle">Forgot your password?</string>
+    <string name="fpinInstruction">Enter your registered email to recieve password reset instruction</string>
+    <string name="send">Send Email</string>
+    <string name="hintNewPin">New password</string>
+    <string name="hintConfirmPin">Confirm new password</string>
+    <string name="requirePin">Both password must match</string>
+    <string name="submit">Submit</string>
+    <string name="rpinTitle">Reset password</string>
+    <string name="rpinInstruction">Please make sure your new password must be different from previous user password.</string>
+    <string name="checkEmailTitle">Check your email</string>
+    <string name="checkEmailMessage">We have sent a password recovery instruction to your registered email.</string>
+    <string name="ok">OK</string>
+    <string name="checkEmailInstruction">Did not receive the email? check you spam folder or</string>
+    <string name="checkEmailInstruction1">try another email address</string>
+    <string name="successAlert">Successfull</string>
+    <string name="successMessage">Nice! You’ve succesfully updated your password</string>
+    <string name="backLogin">Go back to Login</string>
 </resources>

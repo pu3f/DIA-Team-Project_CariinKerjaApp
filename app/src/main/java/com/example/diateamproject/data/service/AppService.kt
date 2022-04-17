@@ -1,13 +1,18 @@
 package com.example.diateamproject.data.service
 
 import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
+import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
+import com.example.diateamproject.model.emailresetpassword.EmailResetPasswordResponse
 import com.example.diateamproject.model.jobbyid.JobByIdResponse
 import com.example.diateamproject.model.login.LoginResponse
 import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
+import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
+import com.example.diateamproject.model.verifyresetpassword.VerifyResetPasswordResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,6 +33,51 @@ interface AppService {
         @Query("jobseekerPassword") jobseekerPassword: String?
     ): Single<RegisterResponse>
 
+    @POST("api/v1/jobseeker/reset?")
+    fun postEmailResetPassword(
+        @Query("jobseekerEmail") jobseekerEmail: String?
+    ): Single<EmailResetPasswordResponse>
+
+    @POST("api/v1/jobseeker/change-password?")
+    fun postResetPassword(
+        @Query("email") email: String?,
+        @Query("password") password: String?,
+        @Query("confirmPassword") confirmPassword: String?
+    ): Single<ResetPasswordResponse>
+
+    @GET("api/v1/jobseeker/job?")
+    fun getJobById(
+        @Query("jobId") jobId: Int?,
+        @Query("jobseekerId") jobseekerId: Int?
+    ): Single<JobByIdResponse>
+
+    @GET("api/v1/jobseeker/pagination?")
+    fun getAllPostingJob(
+        @Query("page") page: Int?,
+        @Query("size") size: Int?
+    ): Single<AllPostingJobsResponse>
+
+    @GET("api/v1/jobseeker/verify?")
+    fun getVerifyResetPassword(
+        @Query("token") token: String?
+    ): Single<VerifyResetPasswordResponse>
+
+    @PATCH("api/v1/jobseeker/user/update?")
+    fun updateProfile(
+        @Query("jobseekerId") jobseekerId: Int?,
+        @Query("jobseekerAbout") jobseekerAbout: String?,
+        @Query("jobseekerName") jobseekerName: String?,
+        @Query("jobseekerEmail") jobseekerEmail: String?,
+        @Query("jobseekerPhone") jobseekerPhone: String?,
+        @Query("jobseekerDateOfBirth") jobseekerDateOfBirth: String?,
+        @Query("jobseekerAddress") jobseekerAddress: String?,
+        @Query("jobseekerEducation") jobseekerEducation: String?,
+        @Query("jobseekerProfession") jobseekerProfession: String?,
+        @Query("jobseekerPortfolio") jobseekerPortfolio: String?,
+        @Query("jobseekerSkill") jobseekerSkill: String?,
+        @Query("jobseekerMedsos") jobseekerMedsos: String?
+    ): Single<UpdateProfileResponse>
+
     //request URL
     @GET("api/v1/jobseeker/jobs")
     fun getAllJobs(): Single<AllJobsResponse>
@@ -46,30 +96,14 @@ interface AppService {
         @Path("jobseekerId") id: Int?
     ): Single<ProfileResponse>
 
-    @GET("api/v1/jobseeker/job?")
-    fun getJobById(
-        @Query("jobId") jobId: Int?,
-        @Query("jobseekerId") jobseekerId: Int?,
-    ): Single<JobByIdResponse>
+    @GET("api/v1/jobseeker/apply/{jobseekerId}?")
+    fun getApplyJobStatus(
+        @Path("jobseekerId") jobseekerId: Int?,
+        @Query("page") page: Int?,
+        @Query("size") size: Int?
+    ): Single<ApplyJobStatusResponse>
 
-    // request multipart
-    @Multipart
-    @PATCH("api/v1/jobseeker/user/update")
-    fun updateProfile(
-        @Part("jobseekerId") jobseekerId: RequestBody,
-        @Part("jobseekerAbout") jobseekerAbout: RequestBody,
-        @Part("jobseekerName") jobseekerName: RequestBody,
-        @Part("jobseekerEmail") jobseekerEmail: RequestBody,
-        @Part("jobseekerPhone") jobseekerPhone: RequestBody,
-        @Part("jobseekerDateOfBirth") jobseekerDateOfBirth: RequestBody,
-        @Part("jobseekerAddress") jobseekerAddress: RequestBody,
-        @Part("jobseekerEducation") jobseekerEducation: RequestBody,
-        @Part("jobseekerProfession") jobseekerProfession: RequestBody,
-        @Part("jobseekerPortfolio") jobseekerPortfolio: RequestBody,
-        @Part("jobseekerSkill") jobseekerSkill: RequestBody,
-        @Part("jobseekerMedsos") jobseekerMedsos: RequestBody
-    ): Single<UpdateProfileResponse>
-
+    // request multipart - body [form-data]
     @Multipart
     @POST("api/v1/jobseeker/user/update/image")
     fun updateImageProfile(

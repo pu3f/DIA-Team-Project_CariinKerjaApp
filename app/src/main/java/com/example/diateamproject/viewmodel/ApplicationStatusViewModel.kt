@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diateamproject.data.di.DaggerAppComponent
 import com.example.diateamproject.data.repository.AppRepository
-import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
+import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +15,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class ApplicationStatusViewModel : ViewModel() {
-    private val allList = MutableLiveData<ApplicationStatusResponse>()
+    private val allList = MutableLiveData<ApplyJobStatusResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
 
@@ -26,19 +26,15 @@ class ApplicationStatusViewModel : ViewModel() {
         DaggerAppComponent.create().injectView(this)
     }
 
-    fun getApplicationStatus(id: Int) {
+    fun getApplyJobStatus(jobseekerId: Int, page: Int, size: Int) {
         compositeDisposable.add(
-            repository.getApplicationStatus(id)
+            repository.getApplyJobStatus(jobseekerId, page, size)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ApplicationStatusResponse>() {
-                    override fun onSuccess(t: ApplicationStatusResponse) {
-                        if (t.isNotEmpty()) {
-                            allList.value = t
-                            Log.d("testJob", "notError = " + t.toString())
-                        } else {
-                            isError.value = true
-                        }
+                .subscribeWith(object : DisposableSingleObserver<ApplyJobStatusResponse>() {
+                    override fun onSuccess(t: ApplyJobStatusResponse) {
+                        allList.value = t
+                        Log.d("testJob", "notError = " + t.toString())
                     }
 
                     override fun onError(e: Throwable) {
@@ -49,7 +45,7 @@ class ApplicationStatusViewModel : ViewModel() {
                             val gson = Gson()
                             val error = gson.fromJson(
                                 errorBody?.string(),
-                                ApplicationStatusResponse::class.java
+                                ApplyJobStatusResponse::class.java
                             )
                             Log.d("testJobError", "Error = " + error)
                         }
@@ -58,7 +54,7 @@ class ApplicationStatusViewModel : ViewModel() {
         )
     }
 
-    fun allListResponse(): MutableLiveData<ApplicationStatusResponse> {
+    fun allListResponse(): MutableLiveData<ApplyJobStatusResponse> {
         return allList
     }
 

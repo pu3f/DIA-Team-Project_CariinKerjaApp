@@ -82,7 +82,8 @@ class JobDetailsActivity : AppCompatActivity() {
                 .placeholder(R.drawable.ic_placeholder_list)
                 .into(binding.ivCompanyLogo)
             val applicationStatus = it.data.applicationStatus
-            binding.btnApply.isEnabled = applicationStatus == "rejected" || false
+            binding.btnApply.isEnabled =
+                !(applicationStatus == "sent" || applicationStatus == "accepted" || applicationStatus == "screening")
         })
     }
 }

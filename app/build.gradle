@@ -101,4 +101,7 @@ dependencies {
     // fragment
     implementation('androidx.fragment:fragment-ktx:1.4.0-alpha02')
 
+    //swipe refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 }

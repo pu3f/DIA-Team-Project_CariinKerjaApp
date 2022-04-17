@@ -60,18 +60,18 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun updateProfile(
-        jobseekerId: RequestBody,
-        jobseekerAbout: RequestBody,
-        jobseekerName: RequestBody,
-        jobseekerEmail: RequestBody,
-        jobseekerPhone: RequestBody,
-        jobseekerDateOfBirth: RequestBody,
-        jobseekerAddress: RequestBody,
-        jobseekerEducation: RequestBody,
-        jobseekerProfession: RequestBody,
-        jobseekerPortfolio: RequestBody,
-        jobseekerSkill: RequestBody,
-        jobseekerMedsos: RequestBody
+        jobseekerId: Int?,
+        jobseekerAbout: String?,
+        jobseekerName: String?,
+        jobseekerEmail: String?,
+        jobseekerPhone: String?,
+        jobseekerDateOfBirth: String?,
+        jobseekerAddress: String?,
+        jobseekerEducation: String?,
+        jobseekerProfession: String?,
+        jobseekerPortfolio: String?,
+        jobseekerSkill: String?,
+        jobseekerMedsos: String?
     ) {
         compositeDisposable.add(
             repository.updateProfile(

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -33,14 +35,17 @@ class ApplyDialogFragment: DialogFragment() {
     private val binding get() = _binding!!
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
     var onApplied: (() -> Unit)? = null
+    private val REQUEST_FILE = 2
+    private var selectedPdfUri: Uri? = null
+    var page = 0
+    var size = 0
     private val viewModelApply: ApplyViewModel by lazy {
         ViewModelProviders.of(this).get(ApplyViewModel::class.java)
     }
     private val viewModelApplication: ApplicationStatusViewModel by lazy {
         ViewModelProviders.of(this).get(ApplicationStatusViewModel::class.java)
     }
-    private val REQUEST_FILE = 2
-    private var selectedPdfUri: Uri? = null
+
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -52,6 +57,8 @@ class ApplyDialogFragment: DialogFragment() {
     ): View? {
         _binding = FragmentApplyDialogBinding.inflate(inflater, container, false)
         val view = binding.root
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.setCancelable(false)
         return view
     }
 
@@ -100,7 +107,7 @@ class ApplyDialogFragment: DialogFragment() {
 
     private fun test() {
         Log.d("testStatus", "=====status")
-        viewModelApplication.getApplicationStatus(userId)
+        viewModelApplication.getApplyJobStatus(userId, page, size)
         context?.let { Toast.makeText(it, "Success Applied", Toast.LENGTH_LONG).show() }
         Log.d("testToast", "=====toastApply")
     }

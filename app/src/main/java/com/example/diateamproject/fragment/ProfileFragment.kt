@@ -6,6 +6,8 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -49,7 +51,6 @@ class ProfileFragment : Fragment() {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +58,12 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
+        return view
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // call function requestPermission from menu activity
         (activity as MenuActivity).requestPermission()
@@ -68,14 +75,10 @@ class ProfileFragment : Fragment() {
         binding.tfCV.setOnClickListener {
             updateResume()
         }
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.tfCV.setHint("Upload here")
         viewModelProfile.getProfile(userId)
+        Log.d("profileId", "$userId======getProfile")
         setObserver()
 
         binding.btnSaveProfile.setOnClickListener {
@@ -97,17 +100,17 @@ class ProfileFragment : Fragment() {
 
     private fun setObserver() {
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
-            binding.tfBio.setText(it.jobseekerAbout)
-            binding.tfName.setText(it.jobseekerName)
-            binding.tfEmail.setText(it.jobseekerEmail)
-            binding.tfPhone.setText(it.jobseekerPhone)
-            binding.tfAddress.setText(it.jobseekerAddress)
-            binding.tfDegree.setText(it.jobseekerEducation)
-            binding.tfSkill.setText(it.jobseekerSkill)
-            binding.tfProfession.setText(it.jobseekerProfession)
-            binding.tfSosmed.setText(it.jobseekerMedsos)
-            binding.tfPorto.setText(it.jobseekerPortfolio)
-            val dateProfile = it.jobseekerDateOfBirth
+            binding.tfBio.setText(it.data.jobseekerAbout)
+            binding.tfName.setText(it.data.jobseekerName)
+            binding.tfEmail.setText(it.data.jobseekerEmail)
+            binding.tfPhone.setText(it.data.jobseekerPhone)
+            binding.tfAddress.setText(it.data.jobseekerAddress)
+            binding.tfDegree.setText(it.data.jobseekerEducation)
+            binding.tfSkill.setText(it.data.jobseekerSkill)
+            binding.tfProfession.setText(it.data.jobseekerProfession)
+            binding.tfSosmed.setText(it.data.jobseekerMedsos)
+            binding.tfPorto.setText(it.data.jobseekerPortfolio)
+            val dateProfile = it.data.jobseekerDateOfBirth
             binding.tfBirth.setText(dateProfile)
 
             fullnameFocusListener()
@@ -117,10 +120,10 @@ class ProfileFragment : Fragment() {
             resumeFocusListener()
 
             //get image from profile response
-            if (it.jobseekerImage != null) {
-                Log.i("xxload", "xxload ${it.jobseekerImage}")
+            if (it.data.jobseekerImage != null) {
+                Log.i("xxload", "xxload ${it.data.jobseekerImage}")
                 Glide.with(requireContext())
-                    .load(Path.IMAGE_URL + it.jobseekerImage)
+                    .load(Path.IMAGE_URL + it.data.jobseekerImage)
                     .centerCrop()
                     .into(binding.ivProfile)
                 binding.tvPickImage.isGone = true
@@ -128,7 +131,7 @@ class ProfileFragment : Fragment() {
                 Log.i("xxpick", "xxpick")
                 binding.tvPickImage.isGone = false
             }
-            val resumeFile = it.jobseekerResume
+            val resumeFile = it.data.jobseekerResume
             binding.tfCV.setText(resumeFile)
         })
 
@@ -147,30 +150,18 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateProfile() {
-        //parse input text to request body
-        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val id = userId
         val updateBio = binding.tfBio.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateName = binding.tfName.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateEmail = binding.tfEmail.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updatePhone = binding.tfPhone.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateAddress = binding.tfAddress.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateDateOfBirth = binding.tfBirth.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateEducation = binding.tfDegree.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateProfession = binding.tfProfession.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updatePortfolio = binding.tfPorto.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateSkill = binding.tfSkill.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val updateMedsos = binding.tfSosmed.text.toString()
-            .toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         viewModelProfile.updateProfile(
             id,
@@ -273,6 +264,8 @@ class ProfileFragment : Fragment() {
         val btnChoose = resumeDialogView.findViewById<Button>(R.id.btnChooseCv)
         val btnUpdate = resumeDialogView.findViewById<Button>(R.id.btnUpdate)
         val resumeAlertDialog = resumeBuilder.show()
+        resumeAlertDialog.setCancelable(false)
+        resumeAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         btnClose.setOnClickListener {
             resumeAlertDialog.dismiss()
