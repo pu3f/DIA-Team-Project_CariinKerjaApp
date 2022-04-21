@@ -34,11 +34,11 @@ class ApplicationStatusViewModel : ViewModel() {
                 .subscribeWith(object : DisposableSingleObserver<ApplyJobStatusResponse>() {
                     override fun onSuccess(t: ApplyJobStatusResponse) {
                         allList.value = t
-                        Log.d("testJob", "notError = " + t.toString())
+                        Log.d("testStatus", "notError = " + t.toString())
                     }
 
                     override fun onError(e: Throwable) {
-                        Log.d("testJobError", "Error = " + e.toString())
+                        Log.d("testStatus", "Error = " + e.toString())
                         isError.value = true
                         if (e is HttpException) {
                             val errorBody = (e as HttpException).response()?.errorBody()

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.adapter.ApplicationStatusAdapter
 import com.example.diateamproject.databinding.FragmentApplicationBinding
 import com.example.diateamproject.model.applyjobstatus.Content
+import com.example.diateamproject.util.EndlessScrollingRecyclerView
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.ApplicationStatusViewModel
@@ -28,9 +30,14 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private val adapter = ApplicationStatusAdapter()
     var applyArray: ArrayList<Content> = ArrayList<Content>()
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-    private var page = 1
-    private var size = 1
-    private var totalPage = 1
+
+    //request
+    private var page = 0
+    private var size = 10
+
+    //response
+    private var totalPage = 0
+    private var isLastPage = false
     private var isLoading = false
     var layoutManager: RecyclerView.LayoutManager? = null
     private val viewModelApplication: ApplicationStatusViewModel by lazy {
@@ -49,66 +56,92 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListApplication.layoutManager = layoutManager
         binding.swipeRefresh.setOnRefreshListener(this)
-        getApplyJobStatus(false)
-        binding.rvListApplication.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val visibleItemCount = layoutManager.childCount
-                val pastVisibleItem = layoutManager.findFirstVisibleItemPosition()
-                val total = adapter.itemCount
-                if (!isLoading && page < totalPage) {
-                    if (visibleItemCount + pastVisibleItem >= total) {
-                        page++
-                        getApplyJobStatus(false)
-                    }
-                }
-                super.onScrolled(recyclerView, dx, dy)
-            }
-        })
 
-        viewModelApplication.getApplyJobStatus(userId, page, size)
-        setObserver()
+        var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
+            override fun onLoadMore(totalItemsCount: Int, recyclerView: RecyclerView) {
+                if (!isLastPage) {
+                    page++
+                    Log.d("listStatus", "page")
+                    doLoadData()
+                }
+            }
+        }
+        binding.rvListApplication.addOnScrollListener(scrollListener)
+        getApplyJobStatus(false)
 
         binding.ivBack.setOnClickListener {
             val intent = Intent(requireContext(), MenuActivity::class.java)
             startActivity(intent)
         }
+
+        doLoadData()
+        setObserver()
     }
 
     private fun getApplyJobStatus(isOnRefresh: Boolean) {
         isLoading = true
         if (!isOnRefresh) binding.progressBar.visibility = View.VISIBLE
+        viewModelApplication.getApplyJobStatus(userId, page, size)
     }
 
     private fun setObserver() {
         viewModelApplication.allListResponse().observe(viewLifecycleOwner, Observer {
             page = it.pageable.pageSize
             totalPage = it.totalPages
+            isLastPage = it.last
+
             if (it != null) {
+                Log.d("listStatus", "if11")
                 binding.rvListApplication.setHasFixedSize(true)
                 binding.rvListApplication.adapter = adapter
-                Log.d("listapp", "if22")
+            }
+
+            if (page != 0) {
+                Log.d("listStatus", "if22")
+                adapter.applicationList.addAll(
+                    it.content as ArrayList<Content>
+                )
+                adapter.notifyDataSetChanged()
+                adapter.notifyItemRangeChanged(
+                    adapter.applicationList.size - it.content.size,
+                    adapter.applicationList.size
+                )
+            } else {
+                binding.rvListApplication.adapter = adapter
+                Log.d("listStatus", "if33")
                 adapter.initData(it.content as ArrayList<Content>)
-                binding.tvJobList.visibility = View.GONE
-                binding.tvApplyNow.visibility = View.GONE
             }
-            if (page == totalPage) {
+            if (isLastPage) {
                 binding.progressBar.visibility = View.GONE
-            }else {
-                binding.progressBar.visibility = View.VISIBLE
-                isLoading = false
-                binding.swipeRefresh.isRefreshing = false
-                binding.tvJobList.visibility = View.VISIBLE
-                binding.tvApplyNow.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.INVISIBLE
             }
+            if (adapter.itemCount == 0) {
+                binding.rvListApplication.visibility = View.GONE
+                binding.llNoApplication.visibility = View.VISIBLE
+
+            } else {
+                binding.rvListApplication.visibility = View.VISIBLE
+                binding.llNoApplication.visibility = View.GONE
+            }
+            isLoading = false
+            binding.swipeRefresh.isRefreshing = false
         })
+    }
+
+    private fun doLoadData() {
+        applyArray = adapter.applicationList
+        Log.d("this array", "ne" + applyArray)
+        viewModelApplication.getApplyJobStatus(userId, page, size)
     }
 
     override fun onRefresh() {
         adapter.clear()
-        page = 1
+        page = 0
         getApplyJobStatus(true)
     }
 }

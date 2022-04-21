@@ -1,6 +1,6 @@
 package com.example.diateamproject.data.service
 
-import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.alljobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
@@ -80,10 +80,10 @@ interface AppService {
 
     //request URL
     @GET("api/v1/jobseeker/jobs")
-    fun getAllJobs(): Single<AllJobsResponse>
+    fun getAllJobs(): Single<RecentJobsResponse>
 
     @GET("api/v1/jobseeker/recent")
-    fun getRecentJobs(): Single<AllJobsResponse>
+    fun getRecentJobs(): Single<RecentJobsResponse>
 
     //request URL path {}
     @GET("api/v1/jobseeker/apply/status/{jobseekerId}")

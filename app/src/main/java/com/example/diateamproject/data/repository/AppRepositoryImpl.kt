@@ -1,7 +1,8 @@
 package com.example.diateamproject.data.repository
 
 import com.example.diateamproject.data.remote.AppRemoteDataSource
-import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
@@ -21,11 +22,11 @@ import javax.inject.Inject
 class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRemoteDataSource) :
     AppRepository {
 
-    override fun getAllJobs(): Single<AllJobsResponse> {
+    override fun getAllJobs(): Single<RecentJobsResponse> {
         return remoteDataSource.getAllJobs()
     }
 
-    override fun getRecentJobs(): Single<AllJobsResponse> {
+    override fun getRecentJobs(): Single<RecentJobsResponse> {
         return remoteDataSource.getRecentJobs()
     }
 
@@ -51,6 +52,10 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
 
     override fun getVerifyResetPassword(token: String?): Single<VerifyResetPasswordResponse> {
         return remoteDataSource.getVerifyResetPassword(token)
+    }
+
+    override fun getAllPostingJob(page: Int?, size: Int?): Single<AllPostingJobsResponse> {
+        return remoteDataSource.getAllPostingJob(page, size)
     }
 
     override fun postLogin(

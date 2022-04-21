@@ -30,7 +30,6 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
         setContentView(binding.root)
 
         binding.etEmail.onFocusChangeListener = this
-
         binding.btnSend.setOnClickListener {
             viewModel.postEmailResetPassword(
                 binding.etEmail.text.toString()
@@ -48,7 +47,10 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
         viewModel.listResponse().observe(this, Observer {
             if (validateEmail()) {
                 checkEmail()
+                var intent = Intent(this, ResetPasswordActivity::class.java)
+                intent.putExtra("data", it.data)
             }
+            Toast.makeText(this, "must fill the form", Toast.LENGTH_LONG).show()
         })
 
         viewModel.getIsError().observe(this, Observer {
@@ -77,7 +79,7 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
     override fun onFocusChange(view: View?, hasFocus: Boolean) {
         if (view != null) {
             when (view.id) {
-                R.id.etName -> {
+                R.id.etEmail -> {
                     if (hasFocus) {
                         if (binding.tilEmail.isErrorEnabled) {
                             binding.tilEmail.isErrorEnabled = false

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diateamproject.data.di.DaggerAppComponent
 import com.example.diateamproject.data.repository.AppRepository
-import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.alljobs.RecentJobsResponse
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +15,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class RecentJobViewModel : ViewModel() {
-    private val allList = MutableLiveData<AllJobsResponse>()
+    private val recentList = MutableLiveData<RecentJobsResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
 
@@ -31,10 +31,10 @@ class RecentJobViewModel : ViewModel() {
             repository.getRecentJobs()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<AllJobsResponse>() {
-                    override fun onSuccess(t: AllJobsResponse) {
+                .subscribeWith(object : DisposableSingleObserver<RecentJobsResponse>() {
+                    override fun onSuccess(t: RecentJobsResponse) {
                         if (t.isNotEmpty()) {
-                            allList.value = t
+                            recentList.value = t
                             Log.d("testJob", "notError = " + t.toString())
                         } else {
                             isError.value = true
@@ -49,7 +49,7 @@ class RecentJobViewModel : ViewModel() {
                             val gson = Gson()
                             val error = gson.fromJson(
                                 errorBody?.string(),
-                                AllJobsResponse::class.java
+                                RecentJobsResponse::class.java
                             )
                             Log.d("testJobError", "Error = " + error)
                         }
@@ -59,8 +59,8 @@ class RecentJobViewModel : ViewModel() {
     }
 
 
-    fun allListResponse(): MutableLiveData<AllJobsResponse> {
-        return allList
+    fun recentListResponse(): MutableLiveData<RecentJobsResponse> {
+        return recentList
     }
 
     fun getIsError(): MutableLiveData<Boolean> {

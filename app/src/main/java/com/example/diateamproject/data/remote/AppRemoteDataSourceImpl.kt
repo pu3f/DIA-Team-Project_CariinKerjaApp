@@ -1,7 +1,8 @@
 package com.example.diateamproject.data.remote
 
 import com.example.diateamproject.data.service.AppService
-import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
@@ -21,11 +22,11 @@ import javax.inject.Inject
 class AppRemoteDataSourceImpl @Inject constructor(private val service: AppService) :
     AppRemoteDataSource {
 
-    override fun getAllJobs(): Single<AllJobsResponse> {
+    override fun getAllJobs(): Single<RecentJobsResponse> {
         return service.getAllJobs()
     }
 
-    override fun getRecentJobs(): Single<AllJobsResponse> {
+    override fun getRecentJobs(): Single<RecentJobsResponse> {
         return service.getRecentJobs()
     }
 
@@ -51,6 +52,10 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
 
     override fun getVerifyResetPassword(token: String?): Single<VerifyResetPasswordResponse> {
         return service.getVerifyResetPassword(token)
+    }
+
+    override fun getAllPostingJob(page: Int?, size: Int?): Single<AllPostingJobsResponse> {
+        return service.getAllPostingJob(page,size)
     }
 
     override fun postLogin(

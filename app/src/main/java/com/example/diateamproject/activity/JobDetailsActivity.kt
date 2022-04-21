@@ -18,12 +18,16 @@ import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.JobDetailViewModel
 import com.google.android.material.tabs.TabLayout
+import java.text.NumberFormat
+import java.util.*
 
 class JobDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJobDetailsBinding
     private val idJob : Int by lazy { intent!!.getIntExtra("jobId", 0) }
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+    private val localeId = Locale("in", "ID")
+    private val currencyFormatter = NumberFormat.getCurrencyInstance(localeId)
     private val viewModelJobDetail: JobDetailViewModel by lazy {
         ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
     }
@@ -76,7 +80,10 @@ class JobDetailsActivity : AppCompatActivity() {
             binding.tvCreateAt.text = date
             val companyImage = it.data.recruiterImage
             binding.tvJobType.text = it.data.jobPosition
-            binding.tvJobsalary.text = it.data.jobSalary.toString()
+            val salary = it.data.jobSalary
+            val salaryFormat = currencyFormatter.format(salary.toDouble())
+            binding.tvJobsalary.text =
+                salaryFormat.replace("Rp", "IDR ", true).substringBefore(",")
             Glide.with(this)
                 .load("http://54.255.4.75:9091/resources/$companyImage")
                 .placeholder(R.drawable.ic_placeholder_list)

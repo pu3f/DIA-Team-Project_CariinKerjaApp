@@ -1,6 +1,7 @@
 package com.example.diateamproject.data.repository
 
-import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
@@ -20,8 +21,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AppRepository {
-    fun getAllJobs(): Single<AllJobsResponse>
-    fun getRecentJobs(): Single<AllJobsResponse>
+    fun getAllJobs(): Single<RecentJobsResponse>
+    fun getRecentJobs(): Single<RecentJobsResponse>
 
     fun getApplicationStatus(
         @Path("jobseekerId") id: Int?
@@ -45,6 +46,11 @@ interface AppRepository {
     fun getVerifyResetPassword(
         @Query("token") token: String?
     ): Single<VerifyResetPasswordResponse>
+
+    fun getAllPostingJob(
+        @Query("page") page: Int?,
+        @Query("size") size: Int?
+    ): Single<AllPostingJobsResponse>
 
     fun postLogin(
         @Query("jobseekerEmail") jobseekerEmail: String?,

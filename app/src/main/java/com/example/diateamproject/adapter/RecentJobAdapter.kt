@@ -10,35 +10,36 @@ import com.bumptech.glide.Glide
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.CardJobBinding
 import com.example.diateamproject.listener.OnItemClickListener
-import com.example.diateamproject.model.allpostingjobs.Content
+import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.alljobs.Data
 import com.example.diateamproject.util.Path
 
-class AllJobAdapter : RecyclerView.Adapter<AllJobAdapter.ViewHolder>() {
-    var allJobList = arrayListOf<Content>()
+class RecentJobAdapter : RecyclerView.Adapter<RecentJobAdapter.ViewHolder>() {
+    var recentJobList = arrayListOf<Data>()
     private var context: Context? = null
     var onSelectedItemListener : OnItemClickListener? = null
 
     inner class ViewHolder(val binding: CardJobBinding) :
-    RecyclerView.ViewHolder(binding.root), View.OnClickListener{
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onSelectedItemListener?.onItemClick(it, layoutPosition)
-//                onItemClickListener?.let { it(allJobList[adapterPosition].jobId) }
             }
         }
 
         override fun onClick(p0: View?) {}
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllJobAdapter.ViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-        return  ViewHolder(
+        return ViewHolder(
             CardJobBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: AllJobAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            with(allJobList[position]) {
+            with(recentJobList[position]) {
                 binding.tvJobPosition.text = jobName
                 binding.tvCompanyName.text = recruiterCompany
                 binding.tvLocation.text = jobAddress
@@ -53,28 +54,17 @@ class AllJobAdapter : RecyclerView.Adapter<AllJobAdapter.ViewHolder>() {
         }
     }
 
-    override fun getItemCount() = allJobList.size
-
-//    private var onItemClickListener: ((Int) -> Unit)? = null
-//
-//    fun setOnItemClickListener(listener: (Int) -> Unit) {
-//        onItemClickListener = listener
-//    }
-
-    fun setOnClickItemListener(OnClickItemListener: OnItemClickListener) {
-        this.onSelectedItemListener = OnClickItemListener
-    }
+    override fun getItemCount() = recentJobList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun initData(jobLists: ArrayList<Content>) {
-        this.allJobList = jobLists
+    fun initData(lists: RecentJobsResponse) {
+        this.recentJobList = lists
         notifyDataSetChanged()
     }
 
-    fun clear(){
-        allJobList.clear()
-        notifyDataSetChanged()
+    fun setOnClickItemListener(OnClickItemListener:OnItemClickListener) {
+        this.onSelectedItemListener = OnClickItemListener
     }
-
-
 }
+
+

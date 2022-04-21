@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diateamproject.activity.JobDetailsActivity
 import com.example.diateamproject.activity.RecentJobActivity
-import com.example.diateamproject.adapter.AllJobAdapter
+import com.example.diateamproject.adapter.RecentJobAdapter
 import com.example.diateamproject.databinding.FragmentHomeBinding
 import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.util.PrefsLogin
@@ -25,7 +25,7 @@ class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter = AllJobAdapter()
+    private val adapter = RecentJobAdapter()
     private val viewModelRecent: RecentJobViewModel by lazy {
         ViewModelProviders.of(this).get(RecentJobViewModel::class.java)
     }
@@ -65,7 +65,7 @@ class HomeFragment : Fragment(){
     }
 
     private fun setObserver() {
-        viewModelRecent.allListResponse().observe(viewLifecycleOwner, Observer {
+        viewModelRecent.recentListResponse().observe(viewLifecycleOwner, Observer {
             binding.rvListJob.adapter = adapter
             Log.d("listapp", "if22")
             adapter.initData(it)
@@ -83,7 +83,7 @@ class HomeFragment : Fragment(){
         adapter.setOnClickItemListener(object : OnItemClickListener {
             override fun onItemClick(item: View, position: Int) {
                 Intent(requireContext(), JobDetailsActivity::class.java).also {
-                    it.putExtra("jobId", adapter.list[position].jobId)
+                    it.putExtra("jobId", adapter.recentJobList[position].jobId)
                     startActivity(it)
                 }
             }

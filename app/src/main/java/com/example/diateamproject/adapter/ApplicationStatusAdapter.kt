@@ -19,7 +19,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.ViewHolder>() {
-
     var applicationList = arrayListOf<Content>()
     private var context: Context? = null
     private val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
@@ -59,6 +58,7 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                 binding.tvPostDate.text = String.format("%s", dateString)
                 Glide.with(context!!)
                     .load("http://54.255.4.75:9091/resources/$recruiterImage")
+                    .placeholder(R.drawable.ic_placeholder_list)
                     .into(binding.ivJob)
             }
         }

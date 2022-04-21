@@ -61,9 +61,9 @@
     <string name="helperName">*Required</string>
     <string name="fileRequired1">File format .pdf or .png</string>
     <string name="hintResume">Upload here</string>
-    <string name="requireTitle">Password suggestion:</string>
+    <string name="requireTitle">Password required:</string>
     <string name="btnSignUp">Sign Up</string>
-    <string name="pinRequired">p4ssW*rd</string>
+    <string name="pinRequired">8 character</string>
     <string name="fpinTitle">Forgot your password?</string>
     <string name="fpinInstruction">Enter your registered email to recieve password reset instruction</string>
     <string name="send">Send Email</string>
@@ -81,4 +81,8 @@
     <string name="successAlert">Successfull</string>
     <string name="successMessage">Nice! You’ve succesfully updated your password</string>
     <string name="backLogin">Go back to Login</string>
+    <string name="pinRequired1">1 upper-case [A-Z]</string>
+    <string name="pinRequired2">1 lowwer-case [a-z]</string>
+    <string name="pinRequired3">1 symbol/special caharacter</string>
+    <string name="noJob">No Job Available</string>
 </resources>

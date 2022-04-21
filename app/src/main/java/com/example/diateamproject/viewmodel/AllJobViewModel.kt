@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diateamproject.data.di.DaggerAppComponent
 import com.example.diateamproject.data.repository.AppRepository
-import com.example.diateamproject.model.alljobs.AllJobsResponse
+import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +15,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class AllJobViewModel : ViewModel() {
-    private val allList = MutableLiveData<AllJobsResponse>()
+    private val allJobList = MutableLiveData<AllPostingJobsResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
 
@@ -26,19 +26,15 @@ class AllJobViewModel : ViewModel() {
         DaggerAppComponent.create().injectView(this)
     }
 
-    fun getAllJobs() {
+    fun getAllJobs(page: Int, size: Int) {
         compositeDisposable.add(
-            repository.getAllJobs()
+            repository.getAllPostingJob(page, size)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<AllJobsResponse>() {
-                    override fun onSuccess(t: AllJobsResponse) {
-                        if (t.isNotEmpty()) {
-                            allList.value = t
-                            Log.d("testJob", "notError = " + t.toString())
-                        } else {
-                            isError.value = true
-                        }
+                .subscribeWith(object : DisposableSingleObserver<AllPostingJobsResponse>() {
+                    override fun onSuccess(t: AllPostingJobsResponse) {
+                        allJobList.value = t
+                        Log.d("testJob", "notError = " + t.toString())
                     }
 
                     override fun onError(e: Throwable) {
@@ -49,7 +45,7 @@ class AllJobViewModel : ViewModel() {
                             val gson = Gson()
                             val error = gson.fromJson(
                                 errorBody?.string(),
-                                AllJobsResponse::class.java
+                                AllPostingJobsResponse::class.java
                             )
                             Log.d("testJobError", "Error = " + error)
                         }
@@ -58,8 +54,8 @@ class AllJobViewModel : ViewModel() {
         )
     }
 
-    fun allListResponse(): MutableLiveData<AllJobsResponse> {
-        return allList
+    fun allListResponse(): MutableLiveData<AllPostingJobsResponse> {
+        return allJobList
     }
 
     fun getIsError(): MutableLiveData<Boolean> {

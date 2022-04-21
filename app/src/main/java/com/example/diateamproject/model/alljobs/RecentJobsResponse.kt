@@ -1,3 +1,3 @@
 package com.example.diateamproject.model.alljobs
 
-class AllJobsResponse : ArrayList<Data>()
+class RecentJobsResponse : ArrayList<Data>()
