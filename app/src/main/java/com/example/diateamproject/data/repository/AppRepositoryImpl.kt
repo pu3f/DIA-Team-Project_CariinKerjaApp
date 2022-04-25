@@ -13,7 +13,7 @@ import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
-import com.example.diateamproject.model.verifyresetpassword.VerifyResetPasswordResponse
+import com.example.diateamproject.model.searchjob.SearchJobResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,10 +48,6 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         size: Int?
     ): Single<ApplyJobStatusResponse> {
         return remoteDataSource.getApplyJobStatus(jobseekerId, page, size)
-    }
-
-    override fun getVerifyResetPassword(token: String?): Single<VerifyResetPasswordResponse> {
-        return remoteDataSource.getVerifyResetPassword(token)
     }
 
     override fun getAllPostingJob(page: Int?, size: Int?): Single<AllPostingJobsResponse> {
@@ -115,7 +111,7 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         )
     }
 
-    override fun getSearchJob(keyword: String?): Single<JobByIdResponse> {
+    override fun getSearchJob(keyword: String?): Single<SearchJobResponse> {
         return remoteDataSource.getSearchJob(keyword)
     }
 

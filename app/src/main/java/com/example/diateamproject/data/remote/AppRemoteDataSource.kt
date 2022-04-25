@@ -12,7 +12,7 @@ import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
-import com.example.diateamproject.model.verifyresetpassword.VerifyResetPasswordResponse
+import com.example.diateamproject.model.searchjob.SearchJobResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -41,10 +41,6 @@ interface AppRemoteDataSource {
         @Query("page") page: Int?,
         @Query("size") size: Int?
     ): Single<ApplyJobStatusResponse>
-
-    fun getVerifyResetPassword(
-        @Query("token") token: String?
-    ): Single<VerifyResetPasswordResponse>
 
     fun getAllPostingJob(
         @Query("page") page: Int?,
@@ -89,7 +85,7 @@ interface AppRemoteDataSource {
 
     fun getSearchJob(
         @Query("keyword") keyword: String?,
-    ): Single<JobByIdResponse>
+    ): Single<SearchJobResponse>
 
     fun updateImageProfile(
         @Part("jobseekerId") jobseekerId: RequestBody,

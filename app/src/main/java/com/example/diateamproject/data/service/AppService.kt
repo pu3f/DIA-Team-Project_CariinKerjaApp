@@ -12,7 +12,7 @@ import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
-import com.example.diateamproject.model.verifyresetpassword.VerifyResetPasswordResponse
+import com.example.diateamproject.model.searchjob.SearchJobResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -57,10 +57,6 @@ interface AppService {
         @Query("size") size: Int?
     ): Single<AllPostingJobsResponse>
 
-    @GET("api/v1/jobseeker/verify?")
-    fun getVerifyResetPassword(
-        @Query("token") token: String?
-    ): Single<VerifyResetPasswordResponse>
 
     @PATCH("api/v1/jobseeker/user/update?")
     fun updateProfile(
@@ -81,7 +77,7 @@ interface AppService {
     @GET("api/v1/jobseeker/search?")
     fun getSearchJob(
         @Query("keyword") keyword: String?,
-    ): Single<JobByIdResponse>
+    ): Single<SearchJobResponse>
 
     //request URL
     @GET("api/v1/jobseeker/jobs")
