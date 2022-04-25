@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diateamproject.data.di.DaggerAppComponent
 import com.example.diateamproject.data.repository.AppRepository
-import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
+import com.example.diateamproject.model.searchjob.SearchJobResponse
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,8 +14,8 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class RecentJobViewModel : ViewModel() {
-    private val recentList = MutableLiveData<RecentJobsResponse>()
+class SearchJobViewModel : ViewModel() {
+    private val listJobs = MutableLiveData<SearchJobResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
 
@@ -26,47 +26,42 @@ class RecentJobViewModel : ViewModel() {
         DaggerAppComponent.create().injectView(this)
     }
 
-    fun getRecentJobs() {
+    fun getSearchJob(keyword: String) {
         compositeDisposable.add(
-            repository.getRecentJobs()
+            repository.getSearchJob(keyword)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<RecentJobsResponse>() {
-                    override fun onSuccess(t: RecentJobsResponse) {
-                        if (t.isNotEmpty()) {
-                            recentList.value = t
-                            Log.d("testJob", "notError = " + t.toString())
+                .subscribeWith(object : DisposableSingleObserver<SearchJobResponse>() {
+                    override fun onSuccess(t: SearchJobResponse) {
+                        if (t.code == 200) {
+                            listJobs.value = t
+                            Log.d("testEmail", "notError = " + t.toString())
                         } else {
                             isError.value = true
                         }
                     }
 
                     override fun onError(e: Throwable) {
-                        Log.d("testJobError", "Error = " + e.toString())
                         isError.value = true
                         if (e is HttpException) {
                             val errorBody = (e as HttpException).response()?.errorBody()
                             val gson = Gson()
                             val error = gson.fromJson(
                                 errorBody?.string(),
-                                RecentJobsResponse::class.java
+                                SearchJobResponse::class.java
                             )
-                            Log.d("testJobError", "Error = " + error)
+                            Log.d("testEmailError", "error = "+ error)
                         }
                     }
                 })
         )
     }
 
-
-    fun recentListResponse(): MutableLiveData<RecentJobsResponse> {
-        return recentList
+    fun listJobs(): MutableLiveData<SearchJobResponse> {
+        return listJobs
     }
 
     fun getIsError(): MutableLiveData<Boolean> {
         return isError
     }
-
 }
-
-

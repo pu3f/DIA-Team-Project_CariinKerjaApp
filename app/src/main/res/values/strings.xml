@@ -75,7 +75,7 @@
     <string name="rpinInstruction">Please make sure your new password must be different from previous user password.</string>
     <string name="checkEmailTitle">Check your email</string>
     <string name="checkEmailMessage">We have sent a password recovery instruction to your registered email.</string>
-    <string name="ok">OK</string>
+    <string name="ok">Got It</string>
     <string name="checkEmailInstruction">Did not receive the email? check you spam folder or</string>
     <string name="checkEmailInstruction1">try another email address</string>
     <string name="successAlert">Successfull</string>
@@ -85,4 +85,5 @@
     <string name="pinRequired2">1 lowwer-case [a-z]</string>
     <string name="pinRequired3">1 symbol/special caharacter</string>
     <string name="noJob">No Job Available</string>
+    <string name="searchJob">Search job here</string>
 </resources>

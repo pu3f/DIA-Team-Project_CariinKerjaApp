@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.CardJobBinding
 import com.example.diateamproject.listener.OnItemClickListener
-import com.example.diateamproject.model.alljobs.RecentJobsResponse
-import com.example.diateamproject.model.alljobs.Data
+import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
+import com.example.diateamproject.model.recentpostingjobs.Jobs
 import com.example.diateamproject.util.Path
 
 class RecentJobAdapter : RecyclerView.Adapter<RecentJobAdapter.ViewHolder>() {
-    var recentJobList = arrayListOf<Data>()
+    var recentJobList = arrayListOf<Jobs>()
     private var context: Context? = null
     var onSelectedItemListener : OnItemClickListener? = null
 

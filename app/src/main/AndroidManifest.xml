@@ -19,20 +19,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".activity.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ResetPasswordActivity"
             android:exported="true">
             <intent-filter android:label="ResetPassword">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="www.cariinkerja.com"
-                    android:scheme="http"
-                    android:path="/api/v1/jobseeker"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                    android:path="/api/v1/jobseeker"
+                    android:scheme="http" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:exported="false" />

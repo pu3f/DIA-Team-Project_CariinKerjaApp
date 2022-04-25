@@ -51,18 +51,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvHello" />
 
-                <SearchView
+                <Button
+                    android:id="@+id/btnSearchHome"
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:background="@drawable/bg_searchbar"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvSearchTitle"
-                    android:iconifiedByDefault="false"
-                    android:queryHint="@string/searchHere"
-                    android:textAlignment="textStart"/>
+                    android:fontFamily="sans-serif"
+                    android:text="@string/searchHere"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textAlignment="textStart"
+                    android:drawableLeft="@drawable/ic_search"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -24,7 +24,7 @@ import java.util.*
 class JobDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJobDetailsBinding
-    private val idJob : Int by lazy { intent!!.getIntExtra("jobId", 0) }
+    private val idJob: Int by lazy { intent!!.getIntExtra("jobId", 0) }
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
     private val localeId = Locale("in", "ID")
     private val currencyFormatter = NumberFormat.getCurrencyInstance(localeId)
@@ -48,8 +48,8 @@ class JobDetailsActivity : AppCompatActivity() {
         val detailJobAdapter = DetailJobAdapter(supportFragmentManager)
 
         //call addFragment Method
-        detailJobAdapter.addFragment(DescriptionFragment(),"Job")
-        detailJobAdapter.addFragment(CompanyFragment(),"Company")
+        detailJobAdapter.addFragment(DescriptionFragment(), "Job")
+        detailJobAdapter.addFragment(CompanyFragment(), "Company")
 
         //set adapter to viewPager
         viewPager.adapter = detailJobAdapter
@@ -60,13 +60,10 @@ class JobDetailsActivity : AppCompatActivity() {
             dialog.onApplied = {
                 binding.btnApply.isEnabled = false
             }
-            dialog.show(supportFragmentManager,"applyDialog")
+            dialog.show(supportFragmentManager, "applyDialog")
         }
 
-        binding.ivBack.setOnClickListener {
-            val intent = Intent(this, RecentJobActivity::class.java)
-            startActivity(intent)
-        }
+        binding.ivBack.setOnClickListener { onBackPressed() }
     }
 
     private fun setObserver() {

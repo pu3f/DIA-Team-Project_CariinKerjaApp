@@ -22,7 +22,6 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private val adapter = AllJobAdapter()
     private var page = 0
     private var size = 10
-    private var totalPage = 0
     private var isLastPage = false
     private var isLoading = false
     var jobArray: ArrayList<Content> = ArrayList<Content>()
@@ -43,6 +42,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             override fun onLoadMore(totalItemsCount: Int, recyclerView: RecyclerView) {
                 if (!isLastPage) {
                     page++
+                    Log.d("testPage", "$page")
                     doLoadData()
                 }
             }
@@ -50,37 +50,30 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         binding.rvListJob.addOnScrollListener(scrollListener)
         doLoadData()
         setObserver()
-
         action()
 
         binding.ivBack.setOnClickListener { onBackPressed() }
-
-//        adapter.setOnItemClickListener {
-//            Intent(this@RecentJobActivity, JobDetailsActivity::class.java).also {
-//                it.putExtra("jobId", adapter.allJobList[position].jobId)
-//                startActivity(it)
-//            }
-//
-//        }
     }
 
     private fun getAllJobs(isOnRefresh: Boolean) {
         isLoading = true
         if (!isOnRefresh) binding.pbjobs.visibility = View.VISIBLE
+        var page = page++
         viewModelAllJob.getAllJobs(page, size)
+        Log.d("testJobPage", "$page")
     }
 
     private fun doLoadData() {
         jobArray = adapter.allJobList
         Log.d("this array", "ja" + jobArray)
         viewModelAllJob.getAllJobs(page, size)
+//        binding.rvListJob.scrollTo(0,10)
     }
 
     private fun setObserver() {
         viewModelAllJob.allListResponse().observe(this, Observer {
-            page = it.pageable.pageSize
-            totalPage = it.totalPages
             isLastPage = it.last
+//            page = it.pageable.pageNumber
 
             if (it != null) {
                 Log.d("listjob", "if11")
@@ -99,7 +92,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                     adapter.allJobList.size
                 )
             } else {
-                Log.d("listjob", "if33")
+                Log.d("listjob", "if33 $page")
                 binding.rvListJob.setHasFixedSize(true)
                 binding.rvListJob.adapter = adapter
                 adapter.initData(it.content as ArrayList<Content>)
@@ -128,6 +121,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         page = 0
         getAllJobs(true)
     }
+
     private fun action() {
         adapter.setOnClickItemListener(object : OnItemClickListener {
             override fun onItemClick(item: View, position: Int) {

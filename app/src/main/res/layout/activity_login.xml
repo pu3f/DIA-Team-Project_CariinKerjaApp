@@ -12,7 +12,7 @@
         android:id="@+id/llLogoLogin"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="?actionBarSize"
         android:orientation="horizontal">
 
         <ImageView
@@ -22,106 +22,115 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llLoginForm"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/llLogoLogin"
-        android:paddingHorizontal="40dp"
-        android:paddingTop="100dp">
+        android:scrollbars="none"
+        android:layout_below="@id/llLogoLogin">
 
-        <TextView
-            android:id="@+id/tvLoginTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/LoginTitle"
-            android:textColor="@color/blue_primary"
-            android:textSize="20sp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <LinearLayout
+            android:id="@+id/llLoginForm"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/hintEmail"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/medium_blue"
-            app:boxBackgroundColor="@color/white">
+            android:layout_height="match_parent"
+            android:layout_below="@id/llLogoLogin"
+            android:paddingHorizontal="40dp"
+            android:paddingTop="?actionBarSize">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmail"
+            <TextView
+                android:id="@+id/tvLoginTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/LoginTitle"
+                android:textColor="@color/blue_primary"
+                android:textSize="20sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/hintEmail"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/medium_blue"
+                app:boxBackgroundColor="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textEmailAddress"
+                    android:paddingHorizontal="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/hintPin"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/medium_blue"
+                app:boxBackgroundColor="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="20dp"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvForgotPin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:inputType="textEmailAddress"
-                android:paddingHorizontal="16dp" />
+                android:text="@string/forgotPin"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/medium_blue"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/hintPin"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/medium_blue"
-            app:boxBackgroundColor="@color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
+            <Button
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:inputType="textPassword"
-                android:paddingHorizontal="16dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_button_primary"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tvForgotPin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/forgotPin"
-            android:textAlignment="viewEnd" />
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/bg_button_primary"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/login"
-            android:textAllCaps="false"
-            android:textSize="16sp" />
-
-        <LinearLayout
-            android:id="@+id/llSignUpLink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvNoAccount"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llSignUpLink"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/NoAccount" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvSignup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/singUp"
-                android:textColor="@color/blue_primary" />
+                <TextView
+                    android:id="@+id/tvNoAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NoAccount" />
+
+                <TextView
+                    android:id="@+id/tvSignup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/singUp"
+                    android:textColor="@color/blue_primary" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

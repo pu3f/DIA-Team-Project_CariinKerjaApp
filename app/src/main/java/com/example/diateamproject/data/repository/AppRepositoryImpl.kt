@@ -1,7 +1,7 @@
 package com.example.diateamproject.data.repository
 
 import com.example.diateamproject.data.remote.AppRemoteDataSource
-import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
@@ -113,6 +113,10 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
             jobseekerSkill,
             jobseekerMedsos
         )
+    }
+
+    override fun getSearchJob(keyword: String?): Single<JobByIdResponse> {
+        return remoteDataSource.getSearchJob(keyword)
     }
 
     override fun updateImageProfile(

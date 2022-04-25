@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -15,6 +16,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityForgotPasswordBinding
 import com.example.diateamproject.fragment.CheckEmailDialogFragment
+import com.example.diateamproject.util.PrefsForgotPassword
+import com.example.diateamproject.util.PrefsForgotPasswordConstant
+import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.viewmodel.EmailResetPasswordViewModel
 import com.example.diateamproject.viewmodel.LoginViewModel
 
@@ -47,10 +51,11 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
         viewModel.listResponse().observe(this, Observer {
             if (validateEmail()) {
                 checkEmail()
-                var intent = Intent(this, ResetPasswordActivity::class.java)
-                intent.putExtra("data", it.data)
+                var userEmail = it.data
+                PrefsForgotPassword.saveString(PrefsForgotPasswordConstant.USEREMAIL, userEmail)
+            } else {
+                Toast.makeText(this, "must fill the form", Toast.LENGTH_LONG).show()
             }
-            Toast.makeText(this, "must fill the form", Toast.LENGTH_LONG).show()
         })
 
         viewModel.getIsError().observe(this, Observer {

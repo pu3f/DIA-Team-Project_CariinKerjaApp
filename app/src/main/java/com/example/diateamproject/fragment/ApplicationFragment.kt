@@ -1,12 +1,14 @@
 package com.example.diateamproject.fragment
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -31,9 +33,9 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     var applyArray: ArrayList<Content> = ArrayList<Content>()
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
 
-    //request
-    private var page = 0
-    private var size = 10
+    //request not private
+    var page = 0
+    var size = 10
 
     //response
     private var totalPage = 0
@@ -54,6 +56,7 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -77,20 +80,21 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             val intent = Intent(requireContext(), MenuActivity::class.java)
             startActivity(intent)
         }
-
         doLoadData()
         setObserver()
     }
 
     private fun getApplyJobStatus(isOnRefresh: Boolean) {
         isLoading = true
-        if (!isOnRefresh) binding.progressBar.visibility = View.VISIBLE
-        viewModelApplication.getApplyJobStatus(userId, page, size)
+        if (isOnRefresh) {
+            binding.progressBar.visibility = View.VISIBLE
+            viewModelApplication.getApplyJobStatus(userId, page, size)
+        }
     }
 
     private fun setObserver() {
         viewModelApplication.allListResponse().observe(viewLifecycleOwner, Observer {
-            page = it.pageable.pageSize
+//            page = it.pageable.pageNumber
             totalPage = it.totalPages
             isLastPage = it.last
 
@@ -101,7 +105,7 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             if (page != 0) {
-                Log.d("listStatus", "if22")
+                Log.d("listStatus", "if123 $page")
                 adapter.applicationList.addAll(
                     it.content as ArrayList<Content>
                 )

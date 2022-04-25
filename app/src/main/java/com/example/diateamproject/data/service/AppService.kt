@@ -1,6 +1,6 @@
 package com.example.diateamproject.data.service
 
-import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
@@ -77,6 +77,11 @@ interface AppService {
         @Query("jobseekerSkill") jobseekerSkill: String?,
         @Query("jobseekerMedsos") jobseekerMedsos: String?
     ): Single<UpdateProfileResponse>
+
+    @GET("api/v1/jobseeker/search?")
+    fun getSearchJob(
+        @Query("keyword") keyword: String?,
+    ): Single<JobByIdResponse>
 
     //request URL
     @GET("api/v1/jobseeker/jobs")

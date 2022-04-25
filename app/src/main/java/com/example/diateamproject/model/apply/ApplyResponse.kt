@@ -2,6 +2,6 @@ package com.example.diateamproject.model.apply
 
 data class ApplyResponse(
     val code: Int,
-    val `data`: Data,
-    val status: String
+    val status: String,
+    val message: String
 )

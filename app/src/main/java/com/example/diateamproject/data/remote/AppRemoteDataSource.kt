@@ -1,6 +1,6 @@
 package com.example.diateamproject.data.remote
 
-import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
@@ -86,6 +86,10 @@ interface AppRemoteDataSource {
         @Query("jobseekerSkill") jobseekerSkill: String?,
         @Query("jobseekerMedsos") jobseekerMedsos: String?
     ): Single<UpdateProfileResponse>
+
+    fun getSearchJob(
+        @Query("keyword") keyword: String?,
+    ): Single<JobByIdResponse>
 
     fun updateImageProfile(
         @Part("jobseekerId") jobseekerId: RequestBody,

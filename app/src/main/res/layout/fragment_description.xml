@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.DescriptionFragment">
+    tools:context=".fragment.DescriptionFragment"
+    android:scrollbars="vertical"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="8dp">
 
     <LinearLayout
         android:id="@+id/llTabDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="8dp"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/jobDesc"
             android:fontFamily="sans-serif-black"
-            android:padding="4dp"
             android:textColor="@color/dark_black"
             android:textSize="16sp"/>
         <TextView
@@ -29,14 +29,14 @@
             android:fontFamily="sans-serif"
             android:padding="8dp"
             android:textColor="@color/dark_black"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:textAlignment="inherit"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/jobRequire"
             android:fontFamily="sans-serif-black"
-            android:padding="4dp"
             android:textColor="@color/dark_black"
             android:textSize="16sp"
             android:layout_marginTop="10dp"/>
@@ -64,11 +64,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="benefit list"
-            android:fontFamily="sans-serif"
             android:padding="8dp"
+            android:fontFamily="sans-serif"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

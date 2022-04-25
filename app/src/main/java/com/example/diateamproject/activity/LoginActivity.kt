@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvForgotPin.setOnClickListener {
-            startActivity(Intent(this, ResetPasswordActivity::class.java))
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
             finish()
         }
     }

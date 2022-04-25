@@ -3,16 +3,19 @@ package com.example.diateamproject.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diateamproject.activity.JobDetailsActivity
 import com.example.diateamproject.activity.RecentJobActivity
+import com.example.diateamproject.activity.SearchActivity
 import com.example.diateamproject.adapter.RecentJobAdapter
 import com.example.diateamproject.databinding.FragmentHomeBinding
 import com.example.diateamproject.listener.OnItemClickListener
@@ -57,6 +60,10 @@ class HomeFragment : Fragment(){
         val username = PrefsLogin.loadString(PrefsLoginConstant.USERNAME, "userName")
         binding.tvHello.text = "Hello, $username".toUpperCase()
         Log.d("data", "not null")
+
+        binding.btnSearchHome.setOnClickListener {
+            startActivity(Intent(requireContext(), SearchActivity::class.java) )
+        }
 
         binding.tvShowMore.setOnClickListener {
             val intent = Intent(requireContext(), RecentJobActivity::class.java)

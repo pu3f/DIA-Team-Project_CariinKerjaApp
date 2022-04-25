@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.diateamproject.R
+import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.ResetPasswordActivity
 import com.example.diateamproject.databinding.FragmentCheckEmailDialogBinding
 
@@ -33,7 +34,7 @@ class CheckEmailDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnOk.setOnClickListener {
-            startActivity(Intent(activity, ResetPasswordActivity::class.java))
+            startActivity(Intent(activity, LoginActivity::class.java))
         }
 
         binding.tvTryAnotherAccount.setOnClickListener {

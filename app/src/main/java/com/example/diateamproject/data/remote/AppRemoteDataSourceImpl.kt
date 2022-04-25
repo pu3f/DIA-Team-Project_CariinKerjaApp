@@ -1,7 +1,7 @@
 package com.example.diateamproject.data.remote
 
 import com.example.diateamproject.data.service.AppService
-import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
@@ -114,6 +114,10 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
             jobseekerSkill,
             jobseekerMedsos
         )
+    }
+
+    override fun getSearchJob(keyword: String?): Single<JobByIdResponse> {
+        return  service.getSearchJob(keyword)
     }
 
     override fun updateImageProfile(

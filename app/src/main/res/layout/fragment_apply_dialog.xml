@@ -52,8 +52,8 @@
             android:padding="10dp"
             android:text="@string/resume"
             android:textColor="@color/dark_black"
-            app:drawableTopCompat="@drawable/ic_file"
-            app:drawableTint="@color/dark_black" />
+            android:drawableTop="@drawable/ic_file"
+            app:drawableTint="@color/dark_black"/>
 
         <Button
             android:id="@+id/btnUpdateCv"

@@ -1,6 +1,6 @@
-package com.example.diateamproject.model.alljobs
+package com.example.diateamproject.model.searchjob
 
-data class Data(
+data class Jobs(
     val createdAt: String,
     val jobAddress: String,
     val jobDesc: String,
@@ -12,5 +12,5 @@ data class Data(
     val jobStatus: String,
     val recruiterCompany: String,
     val recruiterDesc: String,
-    val recruiterImage: String?
+    val recruiterImage: String
 )

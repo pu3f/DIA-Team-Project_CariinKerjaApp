@@ -39,8 +39,12 @@ class ProfileViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<ProfileResponse>() {
                     override fun onSuccess(t: ProfileResponse) {
-                        responseProfile.value = t
-                        Log.d("testProfile", "notError = " + t.toString())
+                        if (t.code == 200) {
+                            responseProfile.value = t
+                            Log.d("testProfile", "notError = " + t.toString())
+                        } else {
+                            isError.value = true
+                        }
                     }
 
                     override fun onError(e: Throwable) {

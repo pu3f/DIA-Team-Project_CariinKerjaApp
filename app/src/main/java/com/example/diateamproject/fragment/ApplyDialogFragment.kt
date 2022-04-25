@@ -14,6 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -80,18 +82,28 @@ class ApplyDialogFragment: DialogFragment() {
 
         binding.btnUpdateCv.setOnClickListener {
             updateResume()
-            Toast.makeText(activity, "Resume Updated", Toast.LENGTH_LONG).show()
         }
         setObserver()
     }
 
     private fun setObserver() {
-        viewModelApply.listApply.observe(this, Observer {
-            test()
+        viewModelApply.responseApply().observe(this, Observer {
+            viewModelProfile.responseProfile().observe(this, Observer {
+                //resume null condition
+                if (it.data.jobseekerResume.isNullOrEmpty()) {
+                    Toast.makeText(activity, "Upload resume first", Toast.LENGTH_LONG).show()
+                } else {
+                    test()
+                }
+            })
             onApplied?.let {
                 it()
             }
             dismiss()
+        })
+
+        viewModelProfile.listResponseFile().observe(this, Observer {
+            Toast.makeText(activity, "Resume Updated", Toast.LENGTH_LONG).show()
         })
     }
 
@@ -125,6 +137,7 @@ class ApplyDialogFragment: DialogFragment() {
             selectedPdfUri = data?.data
             Log.i("xxfile", "$selectedPdfUri ==try")
             binding.tvUpdateCv.text = selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf(':')+1)
+            binding.tvUpdateCv.setCompoundDrawables(null,null,null,null)
         }
     }
 

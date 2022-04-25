@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +14,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityResetPasswordBinding
 import com.example.diateamproject.fragment.SuccessfullDialogFragment
+import com.example.diateamproject.util.PrefsForgotPasswordConstant
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.ResetPasswordViewModel
 import com.pixplicity.easyprefs.library.Prefs
 
 class ResetPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
     private lateinit var binding: ActivityResetPasswordBinding
-    private var email = Prefs.getString(PrefsLoginConstant.EMAIL, "")
+    private var email = Prefs.getString(PrefsForgotPasswordConstant.USEREMAIL, "")
     private val viewModel: ResetPasswordViewModel by lazy {
         ViewModelProviders.of(this).get(ResetPasswordViewModel::class.java)
     }
@@ -29,7 +31,6 @@ class ResetPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
         binding = ActivityResetPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var email = this.intent.getStringExtra("data").toString()
         //token for sending data to other application
         val tokenUris: String = intent.data?.getQueryParameter("token").toString()
         Toast.makeText(this, "is token $tokenUris", Toast.LENGTH_SHORT).show()
@@ -53,8 +54,9 @@ class ResetPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
             if (validatePasswordMatch()) {
                 val dialog = SuccessfullDialogFragment()
                 dialog.show(supportFragmentManager, "successfullDialog")
+            } else {
+                Toast.makeText(this, "Password didn't match", Toast.LENGTH_LONG).show()
             }
-            Toast.makeText(this, "Password didn't match", Toast.LENGTH_LONG).show()
         })
 
         viewModel.getIsError().observe(this, Observer {

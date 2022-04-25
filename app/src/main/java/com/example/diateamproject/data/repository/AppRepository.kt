@@ -1,6 +1,6 @@
 package com.example.diateamproject.data.repository
 
-import com.example.diateamproject.model.alljobs.RecentJobsResponse
+import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
@@ -12,7 +12,7 @@ import com.example.diateamproject.model.profile.ProfileResponse
 import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
-import com.example.diateamproject.model.verifyresetpassword.VerifyResetPasswordResponse
+import com.example.diateamproject.model.searchjob.SearchJobResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -42,10 +42,6 @@ interface AppRepository {
         @Query("page") page: Int?,
         @Query("size") size: Int?
     ): Single<ApplyJobStatusResponse>
-
-    fun getVerifyResetPassword(
-        @Query("token") token: String?
-    ): Single<VerifyResetPasswordResponse>
 
     fun getAllPostingJob(
         @Query("page") page: Int?,
@@ -87,6 +83,10 @@ interface AppRepository {
         @Query("jobseekerSkill") jobseekerSkill: String?,
         @Query("jobseekerMedsos") jobseekerMedsos: String?
     ): Single<UpdateProfileResponse>
+
+    fun getSearchJob(
+        @Query("keyword") keyword: String?,
+    ): Single<SearchJobResponse>
 
     fun updateImageProfile(
         @Part("jobseekerId") jobseekerId: RequestBody,
