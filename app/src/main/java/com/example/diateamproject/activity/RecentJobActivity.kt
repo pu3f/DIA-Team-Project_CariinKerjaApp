@@ -38,6 +38,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         binding.rvListJob.layoutManager = layoutManager
         binding.srJobList.setOnRefreshListener(this)
         getAllJobs(false)
+
         var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
             override fun onLoadMore(totalItemsCount: Int, recyclerView: RecyclerView) {
                 if (!isLastPage) {
@@ -73,11 +74,10 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private fun setObserver() {
         viewModelAllJob.allListResponse().observe(this, Observer {
             isLastPage = it.last
-//            page = it.pageable.pageNumber
 
             if (it != null) {
                 Log.d("listjob", "if11")
-                binding.rvListJob.setHasFixedSize(true)
+//                binding.rvListJob.setHasFixedSize(true)
                 binding.rvListJob.adapter = adapter
             }
 
@@ -93,7 +93,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 )
             } else {
                 Log.d("listjob", "if33 $page")
-                binding.rvListJob.setHasFixedSize(true)
+//                binding.rvListJob.setHasFixedSize(true)
                 binding.rvListJob.adapter = adapter
                 adapter.initData(it.content as ArrayList<Content>)
             }
@@ -103,6 +103,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             } else {
                 binding.pbjobs.visibility = View.INVISIBLE
             }
+
             if (adapter.itemCount == 0) {
                 binding.rvListJob.visibility = View.GONE
                 binding.llNoJob.visibility = View.VISIBLE

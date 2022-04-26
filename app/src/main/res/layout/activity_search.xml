@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:padding="16dp"
+    android:orientation="vertical"
     tools:context=".activity.SearchActivity">
 
     <RelativeLayout
@@ -23,12 +24,47 @@
             android:id="@+id/srvJob"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_toRightOf="@id/ivBack"
+            android:layout_toEndOf="@id/ivBack"
             android:background="@drawable/bg_searchbar"
             android:iconifiedByDefault="false"
             android:queryBackground="@android:color/transparent"
-            android:queryHint="@string/searchJob" />
+            android:queryHint="@string/searchJob"/>
     </RelativeLayout>
 
+    <ScrollView
+        android:id="@+id/svJobs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvNoJobList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/noJobList"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"
+                android:paddingTop="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="?actionBarSize"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/card_job"
+                android:clipToPadding="false"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </LinearLayout>

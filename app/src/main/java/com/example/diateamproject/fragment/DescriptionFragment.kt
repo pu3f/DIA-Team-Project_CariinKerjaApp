@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentDescriptionBinding
+import com.example.diateamproject.util.ConvertHtml
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.JobDetailViewModel
@@ -17,6 +18,7 @@ class DescriptionFragment : Fragment() {
     private var _binding: FragmentDescriptionBinding? = null
     private val binding get() = _binding!!
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+    val convertHtml = ConvertHtml()
     private val viewModelJobDetail: JobDetailViewModel by lazy {
         ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
     }
@@ -40,9 +42,13 @@ class DescriptionFragment : Fragment() {
 
     private fun setObserver() {
         viewModelJobDetail.listJobResponse().observe(viewLifecycleOwner, Observer {
-            binding.tvJobDescription.text = it.data.jobDesc
-            binding.tvJobRequirement.text = it.data.jobRequirement
-            binding.tvJobBenefit.text = it.data.recruiterBenefit
+            if (it != null) {
+                var desc = it.data.jobDesc
+                var requre = it.data.jobRequirement
+                binding.tvJobDescription.text = convertHtml.convertHtmlString(desc)
+                binding.tvJobRequirement.text = convertHtml.convertHtmlString(requre).replaceFirst(".".toRegex(), "$0")
+                binding.tvJobBenefit.text = it.data.recruiterBenefit
+            }
         })
     }
 

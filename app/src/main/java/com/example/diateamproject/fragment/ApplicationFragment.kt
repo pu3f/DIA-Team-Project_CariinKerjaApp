@@ -9,8 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,32 +54,31 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         return view
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListApplication.layoutManager = layoutManager
         binding.swipeRefresh.setOnRefreshListener(this)
+        getApplyJobStatus(false)
 
         var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
             override fun onLoadMore(totalItemsCount: Int, recyclerView: RecyclerView) {
                 if (!isLastPage) {
                     page++
-                    Log.d("listStatus", "page")
+                    Log.d("listStatus", "$page")
                     doLoadData()
                 }
             }
         }
         binding.rvListApplication.addOnScrollListener(scrollListener)
-        getApplyJobStatus(false)
+        doLoadData()
+        setObserver()
 
         binding.ivBack.setOnClickListener {
             val intent = Intent(requireContext(), MenuActivity::class.java)
             startActivity(intent)
         }
-        doLoadData()
-        setObserver()
     }
 
     private fun getApplyJobStatus(isOnRefresh: Boolean) {
@@ -94,8 +91,6 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun setObserver() {
         viewModelApplication.allListResponse().observe(viewLifecycleOwner, Observer {
-//            page = it.pageable.pageNumber
-            totalPage = it.totalPages
             isLastPage = it.last
 
             if (it != null) {
@@ -119,15 +114,16 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 Log.d("listStatus", "if33")
                 adapter.initData(it.content as ArrayList<Content>)
             }
+
             if (isLastPage) {
                 binding.progressBar.visibility = View.GONE
             } else {
                 binding.progressBar.visibility = View.INVISIBLE
             }
+
             if (adapter.itemCount == 0) {
                 binding.rvListApplication.visibility = View.GONE
                 binding.llNoApplication.visibility = View.VISIBLE
-
             } else {
                 binding.rvListApplication.visibility = View.VISIBLE
                 binding.llNoApplication.visibility = View.GONE

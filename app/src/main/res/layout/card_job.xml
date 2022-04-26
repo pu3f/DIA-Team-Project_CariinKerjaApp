@@ -1,81 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvJob"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:orientation="horizontal"
+    android:outlineSpotShadowColor="@color/blue_primary"
+    android:paddingHorizontal="16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    android:clipToPadding="false">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvJob"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCardList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:outlineSpotShadowColor="@color/blue_primary"
-        android:paddingHorizontal="16dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="12dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clCardList"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/ivJob"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_placeholder_list"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvJobPosition"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/dark_black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/ivJob"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivJob"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_placeholder_list"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvCompanyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/ivJob"
+            app:layout_constraintTop_toBottomOf="@id/tvJobPosition" />
 
-            <TextView
-                android:id="@+id/tvJobPosition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/dark_black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/ivJob"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/ivJob"
+            app:layout_constraintTop_toBottomOf="@id/tvCompanyName" />
 
-            <TextView
-                android:id="@+id/tvCompanyName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textSize="12sp"
-                app:layout_constraintLeft_toRightOf="@id/ivJob"
-                app:layout_constraintTop_toBottomOf="@id/tvJobPosition" />
+        <TextView
+            android:id="@+id/tvPostDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textSize="12sp"
-                app:layout_constraintLeft_toRightOf="@id/ivJob"
-                app:layout_constraintTop_toBottomOf="@id/tvCompanyName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvPostDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

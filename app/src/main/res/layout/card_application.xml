@@ -4,14 +4,13 @@
     android:id="@+id/cvJob"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="10dp"
+    android:layout_marginVertical="8dp"
     android:layout_marginHorizontal="16dp"
     android:paddingHorizontal="16dp"
     android:orientation="horizontal"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="16dp"
     app:cardElevation="3dp"
-    android:clipToPadding="false"
     android:outlineSpotShadowColor="@color/blue_primary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +22,7 @@
             android:id="@+id/ivJob"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/icon_logo"
+            android:src="@drawable/ic_placeholder_list"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -82,11 +81,8 @@
                 android:textColor="@color/medium_blue"
                 android:layout_marginTop="4dp"/>
 
-
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </androidx.cardview.widget.CardView>

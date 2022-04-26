@@ -21,12 +21,10 @@ import kotlin.collections.ArrayList
 class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.ViewHolder>() {
     var applicationList = arrayListOf<Content>()
     private var context: Context? = null
-    private val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
 
     inner class ViewHolder(val binding: CardApplicationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        init {
-        }
+        init {}
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -54,8 +52,8 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                         )
                     )
                 }
-                val dateString = simpleDateFormat.format(createdAt)
-                binding.tvPostDate.text = String.format("%s", dateString)
+                val date = createdAt.substringBefore(" ")
+                binding.tvPostDate.text = date
                 Glide.with(context!!)
                     .load("http://54.255.4.75:9091/resources/$recruiterImage")
                     .placeholder(R.drawable.ic_placeholder_list)

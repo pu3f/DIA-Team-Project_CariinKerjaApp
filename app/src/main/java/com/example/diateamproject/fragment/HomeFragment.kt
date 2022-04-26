@@ -32,9 +32,6 @@ class HomeFragment : Fragment(){
     private val viewModelRecent: RecentJobViewModel by lazy {
         ViewModelProviders.of(this).get(RecentJobViewModel::class.java)
     }
-    private val viewModelJobDetail: JobDetailViewModel by lazy {
-        ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

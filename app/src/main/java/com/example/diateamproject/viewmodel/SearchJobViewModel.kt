@@ -57,7 +57,7 @@ class SearchJobViewModel : ViewModel() {
         )
     }
 
-    fun listJobs(): MutableLiveData<SearchJobResponse> {
+    fun listJobsResponse(): MutableLiveData<SearchJobResponse> {
         return listJobs
     }
 

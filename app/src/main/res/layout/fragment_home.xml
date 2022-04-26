@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".fragment.HomeFragment"
+    android:paddingHorizontal="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -16,7 +17,6 @@
             android:id="@+id/cvGreetings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
             android:paddingVertical="16dp"
             android:background="@drawable/bg_headercard"
@@ -73,44 +73,56 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tvJobList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:textSize="16sp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/JobListTitle"
-            android:textColor="@color/dark_black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvGreetings" />
-
-        <TextView
-            android:id="@+id/tvShowMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="12sp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="sans-serif"
-            android:gravity="end"
-            android:text="@string/Show"
-            android:textColor="@color/blue_primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvGreetings" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvListJob"
+        <RelativeLayout
+            android:id="@+id/llRecentJobTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            app:layout_constraintTop_toBottomOf="@id/tvJobList"
-            tools:listitem="@layout/card_job"
-            tools:itemCount="5"
-            android:paddingBottom="?actionBarSize"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvGreetings">
+
+            <TextView
+                android:id="@+id/tvJobList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/JobListTitle"
+                android:textColor="@color/dark_black"/>
+
+            <TextView
+                android:id="@+id/tvShowMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:text="@string/Show"
+                android:textColor="@color/blue_primary"
+                android:paddingStart="147dp"
+                android:paddingEnd="0dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:listitem="@layout/card_job"
+                tools:itemCount="5"
+                android:paddingBottom="?actionBarSize"
+                android:clipToPadding="false"/>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </FrameLayout>

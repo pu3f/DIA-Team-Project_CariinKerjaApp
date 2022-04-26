@@ -86,4 +86,5 @@
     <string name="pinRequired3">1 symbol/special caharacter</string>
     <string name="noJob">No Job Available</string>
     <string name="searchJob">Search job here</string>
+    <string name="noJobList">Job not found</string>
 </resources>
