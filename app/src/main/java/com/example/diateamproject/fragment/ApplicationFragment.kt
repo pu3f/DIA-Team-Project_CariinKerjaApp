@@ -14,9 +14,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.diateamproject.activity.JobDetailsActivity
 import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.adapter.ApplicationStatusAdapter
 import com.example.diateamproject.databinding.FragmentApplicationBinding
+import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.model.applyjobstatus.Content
 import com.example.diateamproject.util.EndlessScrollingRecyclerView
 import com.example.diateamproject.util.PrefsLogin
@@ -74,6 +76,7 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         binding.rvListApplication.addOnScrollListener(scrollListener)
         doLoadData()
         setObserver()
+        action()
 
         binding.ivBack.setOnClickListener {
             val intent = Intent(requireContext(), MenuActivity::class.java)
@@ -137,6 +140,18 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         applyArray = adapter.applicationList
         Log.d("this array", "ne" + applyArray)
         viewModelApplication.getApplyJobStatus(userId, page, size)
+    }
+
+    private fun action() {
+        adapter.setOnClickItemListener(object : OnItemClickListener {
+            override fun onItemClick(item: View, position: Int) {
+                Intent(requireContext(), JobDetailsActivity::class.java).also {
+                    it.putExtra("jobId", adapter.applicationList[position].jobId)
+                    startActivity(it)
+                }
+            }
+
+        })
     }
 
     override fun onRefresh() {

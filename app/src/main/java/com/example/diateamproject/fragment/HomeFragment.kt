@@ -73,7 +73,6 @@ class HomeFragment : Fragment(){
             binding.rvListJob.adapter = adapter
             Log.d("listapp", "if22")
             adapter.initData(it)
-
         })
     }
 

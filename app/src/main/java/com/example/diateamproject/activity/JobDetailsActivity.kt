@@ -1,9 +1,12 @@
 package com.example.diateamproject.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -66,6 +69,7 @@ class JobDetailsActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener { onBackPressed() }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setObserver() {
         viewModelJobDetail.listJobResponse().observe(this, Observer {
             val jobName = it.data.jobName
@@ -89,8 +93,17 @@ class JobDetailsActivity : AppCompatActivity() {
                 .placeholder(R.drawable.ic_placeholder_list)
                 .into(binding.ivCompanyLogo)
 
-            binding.btnApply.isEnabled =
-                !(applicationStatus == "sent" || applicationStatus == "accepted" || applicationStatus == "screening")
+            if (!(applicationStatus == "sent" || applicationStatus == "accepted" || applicationStatus == "screening")) {
+                binding.btnApply.isEnabled = true
+            } else {
+                binding.btnApply.isEnabled = false
+                binding.btnApply.setText("Your application $applicationStatus")
+                    .apply {
+                        if (this.equals("Sent")) {
+                            binding.btnApply.setBackgroundResource(R.color.medium_blue)
+                        }
+                    }
+            }
         })
     }
 }

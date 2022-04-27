@@ -179,20 +179,16 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
     }
 
     private fun signUpSuccess() {
-        if (validateName() && validateEmail() && validatePassword()){
-        AlertDialog.Builder(this)
-            .setTitle("Sign Up Success")
-            .setMessage("Email verification sent. Check your inbox or spam to verify your email")
-            .setPositiveButton("OK") { _, _ ->
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            }
-            .show()
-        }
-    }
-
-    private fun signUpFailed() {
-        if ((validateEmail() && validateEmail() && validatePassword()) == false) {
+        if (validateName() && validateEmail() && validatePassword()) {
+            AlertDialog.Builder(this)
+                .setTitle("Sign Up Success")
+                .setMessage("Email verification sent. Check your inbox or spam to verify your email")
+                .setPositiveButton("OK") { _, _ ->
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+                .show()
+        } else {
             AlertDialog.Builder(this)
                 .setTitle("Invalid Form")
                 .setMessage("Enter valid data")
@@ -200,14 +196,16 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
                     //do nothing
                 }
                 .show()
-        } else {
-            AlertDialog.Builder(this)
-                .setTitle("Sign Up Failed")
-                .setMessage("User Already Exist, create new account")
-                .setPositiveButton("OK") { _, _ ->
-                    //do nothing
-                }
-                .show()
         }
+    }
+
+    private fun signUpFailed() {
+        AlertDialog.Builder(this)
+            .setTitle("Sign Up Failed")
+            .setMessage("User Already Exist, create new account")
+            .setPositiveButton("OK") { _, _ ->
+                //do nothing
+            }
+            .show()
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.diateamproject.R
 import com.example.diateamproject.databinding.FragmentDescriptionBinding
 import com.example.diateamproject.util.ConvertHtml
 import com.example.diateamproject.util.PrefsLogin
@@ -35,7 +36,7 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val jobId = activity?.intent!!.getIntExtra("jobId",0)
+        val jobId = activity?.intent!!.getIntExtra("jobId", 0)
         viewModelJobDetail.getJobById(jobId, userId)
         setObserver()
     }
@@ -46,7 +47,8 @@ class DescriptionFragment : Fragment() {
                 var desc = it.data.jobDesc
                 var requre = it.data.jobRequirement
                 binding.tvJobDescription.text = convertHtml.convertHtmlString(desc)
-                binding.tvJobRequirement.text = convertHtml.convertHtmlString(requre).replaceFirst(".".toRegex(), "$0")
+                binding.tvJobRequirement.text =
+                    convertHtml.convertHtmlString(requre).replaceFirst(".".toRegex(), "$0")
                 binding.tvJobBenefit.text = it.data.recruiterBenefit
             }
         })

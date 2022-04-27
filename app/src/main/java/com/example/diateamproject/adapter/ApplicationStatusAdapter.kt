@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.CardApplicationBinding
+import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.applicationstatus.Data
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
@@ -21,10 +22,17 @@ import kotlin.collections.ArrayList
 class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.ViewHolder>() {
     var applicationList = arrayListOf<Content>()
     private var context: Context? = null
+    var onSelectedItemListener : OnItemClickListener? = null
 
     inner class ViewHolder(val binding: CardApplicationBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {}
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+        init {
+            binding.tvStatus.setOnClickListener {
+                onSelectedItemListener?.onItemClick(it, layoutPosition)
+            }
+        }
+
+        override fun onClick(p0: View?) {}
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -52,7 +60,7 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                         )
                     )
                 }
-                val date = createdAt.substringBefore(" ")
+                val date = createdAt.substringBefore("T")
                 binding.tvPostDate.text = date
                 Glide.with(context!!)
                     .load("http://54.255.4.75:9091/resources/$recruiterImage")
@@ -68,6 +76,10 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
     fun initData(applyLists: ArrayList<Content>){
         this.applicationList = applyLists
         notifyDataSetChanged()
+    }
+
+    fun setOnClickItemListener(OnClickItemListener:OnItemClickListener) {
+        this.onSelectedItemListener = OnClickItemListener
     }
 
     fun clear(){
