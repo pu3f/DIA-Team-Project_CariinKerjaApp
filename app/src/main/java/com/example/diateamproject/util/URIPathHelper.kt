@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.widget.Toast
 
 class URIPathHelper {
     fun getPath(context: Context, uri: Uri): String? {
@@ -32,6 +33,7 @@ class URIPathHelper {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":".toRegex()).toTypedArray()
                 val type = split[0]
+                Toast.makeText(context, "Type = $type", Toast.LENGTH_SHORT).show()
                 var contentUri: Uri? = null
                 if ("image" == type) {
                     contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -39,7 +41,10 @@ class URIPathHelper {
                     contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
                 } else if ("audio" == type) {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                }else if ("document" == type) {
+                    contentUri = MediaStore.Files.getContentUri("external");
                 }
+
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(split[1])
                 return getDataColumn(context, contentUri, selection, selectionArgs)
@@ -60,7 +65,9 @@ class URIPathHelper {
             cursor = uri?.let { context.getContentResolver().query(it, projection, selection, selectionArgs,null) }
             if (cursor != null && cursor.moveToFirst()) {
                 val column_index: Int = cursor.getColumnIndexOrThrow(column)
-                return cursor.getString(column_index)
+                val filename = cursor.getString(column_index)
+                return filename
+            }else{
             }
         } finally {
             if (cursor != null) cursor.close()

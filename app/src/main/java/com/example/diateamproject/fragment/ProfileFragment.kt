@@ -206,21 +206,11 @@ class ProfileFragment : Fragment() {
     private fun updateFileProfile() {
         val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        //get file path using URI Path Helper function
-        Log.d("pdfuri","$selectedPdfUri")
-        val uriPathHelper = URIPathHelper()
-        var pathFile = ""
-
-        //get file name using getFileName function
-        var tes = getFileName(selectedPdfUri!!)
+        val tes = getFileName(selectedPdfUri!!)
         binding.tfCV.setText(tes)
 
-        Log.d("pdfuri","$tes")
-        selectedPdfUri!!.let {  pathFile =
-            uriPathHelper.getPath(requireContext(), it).toString()
-        }
-
-        var files: File = File(pathFile)
+        val fileHandler = FileHandler()
+        val files = File(fileHandler.handleUri(requireContext(), selectedPdfUri!!)!!)
         val requestFile: RequestBody =
             RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
         val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -307,9 +297,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun openDirectory() {
-        val intent = Intent()
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "application/pdf"
-        intent.action = Intent.ACTION_GET_CONTENT
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(intent, REQUEST_FILE)
     }
 
@@ -328,6 +318,7 @@ class ProfileFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_FILE) {
                 selectedPdfUri = data?.data
                 Log.i("xxfile", "$selectedPdfUri ==try")
+                Log.i("xxfile", "${selectedPdfUri?.path} ==try")
                 binding.tfCV.setText(selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1))
             }
     }
