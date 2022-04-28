@@ -43,10 +43,9 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val REQUEST_IMAGE = 1
-    private val REQUEST_FILE = 2
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+    val fileName = PrefsFileName.loadString(PrefsFileNameConstant.FILENAME, "")
     private var selectedImageUri: Uri? = null
-    private var selectedPdfUri: Uri? = null
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -64,7 +63,6 @@ class ProfileFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // call function requestPermission from menu activity
         (activity as MenuActivity).requestPermission()
 
@@ -73,7 +71,13 @@ class ProfileFragment : Fragment() {
         }
 
         binding.tfCV.setOnClickListener {
-            updateResume()
+            var dialog = UpdateCVFragment()
+            val supportFragmentManager = requireActivity().supportFragmentManager
+            dialog.onUpdate = {
+                binding.tfCV.setText(fileName)
+                Log.d("getFileName","$fileName")
+            }
+            dialog.show(supportFragmentManager, "updateCVDialog")
         }
 
         binding.tfCV.setHint("Upload here")
@@ -143,10 +147,6 @@ class ProfileFragment : Fragment() {
         viewModelProfile.listResponseImage().observe(viewLifecycleOwner, Observer {
             Toast.makeText(activity, "Image Updated", Toast.LENGTH_SHORT).show()
         })
-
-        viewModelProfile.listResponseFile().observe(viewLifecycleOwner, Observer {
-            Toast.makeText(activity, "Resume Updated", Toast.LENGTH_SHORT).show()
-        })
     }
 
     private fun updateProfile() {
@@ -203,32 +203,6 @@ class ProfileFragment : Fragment() {
         viewModelProfile.updateImageProfile(id, bodyImage)
     }
 
-    private fun updateFileProfile() {
-        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-        //get file path using URI Path Helper function
-        Log.d("pdfuri","$selectedPdfUri")
-        val uriPathHelper = URIPathHelper()
-        var pathFile = ""
-
-        //get file name using getFileName function
-        var tes = getFileName(selectedPdfUri!!)
-        binding.tfCV.setText(tes)
-
-        Log.d("pdfuri","$tes")
-        selectedPdfUri!!.let {  pathFile =
-            uriPathHelper.getPath(requireContext(), it).toString()
-        }
-
-        var files: File = File(pathFile)
-        val requestFile: RequestBody =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
-        val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
-            "jobseekerResume", files.name.trim(), requestFile
-        )
-        viewModelProfile.updateFileProfile(id, bodyFile)
-    }
-
     //clean resource to avoid memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
@@ -238,8 +212,6 @@ class ProfileFragment : Fragment() {
     private fun datePicker() {
         val datePickerFragment = DatePickerFragment()
         val supportFragmentManager = requireActivity().supportFragmentManager
-
-        // we have to implement setFragmentResultListener
         supportFragmentManager.setFragmentResultListener(
             "REQUEST_KEY",
             viewLifecycleOwner
@@ -250,33 +222,7 @@ class ProfileFragment : Fragment() {
                 binding.tfBirth.setText(date)
             }
         }
-        // show
         datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
-    }
-
-    private fun updateResume() {
-        val resumeDialogView = LayoutInflater.from(activity).inflate(R.layout.updatecv_dialog, null)
-
-        val resumeBuilder = AlertDialog.Builder(activity)
-            .setView(resumeDialogView)
-
-        val btnClose = resumeDialogView.findViewById<ImageView>(R.id.ivClose)
-        val btnChoose = resumeDialogView.findViewById<Button>(R.id.btnChooseCv)
-        val btnUpdate = resumeDialogView.findViewById<Button>(R.id.btnUpdate)
-        val resumeAlertDialog = resumeBuilder.show()
-        resumeAlertDialog.setCancelable(false)
-        resumeAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        btnClose.setOnClickListener {
-            resumeAlertDialog.dismiss()
-        }
-        btnChoose.setOnClickListener {
-            openDirectory()
-        }
-        btnUpdate.setOnClickListener {
-            updateFileProfile()
-            resumeAlertDialog.dismiss()
-        }
     }
 
     private fun saveProfile() {
@@ -306,13 +252,6 @@ class ProfileFragment : Fragment() {
         startActivityForResult(intent, REQUEST_IMAGE)
     }
 
-    private fun openDirectory() {
-        val intent = Intent()
-        intent.type = "application/pdf"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, REQUEST_FILE)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_IMAGE) {
@@ -323,13 +262,7 @@ class ProfileFragment : Fragment() {
             binding.ivProfile.setImageURI(selectedImageUri)
             binding.tvPickImage.isGone = true
             updateImageProfile()
-
-        } else
-            if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_FILE) {
-                selectedPdfUri = data?.data
-                Log.i("xxfile", "$selectedPdfUri ==try")
-                binding.tfCV.setText(selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf('/')+1))
-            }
+        }
     }
 
     private fun invalidForm() {
@@ -422,30 +355,6 @@ class ProfileFragment : Fragment() {
             return "Upload your newest Resume"
         }
         return null
-    }
-
-    @SuppressLint("Range")
-    fun getFileName(uri: Uri): String? {
-        var result: String? = null
-        if (uri.scheme == "content") {
-            // arrayOf(MediaStore.Images.ImageColumns.DATA)
-            val cursor: Cursor? = requireActivity().contentResolver.query(uri,null, null, null, null)
-            try {
-                var ea = requireActivity().contentResolver.openInputStream(uri)
-                Log.d("pdfuri","$ea ====ea")
-                if (cursor != null && cursor.moveToFirst()) {
-                    Log.d("pdfuri","$result ====content")
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                }
-            } finally {
-                cursor?.close()
-            }
-        }
-        if (result == null) {
-            result = uri.path
-            Log.d("pdfuri", "$result ====path")
-        }
-        return result
     }
 
     @Suppress("MoveLambdaOutsideParentheses")
