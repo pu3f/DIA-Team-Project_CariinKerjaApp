@@ -1,12 +1,13 @@
 package com.example.diateamproject.activity
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityLoginBinding
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
@@ -47,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
+            isLoading()
             //move to other activity
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
@@ -87,4 +89,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun isLoading() {
+        val progressBar = ProgressDialog(this)
+        ProgressDialog.show(this, "", "Wait while loading...")
+        progressBar.setCancelable(false)
+        progressBar.dismiss()
+    }
 }

@@ -94,7 +94,7 @@
                 android:textAlignment="viewEnd"
                 android:textColor="@color/medium_blue"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -104,7 +104,9 @@
                 android:fontFamily="sans-serif-black"
                 android:text="@string/login"
                 android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:focusable="true"
+                app:rippleColor="@color/medium_blue"/>
 
             <LinearLayout
                 android:id="@+id/llSignUpLink"
