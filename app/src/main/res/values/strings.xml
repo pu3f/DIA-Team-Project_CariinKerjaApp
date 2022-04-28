@@ -49,8 +49,8 @@
     <string name="culture">Culture</string>
     <string name="contactLink">Site</string>
     <string name="jobBenefit">Benefit</string>
-    <string name="resume">Choose new Resume</string>
-    <string name="applyTittle">Want to update your Resume?</string>
+    <string name="resume">Choose new CV</string>
+    <string name="applyTittle">Want to update your CV?</string>
     <string name="hintProfession">Current Profession</string>
     <string name="skill">Skills</string>
     <string name="hintSkill">Main skill</string>

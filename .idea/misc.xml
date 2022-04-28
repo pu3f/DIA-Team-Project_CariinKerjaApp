@@ -61,7 +61,7 @@
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/activity_splash_screen.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/apply_dialog.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/card_application.xml" value="0.22" />
-        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/card_job.xml" value="0.22" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/card_job.xml" value="0.2939958592132505" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/date_picker_fragment.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_application.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_apply_dialog.xml" value="0.12064777327935222" />
@@ -72,6 +72,7 @@
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_movie.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_successfull_dialog.xml" value="0.16802536231884058" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_updatecv_dialog.xml" value="0.12182971014492754" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_upload_resume.xml" value="0.25" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/item.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/item_job.xml" value="0.17342342342342343" />

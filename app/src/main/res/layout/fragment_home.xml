@@ -109,7 +109,9 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle">
+            app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle"
+            android:clipToPadding="false"
+            android:paddingBottom="?actionBarSize">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvListJob"
@@ -117,9 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 tools:listitem="@layout/card_job"
-                tools:itemCount="5"
-                android:paddingBottom="?actionBarSize"
-                android:clipToPadding="false"/>
+                tools:itemCount="5"/>
 
         </ScrollView>
 
