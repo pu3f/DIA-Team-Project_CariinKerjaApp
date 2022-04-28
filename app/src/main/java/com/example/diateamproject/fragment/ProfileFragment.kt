@@ -1,31 +1,23 @@
 package com.example.diateamproject.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.database.Cursor
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-import com.example.diateamproject.R
 import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
@@ -71,16 +63,20 @@ class ProfileFragment : Fragment() {
         }
 
         binding.tfCV.setOnClickListener {
-            var dialog = UpdateCVFragment()
+            val dialog = UpdateCVFragment()
             val supportFragmentManager = requireActivity().supportFragmentManager
             dialog.onUpdate = {
-                binding.tfCV.setText(fileName)
-                Log.d("getFileName","$fileName")
+//              //get the paramater from updateCV fragment
+                val intent = requireActivity().intent
+                if (intent.extras != null) {
+                    val name = intent.getStringExtra("fileName")
+                    binding.tfCV.setText(name)
+                }
             }
             dialog.show(supportFragmentManager, "updateCVDialog")
         }
-
         binding.tfCV.setHint("Upload here")
+
         viewModelProfile.getProfile(userId)
         Log.d("profileId", "$userId======getProfile")
         setObserver()

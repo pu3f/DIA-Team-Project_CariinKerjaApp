@@ -1,5 +1,6 @@
 package com.example.diateamproject.fragment
 
+import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -15,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentUpdatecvDialogBinding
@@ -25,6 +27,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+
 
 class UpdateCVFragment : DialogFragment() {
     private var _binding: FragmentUpdatecvDialogBinding? = null
@@ -80,7 +83,17 @@ class UpdateCVFragment : DialogFragment() {
 
         //get file name using getFileName function
         val fileName = getFileName(selectedPdfUri!!)
-        PrefsFileName.saveString(PrefsFileNameConstant.FILENAME, fileName!!)
+        //put fileName to profile fragment
+        val i = Bundle()
+        val frag = UpdateCVFragment()
+        val fragmentManager: FragmentManager? = fragmentManager
+        i.putString("fileName", fileName)
+        frag.arguments = i
+        fragmentManager!!.beginTransaction()
+            .replace(
+                R.id.content, ProfileFragment()
+            )
+            .commit()
 
         val fileHandler = FileHandler()
         val files = File(fileHandler.handleUri(requireContext(), selectedPdfUri!!)!!)
