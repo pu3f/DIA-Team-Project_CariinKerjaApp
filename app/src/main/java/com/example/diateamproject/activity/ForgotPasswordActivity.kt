@@ -53,7 +53,7 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
         viewModel.listResponse().observe(this, Observer {
             if (validateEmail()) {
                 checkEmail()
-                var userEmail = it.data
+                val userEmail = it.data
                 PrefsForgotPassword.saveString(PrefsForgotPasswordConstant.USEREMAIL, userEmail)
             } else {
                 Toast.makeText(this, "must fill the form", Toast.LENGTH_LONG).show()
@@ -98,7 +98,6 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
             }
         }
     }
-
 
     private fun checkEmail() {
         val dialog = CheckEmailDialogFragment()
