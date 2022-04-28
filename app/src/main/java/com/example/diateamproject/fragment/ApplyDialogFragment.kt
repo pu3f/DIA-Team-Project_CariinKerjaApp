@@ -20,6 +20,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentApplyDialogBinding
+import com.example.diateamproject.util.FileHandler
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.util.URIPathHelper
@@ -77,7 +78,6 @@ class ApplyDialogFragment: DialogFragment() {
 
         binding.tvUpdateCv.setOnClickListener {
             openDirectory()
-            binding.btnUpdateCv.isEnabled = true
         }
 
         binding.btnUpdateCv.setOnClickListener {
@@ -91,7 +91,7 @@ class ApplyDialogFragment: DialogFragment() {
             viewModelProfile.responseProfile().observe(this, Observer {
                 //resume null condition
                 if (it.data.jobseekerResume.isNullOrEmpty()) {
-                    Toast.makeText(activity, "Upload resume first", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Upload CV first", Toast.LENGTH_LONG).show()
                 } else {
                     test()
                 }
@@ -103,7 +103,7 @@ class ApplyDialogFragment: DialogFragment() {
         })
 
         viewModelProfile.listResponseFile().observe(this, Observer {
-            Toast.makeText(activity, "Resume Updated", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "CV Updated", Toast.LENGTH_LONG).show()
         })
     }
 
@@ -125,9 +125,9 @@ class ApplyDialogFragment: DialogFragment() {
     }
 
     private fun openDirectory() {
-        val intent = Intent()
+        val intent = Intent(Intent(Intent.ACTION_GET_CONTENT))
         intent.type = "application/pdf"
-        intent.action = Intent.ACTION_GET_CONTENT
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(intent, REQUEST_FILE)
     }
 
@@ -136,8 +136,10 @@ class ApplyDialogFragment: DialogFragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_FILE) {
             selectedPdfUri = data?.data
             Log.i("xxfile", "$selectedPdfUri ==try")
-            binding.tvUpdateCv.text = selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf(':')+1)
+            val fileName = getFileName(selectedPdfUri!!)
+            binding.tvUpdateCv.text = fileName
             binding.tvUpdateCv.setCompoundDrawables(null,null,null,null)
+            binding.btnUpdateCv.isEnabled = true
         }
     }
 
@@ -145,20 +147,12 @@ class ApplyDialogFragment: DialogFragment() {
         val id = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
             .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        //get file path using URI Path Helper function
-        Log.d("pdfuri","$selectedPdfUri")
-        val uriPathHelper = URIPathHelper()
-        var pathFile = ""
-
         //get file name using getFileName function
-        var tes = getFileName(selectedPdfUri!!)
+        val fileName = getFileName(selectedPdfUri!!)
+        Log.d("pdfuri","$fileName")
 
-        Log.d("pdfuri","$tes")
-        selectedPdfUri!!.let {  pathFile =
-            uriPathHelper.getPath(requireContext(), it).toString()
-        }
-
-        var files: File = File(pathFile)
+        val fileHandler = FileHandler()
+        val files = File(fileHandler.handleUri(requireContext(), selectedPdfUri!!)!!)
         val requestFile: RequestBody =
             RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
         val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
