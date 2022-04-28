@@ -75,8 +75,8 @@ class ProfileFragment : Fragment() {
             }
             dialog.show(supportFragmentManager, "updateCVDialog")
         }
-        binding.tfCV.setHint("Upload here")
 
+        binding.tfCV.setHint("Upload here")
         viewModelProfile.getProfile(userId)
         Log.d("profileId", "$userId======getProfile")
         setObserver()
@@ -110,8 +110,8 @@ class ProfileFragment : Fragment() {
             binding.tfProfession.setText(it.data.jobseekerProfession)
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
             binding.tfPorto.setText(it.data.jobseekerPortfolio)
-            val dateProfile = it.data.jobseekerDateOfBirth
-            binding.tfBirth.setText(dateProfile)
+            binding.tfBirth.setText(it.data.jobseekerDateOfBirth)
+            binding.tfCV.setText(it.data.jobseekerResume)
 
             fullnameFocusListener()
             addressFocusListener()
@@ -131,8 +131,7 @@ class ProfileFragment : Fragment() {
                 Log.i("xxpick", "xxpick")
                 binding.tvPickImage.isGone = false
             }
-            val resumeFile = it.data.jobseekerResume
-            binding.tfCV.setText(resumeFile)
+
         })
 
         viewModelProfile.listResponseProfile().observe(viewLifecycleOwner, Observer {

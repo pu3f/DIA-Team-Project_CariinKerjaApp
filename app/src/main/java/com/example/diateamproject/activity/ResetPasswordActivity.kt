@@ -37,7 +37,6 @@ class ResetPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
 
         binding.etNewPassword.onFocusChangeListener = this
         binding.etConfirmPassword.onFocusChangeListener = this
-//        binding.etConfirmPassword.doOnTextChanged( )
 
         binding.btnSubmit.setOnClickListener {
             viewModel.postResetPassword(
@@ -87,7 +86,6 @@ class ResetPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
                 error = errorMessage
             }
         }
-
         return errorMessage == null
     }
 
@@ -114,7 +112,6 @@ class ResetPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
                 error = errorMessage
             }
         }
-
         return errorMessage == null
     }
 
@@ -132,7 +129,6 @@ class ResetPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
                 error = errorMessage
             }
         }
-
         return errorMessage == null
     }
 

@@ -45,8 +45,8 @@ class JobDetailsActivity : AppCompatActivity() {
         setObserver()
 
         //object viewPager & tabLayout
-        var viewPager = findViewById<ViewPager>(R.id.viewPager)
-        var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
 
         //object detailJobAdapter
         val detailJobAdapter = DetailJobAdapter(supportFragmentManager)
@@ -60,7 +60,7 @@ class JobDetailsActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
 
         binding.btnApply.setOnClickListener {
-            var dialog = ApplyDialogFragment()
+            val dialog = ApplyDialogFragment()
             dialog.onApplied = {
                 binding.btnApply.isEnabled = false
             }
