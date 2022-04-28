@@ -45,10 +45,9 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
             with(applicationList[position]) {
+                val date = createdAt.substringBefore("T")
                 binding.tvJobPosition.text = jobName
                 binding.tvCompanyName.text = recruiterCompany
-                binding.tvLocation.text = recruiterAddress
-
                 binding.tvStatus.text = applicationStatus.capitalize()
                 if (applicationStatus.equals("accepted")) {
                     binding.tvStatus.setTextColor(ContextCompat.getColor(context!!, R.color.green))
@@ -60,7 +59,6 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                         )
                     )
                 }
-                val date = createdAt.substringBefore("T")
                 binding.tvPostDate.text = date
                 Glide.with(context!!)
                     .load("http://54.255.4.75:9091/resources/$recruiterImage")
