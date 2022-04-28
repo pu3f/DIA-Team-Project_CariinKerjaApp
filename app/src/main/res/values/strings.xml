@@ -82,9 +82,11 @@
     <string name="successMessage">Nice! You’ve succesfully updated your password</string>
     <string name="backLogin">Go back to Login</string>
     <string name="pinRequired1">1 upper-case [A-Z]</string>
-    <string name="pinRequired2">1 lowwer-case [a-z]</string>
-    <string name="pinRequired3">1 symbol/special caharacter</string>
+    <string name="pinRequired2">1 lower-case [a-z]</string>
+    <string name="pinRequired3">1 symbol/special character</string>
     <string name="noJob">No Job Available</string>
     <string name="searchJob">Search job here</string>
     <string name="noJobList">Job not found</string>
+    <string name="jobPosition">job Position</string>
+    <string name="companyName">company name</string>
 </resources>
