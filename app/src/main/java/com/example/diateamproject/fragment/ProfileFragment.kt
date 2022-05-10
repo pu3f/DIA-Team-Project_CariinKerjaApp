@@ -70,6 +70,7 @@ class ProfileFragment : Fragment() {
                 val intent = requireActivity().intent
                 if (intent.extras != null) {
                     val name = intent.getStringExtra("fileName")
+                    Log.i("showName", "file name = $name")
                     binding.tfCV.setText(name)
                 }
             }

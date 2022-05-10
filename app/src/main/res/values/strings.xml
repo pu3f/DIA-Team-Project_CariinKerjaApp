@@ -13,7 +13,7 @@
     <string name="login">Login</string>
     <string name="NoAccount">Don\'t have an account ?</string>
     <string name="forgotPin">Forgot Password?</string>
-    <string name="singUp">Sign-up</string>
+    <string name="signUp">Sign-up</string>
     <string name="hintName">Full Name</string>
     <string name="SignUpTitle">Sign-up here</string>
     <string name="LoginTitle">Log-in here</string>
@@ -49,7 +49,7 @@
     <string name="culture">Culture</string>
     <string name="contactLink">Site</string>
     <string name="jobBenefit">Benefit</string>
-    <string name="resume">Choose new CV</string>
+    <string name="resume">Choose New CV</string>
     <string name="applyTittle">Want to update your CV?</string>
     <string name="hintProfession">Current Profession</string>
     <string name="skill">Skills</string>
@@ -89,4 +89,5 @@
     <string name="noJobList">Job not found</string>
     <string name="jobPosition">job Position</string>
     <string name="companyName">company name</string>
+    <string name="updateCV">Update</string>
 </resources>

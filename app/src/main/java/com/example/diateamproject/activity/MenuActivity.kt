@@ -47,6 +47,10 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        finishAffinity()
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     fun requestPermission() {
         val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)

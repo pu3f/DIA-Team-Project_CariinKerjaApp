@@ -1,15 +1,8 @@
 package com.example.diateamproject.activity
 
-import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -20,9 +13,7 @@ import com.example.diateamproject.databinding.ActivityForgotPasswordBinding
 import com.example.diateamproject.fragment.CheckEmailDialogFragment
 import com.example.diateamproject.util.PrefsForgotPassword
 import com.example.diateamproject.util.PrefsForgotPasswordConstant
-import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.viewmodel.EmailResetPasswordViewModel
-import com.example.diateamproject.viewmodel.LoginViewModel
 
 class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
     private lateinit var binding: ActivityForgotPasswordBinding
