@@ -3,8 +3,10 @@ package com.example.diateamproject.activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -14,10 +16,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivitySignupBinding
+import com.example.diateamproject.databinding.ProgressButtonSignupBinding
+import com.example.diateamproject.util.ProgressButtonSignup
 import com.example.diateamproject.viewmodel.RegisterViewModel
 
 class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusChangeListener {
     private lateinit var binding: ActivitySignupBinding
+    lateinit var pb: ProgressButtonSignup
     private val viewModel: RegisterViewModel by lazy {
         ViewModelProviders.of(this).get(RegisterViewModel::class.java)
     }
@@ -28,6 +33,7 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
         val view = binding.root
         setContentView(view)
 
+        pb = ProgressButtonSignup(this, view)
         binding.etEmail.onFocusChangeListener = this
         binding.etName.onFocusChangeListener = this
         binding.etPassword.onFocusChangeListener = this
@@ -35,12 +41,17 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
         binding.etEmail.addTextChangedListener(signUpTextWatcher)
         binding.etPassword.addTextChangedListener(signUpTextWatcher)
 
-        binding.btnSignUp.setOnClickListener {
-            viewModel.postRegister(
-                binding.etName.text.toString(),
-                binding.etEmail.text.toString(),
-                binding.etPassword.text.toString()
-            )
+
+        binding.btnSignup.cvSignup.isEnabled = false. apply {
+            binding.btnSignup.cvSignup.setCardBackgroundColor(Color.GRAY)
+        }
+        binding.btnSignup.cvSignup.setOnClickListener {
+            pb.ActiveButton()
+                viewModel.postRegister(
+                    binding.etName.text.toString(),
+                    binding.etEmail.text.toString(),
+                    binding.etPassword.text.toString()
+                )
         }
         setObserver()
 
@@ -53,9 +64,11 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
             signUpSuccess()
+            pb.FailedButton()
         })
         viewModel.getIsError().observe(this, Observer {
             signUpFailed()
+            pb.FailedButton()
         })
     }
 
@@ -171,7 +184,9 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
             var userName = binding.etName.text!!.trim().isNotEmpty()
             var userEmail = binding.etEmail.text!!.trim().isNotEmpty()
             var userPassword = binding.etPassword.text!!.trim().isNotEmpty()
-            binding.btnSignUp.isEnabled = userName && userEmail && userPassword
+            binding.btnSignup.cvSignup.isEnabled = userName && userEmail && userPassword.apply {
+                binding.btnSignup.cvSignup.setCardBackgroundColor(getColor(R.color.medium_blue))
+            }
         }
 
         override fun afterTextChanged(p0: Editable?) {

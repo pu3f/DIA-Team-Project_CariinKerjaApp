@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_logo" />
+            android:src="@drawable/ic_logo" />
 
     </LinearLayout>
 
@@ -94,19 +94,12 @@
                 android:textAlignment="viewEnd"
                 android:textColor="@color/medium_blue"/>
 
-            <com.google.android.material.button.MaterialButton
+            <include
                 android:id="@+id/btnLogin"
+                layout="@layout/progress_button_login"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/bg_button_primary"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/login"
-                android:textAllCaps="false"
-                android:textSize="16sp"
-                android:focusable="true"
-                app:rippleColor="@color/medium_blue"/>
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"/>
 
             <LinearLayout
                 android:id="@+id/llSignUpLink"
@@ -127,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/singUp"
+                    android:text="@string/signUp"
                     android:textColor="@color/blue_primary" />
             </LinearLayout>
 

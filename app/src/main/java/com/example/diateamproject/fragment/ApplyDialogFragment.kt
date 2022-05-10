@@ -19,11 +19,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.diateamproject.R
 import com.example.diateamproject.databinding.FragmentApplyDialogBinding
-import com.example.diateamproject.util.FileHandler
-import com.example.diateamproject.util.PrefsLogin
-import com.example.diateamproject.util.PrefsLoginConstant
-import com.example.diateamproject.util.URIPathHelper
+import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ApplicationStatusViewModel
 import com.example.diateamproject.viewmodel.ApplyViewModel
 import com.example.diateamproject.viewmodel.ProfileViewModel
@@ -33,7 +31,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
-class ApplyDialogFragment: DialogFragment() {
+class ApplyDialogFragment : DialogFragment() {
     private var _binding: FragmentApplyDialogBinding? = null
     private val binding get() = _binding!!
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
@@ -42,6 +40,7 @@ class ApplyDialogFragment: DialogFragment() {
     private var selectedPdfUri: Uri? = null
     var page = 0
     var size = 0
+    lateinit var pb : ProgressButtonUpdatecv
     private val viewModelApply: ApplyViewModel by lazy {
         ViewModelProviders.of(this).get(ApplyViewModel::class.java)
     }
@@ -67,7 +66,7 @@ class ApplyDialogFragment: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        pb = ProgressButtonUpdatecv(requireContext(),view)
         binding.ivClose.setOnClickListener {
             dismiss()
         }
@@ -80,7 +79,11 @@ class ApplyDialogFragment: DialogFragment() {
             openDirectory()
         }
 
-        binding.btnUpdateCv.setOnClickListener {
+        binding.btnUpdateCv.cvUpdate.isEnabled = false.apply {
+            binding.btnUpdateCv.cvUpdate.setCardBackgroundColor(Color.GRAY)
+        }
+        binding.btnUpdateCv.cvUpdate.setOnClickListener {
+            pb.ActiveButton()
             updateResume()
         }
         setObserver()
@@ -90,7 +93,7 @@ class ApplyDialogFragment: DialogFragment() {
         viewModelApply.responseApply().observe(this, Observer {
             viewModelProfile.responseProfile().observe(this, Observer {
                 //resume null condition
-                if (it.data.jobseekerResume.isNullOrEmpty()) {
+                if (it.data.jobseekerResume.isEmpty()) {
                     Toast.makeText(activity, "Upload CV first", Toast.LENGTH_LONG).show()
                 } else {
                     test()
@@ -103,7 +106,8 @@ class ApplyDialogFragment: DialogFragment() {
         })
 
         viewModelProfile.listResponseFile().observe(this, Observer {
-            Toast.makeText(activity, "CV Updated", Toast.LENGTH_LONG).show()
+            pb.FinishButton()
+//            Toast.makeText(activity, "CV Updated", Toast.LENGTH_LONG).show()
         })
     }
 
@@ -138,8 +142,11 @@ class ApplyDialogFragment: DialogFragment() {
             Log.i("xxfile", "$selectedPdfUri ==try")
             val fileName = getFileName(selectedPdfUri!!)
             binding.tvUpdateCv.text = fileName
-            binding.tvUpdateCv.setCompoundDrawables(null,null,null,null)
-            binding.btnUpdateCv.isEnabled = true
+            binding.tvUpdateCv.setCompoundDrawables(null, null, null, null)
+            binding.btnUpdateCv.cvUpdate.isEnabled = true.apply {
+                binding.btnUpdateCv.cvUpdate.setBackgroundResource(R.drawable.bg_border_mediumblue)
+                binding.btnUpdateCv.tvUpdateCv.setTextColor(Color.BLUE)
+            }
         }
     }
 
@@ -149,7 +156,7 @@ class ApplyDialogFragment: DialogFragment() {
 
         //get file name using getFileName function
         val fileName = getFileName(selectedPdfUri!!)
-        Log.d("pdfuri","$fileName")
+        Log.d("pdfuri", "$fileName")
 
         val fileHandler = FileHandler()
         val files = File(fileHandler.handleUri(requireContext(), selectedPdfUri!!)!!)
@@ -183,6 +190,6 @@ class ApplyDialogFragment: DialogFragment() {
             result = uri.path
             Log.d("pdfuri", "$result ====path")
         }
-            return result
-        }
+        return result
+    }
 }

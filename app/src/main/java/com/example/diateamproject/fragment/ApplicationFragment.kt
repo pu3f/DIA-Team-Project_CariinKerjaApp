@@ -61,7 +61,7 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListApplication.layoutManager = layoutManager
-        binding.swipeRefresh.setOnRefreshListener(this)
+//        binding.swipeRefresh.setOnRefreshListener(this)
         getApplyJobStatus(false)
 
         var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
@@ -127,12 +127,13 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             if (adapter.itemCount == 0) {
                 binding.rvListApplication.visibility = View.GONE
                 binding.llNoApplication.visibility = View.VISIBLE
+
             } else {
                 binding.rvListApplication.visibility = View.VISIBLE
                 binding.llNoApplication.visibility = View.GONE
             }
             isLoading = false
-            binding.swipeRefresh.isRefreshing = false
+//            binding.swipeRefresh.isRefreshing = false
         })
     }
 

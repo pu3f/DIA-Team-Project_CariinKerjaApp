@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_logo" />
+            android:src="@drawable/ic_logo" />
 
     </LinearLayout>
 
@@ -158,18 +158,12 @@
                 app:drawableStartCompat="@drawable/ic_dot"
                 android:drawablePadding="4dp"/>
 
-            <Button
-                android:id="@+id/btnSignUp"
+            <include
+                android:id="@+id/btnSignup"
+                layout="@layout/progress_button_signup"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/bg_button_primary"
-                android:enabled="false"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/btnSignUp"
-                android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -196,8 +190,6 @@
         </LinearLayout>
 
     </ScrollView>
-
-
 
 
 </RelativeLayout>
