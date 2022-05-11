@@ -90,4 +90,5 @@
     <string name="jobPosition">job Position</string>
     <string name="companyName">company name</string>
     <string name="updateCV">Update</string>
+    <string name="btnSave">Save</string>
 </resources>
