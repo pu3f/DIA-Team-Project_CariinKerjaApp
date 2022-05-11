@@ -4,6 +4,7 @@ import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.AttrRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -22,6 +24,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentUpdatecvDialogBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
+import com.google.android.material.color.MaterialColors.getColor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -36,6 +39,7 @@ class UpdateCVFragment : DialogFragment() {
     private val REQUEST_FILE = 2
     private var selectedPdfUri: Uri? = null
     var onUpdate: (() -> Unit)? = null
+    lateinit var pb: ProgressButtonUpdatecv
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -54,6 +58,7 @@ class UpdateCVFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pb = ProgressButtonUpdatecv(requireContext(), view)
         binding.ivClose.setOnClickListener {
             dismiss()
         }
@@ -62,7 +67,11 @@ class UpdateCVFragment : DialogFragment() {
             openDirectory()
         }
 
-        binding.btnUpdate.setOnClickListener {
+        binding.btnUpdate.cvUpdate.isEnabled = false.apply {
+            binding.btnUpdate.cvUpdate.setCardBackgroundColor(Color.GRAY)
+        }
+        binding.btnUpdate.cvUpdate.setOnClickListener {
+            pb.ActiveButton()
             updateCV()
             onUpdate?.let {
                 it()
@@ -73,7 +82,7 @@ class UpdateCVFragment : DialogFragment() {
 
     private fun setObserver() {
         viewModelProfile.listResponseFile().observe(this, Observer {
-            Toast.makeText(activity, "CV Updated", Toast.LENGTH_LONG).show()
+           pb.FinishButton()
             dismiss()
         })
     }
@@ -143,9 +152,11 @@ class UpdateCVFragment : DialogFragment() {
             selectedPdfUri = data?.data
             Log.i("xxfile", "$selectedPdfUri ==try")
             val fileName = getFileName(selectedPdfUri!!)
-            binding.btnChooseCv.text =  fileName
+            binding.btnChooseCv.text = fileName
 //                selectedPdfUri?.path?.substring(selectedPdfUri!!.path!!.lastIndexOf(':')+1)
-            binding.btnUpdate.isEnabled = true
+            binding.btnUpdate.cvUpdate.isEnabled = true.apply {
+                binding.btnUpdate.cvUpdate.setCardBackgroundColor(resources.getColor(R.color.holo_blue_dark))
+            }
         }
     }
 }

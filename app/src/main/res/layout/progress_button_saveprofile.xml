@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvUpdate"
+        android:id="@+id/cvSaveProfile"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:clickable="true"
@@ -20,12 +20,12 @@
             android:background="?attr/selectableItemBackground">
 
             <TextView
-                android:id="@+id/tvUpdate"
+                android:id="@+id/tvSaveProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-black"
-                android:text="@string/updateCV"
+                android:text="@string/btnSave"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
-                android:id="@+id/pbUpdate"
+                android:id="@+id/pbSaveProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="20sp"
                 android:layout_gravity="center_horizontal"
@@ -42,7 +42,7 @@
                 android:indeterminateTint="@color/white"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tvUpdateCv"
+                app:layout_constraintEnd_toStartOf="@id/tvSaveProfile"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

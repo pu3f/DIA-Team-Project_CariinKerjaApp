@@ -36,8 +36,8 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private val REQUEST_IMAGE = 1
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-    val fileName = PrefsFileName.loadString(PrefsFileNameConstant.FILENAME, "")
     private var selectedImageUri: Uri? = null
+    lateinit var pb: ProgressButtonSaveProfile
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -55,6 +55,7 @@ class ProfileFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pb = ProgressButtonSaveProfile(requireContext(), view)
         // call function requestPermission from menu activity
         (activity as MenuActivity).requestPermission()
 
@@ -80,16 +81,15 @@ class ProfileFragment : Fragment() {
         binding.tfCV.setHint("Upload here")
         viewModelProfile.getProfile(userId)
         Log.d("profileId", "$userId======getProfile")
-        setObserver()
 
-        binding.btnSaveProfile.setOnClickListener {
+        binding.btnSaveProfile.cvSaveProfile.setOnClickListener {
+            pb.ActiveButton()
             saveProfile()
         }
+        setObserver()
 
-        binding.apply {
-            binding.tfBirth.setOnClickListener {
-                datePicker()
-            }
+        binding.tfBirth.setOnClickListener {
+            datePicker()
         }
 
         binding.ivBack.setOnClickListener {
@@ -137,7 +137,8 @@ class ProfileFragment : Fragment() {
 
         viewModelProfile.listResponseProfile().observe(viewLifecycleOwner, Observer {
             viewModelProfile.getProfile(userId)
-            Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
+            UpdateCVSuccess()
+            pb.FinishButton()
         })
 
         viewModelProfile.listResponseImage().observe(viewLifecycleOwner, Observer {
@@ -185,8 +186,9 @@ class ProfileFragment : Fragment() {
         //get image path using URI Path Helper function
         val uriPathHelper = URIPathHelper()
         var pathImage = ""
-        selectedImageUri?.let {  pathImage =
-            uriPathHelper.getPath(requireContext(), it).toString()
+        selectedImageUri?.let {
+            pathImage =
+                uriPathHelper.getPath(requireContext(), it).toString()
         }
 
         var file: File = File(pathImage)
@@ -214,7 +216,7 @@ class ProfileFragment : Fragment() {
         ) { resultKey, bundle ->
             if (resultKey == "REQUEST_KEY") {
                 val date = bundle.getString("SELECTED_DATE")
-                Log.d("testDate","$date ====new date")
+                Log.d("testDate", "$date ====new date")
                 binding.tfBirth.setText(date)
             }
         }
@@ -234,10 +236,14 @@ class ProfileFragment : Fragment() {
         val validSkill = binding.tflSkill.helperText == null
         val validResume = binding.tflResume.helperText == null
 
-        if (validName && validAddress && validProfession && validSkill && validResume)
+        if (validName && validAddress && validProfession && validSkill && validResume) {
+            pb.ActiveButton()
             updateProfile()
-        else
+        }else {
+            pb.ActiveButton()
             invalidForm()
+            pb.FinishButton()
+        }
     }
 
     //function open gallery
@@ -265,7 +271,7 @@ class ProfileFragment : Fragment() {
         AlertDialog.Builder(activity)
             .setTitle("Invalid Form")
             .setMessage("Complete your profile form!")
-            .setPositiveButton("OK"){ _,_ ->
+            .setPositiveButton("OK") { _, _ ->
                 // do nothing
             }
             .show()
@@ -368,6 +374,16 @@ class ProfileFragment : Fragment() {
             alertLogout.setNegativeButton("Cancel", { dialog: DialogInterface?, which: Int -> })
             alertLogout.show()
         }
+    }
+
+    private fun UpdateCVSuccess() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Successfull")
+            .setMessage("Your profile updated")
+            .setPositiveButton("OK") { _, _ ->
+                //do nothing
+            }
+            .show()
     }
 }
 

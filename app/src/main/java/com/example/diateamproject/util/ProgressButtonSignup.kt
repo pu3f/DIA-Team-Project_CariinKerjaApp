@@ -10,7 +10,7 @@ import com.example.diateamproject.R
 class ProgressButtonSignup(context: Context, view: View) {
     var layout =  view.findViewById<CardView>(R.id.cvSignup)
     var text = view.findViewById<TextView>(R.id.tvSignup)
-    var progress = view.findViewById<ProgressBar>(R.id.pbSignUp)
+    var progress = view.findViewById<ProgressBar>(R.id.pbSignup)
 
     fun ActiveButton(){
         progress.visibility = View.VISIBLE

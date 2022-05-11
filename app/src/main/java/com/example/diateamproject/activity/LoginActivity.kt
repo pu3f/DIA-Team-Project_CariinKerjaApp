@@ -13,6 +13,7 @@ import com.example.diateamproject.databinding.ActivityLoginBinding
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.util.ProgressButtonLogin
+import com.example.diateamproject.util.ProgressButtonSignup
 import com.example.diateamproject.viewmodel.LoginViewModel
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.coroutines.delay
@@ -20,6 +21,7 @@ import kotlinx.coroutines.delay
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    lateinit var pb: ProgressButtonLogin
     private val viewModel: LoginViewModel by lazy {
         ViewModelProviders.of(this).get(LoginViewModel::class.java)
     }
@@ -30,16 +32,13 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val pb = ProgressButtonLogin(this, view)
+        pb = ProgressButtonLogin(this, view)
         binding.btnLogin.cvLogin.setOnClickListener {
             pb.ActiveButton()
-            Handler().postDelayed({
-                viewModel.postLogin(
-                    binding.etEmail.text.toString(),
-                    binding.etPassword.text.toString()
-                )
-                pb.FinishButton()
-            }, 1000)
+            viewModel.postLogin(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
+            )
         }
         setObserver()
 
@@ -56,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
+            pb.FinishButton()
             //move to other activity
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
@@ -73,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.getIsError().observe(this, Observer {
             logInFailed()
+            pb.FinishButton()
 
         })
     }

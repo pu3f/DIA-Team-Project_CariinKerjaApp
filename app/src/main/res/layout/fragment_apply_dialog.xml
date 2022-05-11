@@ -57,7 +57,8 @@
             app:drawableTint="@color/dark_black"
             app:drawableStartCompat="@drawable/ic_file"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            />
 
         <include
             android:id="@+id/btnUpdateCv"

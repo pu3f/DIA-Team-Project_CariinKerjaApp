@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.example.diateamproject.R
 
-class ProgressButtonUpdatecv (context: Context, view: View) {
-    var layout =  view.findViewById<CardView>(R.id.cvUpdate)
-    var text = view.findViewById<TextView>(R.id.tvUpdate)
-    var progress = view.findViewById<ProgressBar>(R.id.pbUpdate)
+class ProgressButtonForgotPassword(context: Context, view: View) {
+    var layout =  view.findViewById<CardView>(R.id.cvForgotPass)
+    var text = view.findViewById<TextView>(R.id.tvForgotPass)
+    var progress = view.findViewById<ProgressBar>(R.id.pbForgotPass)
 
     fun ActiveButton(){
         progress.visibility = View.VISIBLE
@@ -19,6 +19,6 @@ class ProgressButtonUpdatecv (context: Context, view: View) {
 
     fun FinishButton(){
         progress.visibility = View.GONE
-        text.text = "CV updated"
+        text.text = "Send Email"
     }
 }

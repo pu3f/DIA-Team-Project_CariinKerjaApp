@@ -478,17 +478,13 @@
                 app:drawableStartCompat="@drawable/ic_important"
                 android:drawablePadding="4dp"/>
 
-            <Button
-                android:id="@+id/btnSaveProfile"
+            <include
+                layout="@layout/progress_button_saveprofile"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/bg_button_primary"
-                android:fontFamily="sans-serif-black"
-                android:text="Save"
-                android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:id="@+id/btnSaveProfile"/>
 
         </LinearLayout>
 
