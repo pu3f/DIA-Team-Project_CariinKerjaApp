@@ -145,7 +145,7 @@ class ApplyDialogFragment : DialogFragment() {
             binding.tvUpdateCv.setCompoundDrawables(null, null, null, null)
             binding.btnUpdateCv.cvUpdate.isEnabled = true.apply {
                 binding.btnUpdateCv.cvUpdate.setBackgroundResource(R.drawable.bg_border_mediumblue)
-                binding.btnUpdateCv.tvUpdateCv.setTextColor(Color.BLUE)
+                binding.btnUpdateCv.tvUpdate.setTextColor(resources.getColor(R.color.medium_blue))
             }
         }
     }
