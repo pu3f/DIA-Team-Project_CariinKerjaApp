@@ -20,7 +20,7 @@ import com.example.diateamproject.databinding.ProgressButtonSignupBinding
 import com.example.diateamproject.util.ProgressButtonSignup
 import com.example.diateamproject.viewmodel.RegisterViewModel
 
-class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusChangeListener {
+class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
     private lateinit var binding: ActivitySignupBinding
     lateinit var pb: ProgressButtonSignup
     private val viewModel: RegisterViewModel by lazy {
@@ -40,7 +40,6 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
         binding.etName.addTextChangedListener(signUpTextWatcher)
         binding.etEmail.addTextChangedListener(signUpTextWatcher)
         binding.etPassword.addTextChangedListener(signUpTextWatcher)
-
 
         binding.btnSignup.cvSignup.isEnabled = false. apply {
             binding.btnSignup.cvSignup.setCardBackgroundColor(Color.GRAY)
@@ -63,8 +62,13 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
 
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
-            signUpSuccess()
-            pb.FailedButton()
+            if (validateName() && validateEmail() && validatePassword()) {
+                signUpSuccess()
+                pb.SuccessButton()
+            } else {
+                invalidForm()
+                pb.FailedButton()
+            }
         })
         viewModel.getIsError().observe(this, Observer {
             signUpFailed()
@@ -131,12 +135,7 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
                 error = errorMessage
             }
         }
-
         return errorMessage == null
-    }
-
-    override fun onClick(view: View?) {
-
     }
 
     override fun onFocusChange(view: View?, hasFocus: Boolean) {
@@ -194,7 +193,6 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
     }
 
     private fun signUpSuccess() {
-        if (validateName() && validateEmail() && validatePassword()) {
             AlertDialog.Builder(this)
                 .setTitle("Sign Up Success")
                 .setMessage("Email verification sent. Check your inbox or spam to verify your email")
@@ -203,15 +201,16 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCh
                     startActivity(intent)
                 }
                 .show()
-        } else {
-            AlertDialog.Builder(this)
-                .setTitle("Invalid Form")
-                .setMessage("Enter valid data")
-                .setPositiveButton("OK") { _, _ ->
-                    //do nothing
-                }
-                .show()
-        }
+    }
+
+    private fun invalidForm() {
+        AlertDialog.Builder(this)
+            .setTitle("Invalid Form")
+            .setMessage("Enter valid data")
+            .setPositiveButton("OK") { _, _ ->
+                //do nothing
+            }
+            .show()
     }
 
     private fun signUpFailed() {
