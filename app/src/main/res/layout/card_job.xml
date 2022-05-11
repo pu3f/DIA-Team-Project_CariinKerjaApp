@@ -11,13 +11,16 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="16dp"
     app:cardElevation="3dp"
+    android:clickable="true"
+    android:focusable="true"
     android:clipToPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCardList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:background="?attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/ivJob"
