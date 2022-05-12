@@ -63,7 +63,7 @@
     <string name="hintResume">Upload here</string>
     <string name="requireTitle">Password required:</string>
     <string name="btnSignUp">Sign Up</string>
-    <string name="pinRequired">8 character</string>
+    <string name="pinRequired">minimum 8 character</string>
     <string name="fpinTitle">Forgot your password?</string>
     <string name="fpinInstruction">Enter your registered email to recieve password reset instruction</string>
     <string name="send">Send Email</string>

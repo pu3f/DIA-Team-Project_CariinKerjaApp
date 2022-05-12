@@ -117,8 +117,8 @@ class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
         val value: String = binding.etPassword.text.toString()
         if (value.isEmpty()) {
             errorMessage = "Enter your password"
-        } else if (value.length != 8) {
-            errorMessage = "Password must contain 8 character"
+        } else if (value.length < 8) {
+            errorMessage = "Password must contain at least 8 character"
         } else if (!value.matches(".*[A-Z].*".toRegex())) {
             errorMessage = "Password must contain 1 upper-case character"
         } else if (!value.matches(".*[a-z].*".toRegex())) {
