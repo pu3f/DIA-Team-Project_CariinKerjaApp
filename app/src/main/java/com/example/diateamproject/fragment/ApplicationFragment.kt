@@ -25,20 +25,14 @@ import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.ApplicationStatusViewModel
 
-class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
-
+class ApplicationFragment : Fragment() {
     private var _binding: FragmentApplicationBinding? = null
     private val binding get() = _binding!!
     private val adapter = ApplicationStatusAdapter()
     var applyArray: ArrayList<Content> = ArrayList<Content>()
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-
-    //request not private
-    var page = 0
-    var size = 10
-
-    //response
-    private var totalPage = 0
+    private var page = 0
+    private var size = 10
     private var isLastPage = false
     private var isLoading = false
     var layoutManager: RecyclerView.LayoutManager? = null
@@ -61,7 +55,7 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListApplication.layoutManager = layoutManager
-//        binding.swipeRefresh.setOnRefreshListener(this)
+        listRefresh()
         getApplyJobStatus(false)
 
         var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
@@ -86,10 +80,16 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun getApplyJobStatus(isOnRefresh: Boolean) {
         isLoading = true
-        if (isOnRefresh) {
+        if (!isOnRefresh) {
             binding.progressBar.visibility = View.VISIBLE
-            viewModelApplication.getApplyJobStatus(userId, page, size)
         }
+        viewModelApplication.getApplyJobStatus(userId, page, size)
+    }
+
+    private fun doLoadData() {
+        applyArray = adapter.applicationList
+        Log.d("this array", "ne" + applyArray)
+        viewModelApplication.getApplyJobStatus(userId, page, size)
     }
 
     private fun setObserver() {
@@ -127,20 +127,14 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             if (adapter.itemCount == 0) {
                 binding.rvListApplication.visibility = View.GONE
                 binding.llNoApplication.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
 
             } else {
                 binding.rvListApplication.visibility = View.VISIBLE
                 binding.llNoApplication.visibility = View.GONE
             }
             isLoading = false
-//            binding.swipeRefresh.isRefreshing = false
         })
-    }
-
-    private fun doLoadData() {
-        applyArray = adapter.applicationList
-        Log.d("this array", "ne" + applyArray)
-        viewModelApplication.getApplyJobStatus(userId, page, size)
     }
 
     private fun action() {
@@ -151,13 +145,16 @@ class ApplicationFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     startActivity(it)
                 }
             }
-
         })
     }
 
-    override fun onRefresh() {
-        adapter.clear()
-        page = 0
-        getApplyJobStatus(true)
+    private fun listRefresh() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            adapter.clear()
+            page = 0
+            getApplyJobStatus(true)
+            adapter.notifyDataSetChanged()
+            binding.swipeToRefresh.isRefreshing = false
+        }
     }
 }

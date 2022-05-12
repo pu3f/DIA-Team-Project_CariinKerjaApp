@@ -17,7 +17,7 @@ import com.example.diateamproject.model.allpostingjobs.Content
 import com.example.diateamproject.util.EndlessScrollingRecyclerView
 import com.example.diateamproject.viewmodel.AllJobViewModel
 
-class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
+class RecentJobActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecentJobBinding
     private val adapter = AllJobAdapter()
     private var page = 0
@@ -36,7 +36,8 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvListJob.layoutManager = layoutManager
-        binding.srJobList.setOnRefreshListener(this)
+
+        listRefresh()
         getAllJobs(false)
 
         var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
@@ -58,8 +59,9 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
     private fun getAllJobs(isOnRefresh: Boolean) {
         isLoading = true
-        if (!isOnRefresh) binding.pbjobs.visibility = View.VISIBLE
-        var page = page++
+        if (!isOnRefresh) {
+            binding.pbjobs.visibility = View.VISIBLE
+        }
         viewModelAllJob.getAllJobs(page, size)
         Log.d("testJobPage", "$page")
     }
@@ -68,7 +70,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         jobArray = adapter.allJobList
         Log.d("this array", "ja" + jobArray)
         viewModelAllJob.getAllJobs(page, size)
-//        binding.rvListJob.scrollTo(0,10)
+        binding.rvListJob.scrollToPosition(adapter.itemCount - 1)
     }
 
     private fun setObserver() {
@@ -77,7 +79,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
             if (it != null) {
                 Log.d("listjob", "if11")
-//                binding.rvListJob.setHasFixedSize(true)
+                binding.rvListJob.setHasFixedSize(true)
                 binding.rvListJob.adapter = adapter
             }
 
@@ -93,7 +95,7 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 )
             } else {
                 Log.d("listjob", "if33 $page")
-//                binding.rvListJob.setHasFixedSize(true)
+                binding.rvListJob.setHasFixedSize(true)
                 binding.rvListJob.adapter = adapter
                 adapter.initData(it.content as ArrayList<Content>)
             }
@@ -113,14 +115,11 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 binding.llNoJob.visibility = View.GONE
             }
             isLoading = false
-            binding.srJobList.isRefreshing = false
         })
     }
 
-    override fun onRefresh() {
-        adapter.clear()
-        page = 0
-        getAllJobs(true)
+    fun scrollToPosition(position: Int) {
+        binding.rvListJob.scrollToPosition(position)
     }
 
     private fun action() {
@@ -132,5 +131,15 @@ class RecentJobActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
                 }
             }
         })
+    }
+
+    private fun listRefresh() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            adapter.clear()
+            page = 0
+            getAllJobs(true)
+            adapter.notifyDataSetChanged()
+            binding.swipeToRefresh.isRefreshing = false
+        }
     }
 }

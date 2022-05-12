@@ -29,6 +29,7 @@ class HomeFragment : Fragment(){
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val adapter = RecentJobAdapter()
+    private var isLoading = false
     private val viewModelRecent: RecentJobViewModel by lazy {
         ViewModelProviders.of(this).get(RecentJobViewModel::class.java)
     }
@@ -48,7 +49,8 @@ class HomeFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListJob.layoutManager = layoutManager
-
+        listRefresh()
+        getRecentJob(false)
         viewModelRecent.getRecentJobs()
         setObserver()
         action()
@@ -73,6 +75,8 @@ class HomeFragment : Fragment(){
             binding.rvListJob.adapter = adapter
             Log.d("listapp", "if22")
             adapter.initData(it)
+            binding.pbHome.visibility = View.GONE
+            isLoading = false
         })
     }
 
@@ -92,5 +96,22 @@ class HomeFragment : Fragment(){
             }
 
         })
+    }
+
+    private fun getRecentJob(isOnRefresh: Boolean) {
+        isLoading = true
+        if (!isOnRefresh) {
+            binding.pbHome.visibility = View.VISIBLE
+        }
+        viewModelRecent.getRecentJobs()
+    }
+
+    private fun listRefresh() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            adapter.clear()
+            getRecentJob(true)
+            adapter.notifyDataSetChanged()
+            binding.swipeToRefresh.isRefreshing = false
+        }
     }
 }

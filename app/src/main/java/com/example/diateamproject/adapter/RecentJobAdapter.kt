@@ -65,6 +65,11 @@ class RecentJobAdapter : RecyclerView.Adapter<RecentJobAdapter.ViewHolder>() {
     fun setOnClickItemListener(OnClickItemListener:OnItemClickListener) {
         this.onSelectedItemListener = OnClickItemListener
     }
+
+    fun clear(){
+        recentJobList.clear()
+        notifyDataSetChanged()
+    }
 }
 
 

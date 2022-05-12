@@ -106,29 +106,45 @@
 
         </RelativeLayout>
 
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle"
-            android:orientation="vertical"
-            android:paddingBottom="?actionBarSize"
-            android:clipToPadding="false">
+            android:id="@+id/swipeToRefresh">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle"
+                android:orientation="vertical"
+                android:paddingBottom="?actionBarSize"
+                android:clipToPadding="false"
+                android:scrollbars="none">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvListJob"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    tools:listitem="@layout/card_job"
-                    tools:itemCount="5"/>
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvListJob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        tools:listitem="@layout/card_job"
+                        tools:itemCount="5"/>
 
-        </ScrollView>
+                    <ProgressBar
+                        android:id="@+id/pbHome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="?attr/progressBarStyle"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 

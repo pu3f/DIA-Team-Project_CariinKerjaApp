@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/srJobList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context=".activity.RecentJobActivity"
-    android:paddingHorizontal="16dp">
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    tools:context=".activity.RecentJobActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/rlPageTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="?actionBarSize">
 
-        <RelativeLayout
-            android:id="@+id/rlPageTitle"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back" />
 
-            <ImageView
-                android:id="@+id/ivBack"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_back" />
+        <TextView
+            android:id="@+id/tvJobList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/JobListTitle"
+            android:textColor="@color/dark_black"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tvJobList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/JobListTitle"
-                android:textColor="@color/dark_black"
-                android:textSize="20sp" />
+    </RelativeLayout>
 
-        </RelativeLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ScrollView
             android:id="@+id/svJobs"
@@ -55,6 +56,8 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingHorizontal="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -75,10 +78,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:clipToPadding="false"
                     android:paddingBottom="?actionBarSize"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:listitem="@layout/card_job"
-                    android:clipToPadding="false"/>
+                    tools:listitem="@layout/card_job" />
 
                 <ProgressBar
                     android:id="@+id/pbjobs"
@@ -90,6 +93,6 @@
 
         </ScrollView>
 
-    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>
