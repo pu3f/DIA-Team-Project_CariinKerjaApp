@@ -50,7 +50,7 @@ class JobDetailViewModel : ViewModel() {
                             val gson = Gson()
                             val error = gson.fromJson(
                                 errorBody?.string(),
-                                ApplicationStatusResponse::class.java
+                                JobByIdResponse::class.java
                             )
                             Log.d("testJobError", "Error = " + error)
                         }
