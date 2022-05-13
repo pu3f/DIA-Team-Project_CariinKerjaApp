@@ -40,6 +40,7 @@ class ApplyDialogFragment : DialogFragment() {
     private var selectedPdfUri: Uri? = null
     var page = 0
     var size = 0
+    var tempCv = ""
     lateinit var pb : ProgressButtonUpdatecv
     private val viewModelApply: ApplyViewModel by lazy {
         ViewModelProviders.of(this).get(ApplyViewModel::class.java)
@@ -71,8 +72,16 @@ class ApplyDialogFragment : DialogFragment() {
             dismiss()
         }
 
+        viewModelProfile.getProfile(userId)
         binding.btnJustApply.setOnClickListener {
-            applyJob()
+                if (tempCv.isEmpty()) {
+                    Log.d("resume test", "is empty $tempCv")
+                    onApplied?.let {
+                        it()
+                    }
+                } else {
+                    applyJob()
+                }
         }
 
         binding.tvUpdateCv.setOnClickListener {
@@ -91,18 +100,16 @@ class ApplyDialogFragment : DialogFragment() {
 
     private fun setObserver() {
         viewModelApply.responseApply().observe(this, Observer {
-            viewModelProfile.responseProfile().observe(this, Observer {
-                //resume null condition
-                if (it.data.jobseekerResume.isEmpty()) {
-                    Toast.makeText(activity, "Upload CV first", Toast.LENGTH_LONG).show()
-                } else {
-                    test()
-                }
-            })
+            getApplicationStatus()
             onApplied?.let {
                 it()
             }
             dismiss()
+        })
+
+        viewModelProfile.responseProfile().observe(this, Observer {
+            //resume null condition
+            tempCv = it.data.jobseekerResume
         })
 
         viewModelProfile.listResponseFile().observe(this, Observer {
@@ -121,7 +128,7 @@ class ApplyDialogFragment : DialogFragment() {
         Log.d("testStatus", "=====apply")
     }
 
-    private fun test() {
+    private fun getApplicationStatus() {
         Log.d("testStatus", "=====status")
         viewModelApplication.getApplyJobStatus(userId, page, size)
         context?.let { Toast.makeText(it, "Success Applied", Toast.LENGTH_LONG).show() }
@@ -131,6 +138,7 @@ class ApplyDialogFragment : DialogFragment() {
     private fun openDirectory() {
         val intent = Intent(Intent(Intent.ACTION_GET_CONTENT))
         intent.type = "application/pdf"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(intent, REQUEST_FILE)
     }
