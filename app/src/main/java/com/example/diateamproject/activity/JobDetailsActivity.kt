@@ -21,6 +21,7 @@ import com.example.diateamproject.fragment.DescriptionFragment
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.JobDetailViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import java.text.NumberFormat
 import java.util.*
@@ -39,7 +40,8 @@ class JobDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityJobDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        var view = binding.root
+        setContentView(view)
 
         viewModelJobDetail.getJobById(idJob, userId)
         setObserver()
@@ -63,6 +65,7 @@ class JobDetailsActivity : AppCompatActivity() {
             val dialog = ApplyDialogFragment()
             dialog.onApplied = {
                 binding.btnApply.isEnabled = false
+                Snackbar.make(view, "CV required. Upload CV first", Snackbar.LENGTH_SHORT).show()
             }
             dialog.show(supportFragmentManager, "applyDialog")
         }
