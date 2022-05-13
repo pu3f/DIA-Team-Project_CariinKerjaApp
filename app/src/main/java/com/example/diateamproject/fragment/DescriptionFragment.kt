@@ -50,7 +50,7 @@ class DescriptionFragment : Fragment() {
                 binding.tvJobDescription.text =
                     convertHtml.convertHtmlString(desc).replaceFirst(".".toRegex(), "$0")
                 binding.tvJobRequirement.text =
-                    convertHtml.convertHtmlString(requre).replaceFirst(".".toRegex(), "$0")
+                    convertHtml.convertHtmlString(requre)
                 binding.tvJobBenefit.text = benefit
             }
         })
