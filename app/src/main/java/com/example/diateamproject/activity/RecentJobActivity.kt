@@ -46,6 +46,7 @@ class RecentJobActivity : AppCompatActivity() {
                     page++
                     Log.d("testPage", "$page")
                     doLoadData()
+                    scrollToPosition(jobArray.size - 1)
                 }
             }
         }
@@ -70,7 +71,7 @@ class RecentJobActivity : AppCompatActivity() {
         jobArray = adapter.allJobList
         Log.d("this array", "ja" + jobArray)
         viewModelAllJob.getAllJobs(page, size)
-        binding.rvListJob.scrollToPosition(adapter.itemCount - 1)
+        scrollToPosition(jobArray.size - 1)
     }
 
     private fun setObserver() {
@@ -93,6 +94,7 @@ class RecentJobActivity : AppCompatActivity() {
                     adapter.allJobList.size - it.content.size,
                     adapter.allJobList.size
                 )
+                scrollToPosition(jobArray.size - 11)
             } else {
                 Log.d("listjob", "if33 $page")
                 binding.rvListJob.setHasFixedSize(true)
