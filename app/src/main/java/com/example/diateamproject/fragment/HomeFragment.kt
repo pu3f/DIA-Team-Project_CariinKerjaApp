@@ -94,7 +94,6 @@ class HomeFragment : Fragment(){
                     startActivity(it)
                 }
             }
-
         })
     }
 

@@ -64,6 +64,7 @@
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/card_application.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/card_job.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/date_picker_fragment.xml" value="0.17342342342342343" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/degree_item.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_application.xml" value="0.1" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_apply_dialog.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_check_email_dialog.xml" value="0.1" />
@@ -71,9 +72,9 @@
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_description.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_home.xml" value="0.20642201834862386" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_movie.xml" value="0.17342342342342343" />
-        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_profile.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_successfull_dialog.xml" value="0.16802536231884058" />
-        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_updatecv_dialog.xml" value="0.12182971014492754" />
+        <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_updatecv_dialog.xml" value="0.22" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/fragment_upload_resume.xml" value="0.25" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/item.xml" value="0.17342342342342343" />
         <entry key="..\:/Users/puput/AndroidStudioProjects/DIATeamProject/app/src/main/res/layout/item_job.xml" value="0.17342342342342343" />

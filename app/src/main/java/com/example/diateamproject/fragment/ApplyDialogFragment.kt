@@ -114,7 +114,6 @@ class ApplyDialogFragment : DialogFragment() {
 
         viewModelProfile.listResponseFile().observe(this, Observer {
             pb.FinishButton()
-//            Toast.makeText(activity, "CV Updated", Toast.LENGTH_LONG).show()
         })
     }
 
@@ -138,7 +137,6 @@ class ApplyDialogFragment : DialogFragment() {
     private fun openDirectory() {
         val intent = Intent(Intent(Intent.ACTION_GET_CONTENT))
         intent.type = "application/pdf"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(intent, REQUEST_FILE)
     }
