@@ -91,4 +91,12 @@
     <string name="companyName">company name</string>
     <string name="updateCV">Update</string>
     <string name="btnSave">Save</string>
+    <string-array name="degrees">
+        <item>Senior High School</item>
+        <item>Diploma</item>
+        <item>Bachelor</item>
+        <item>Master</item>
+        <item>Doctoral</item>
+        <item>Others</item>
+    </string-array>
 </resources>
