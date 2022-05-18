@@ -13,6 +13,7 @@ class FileHandler {
                 "image/jpeg" -> ".jpeg"
                 //another types
                 "application/pdf" -> ".pdf"
+                "image/png" -> ".png"
                 else -> return null
             }
             val dir = File(cacheDir, "dir_name").apply { mkdir() }

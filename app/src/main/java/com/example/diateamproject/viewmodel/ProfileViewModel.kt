@@ -24,6 +24,7 @@ class ProfileViewModel : ViewModel() {
     private val listFile = MutableLiveData<UpdateProfileResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
+    private val isErrorFile = MutableLiveData<Boolean>()
 
     @Inject
     lateinit var repository: AppRepository
@@ -161,13 +162,14 @@ class ProfileViewModel : ViewModel() {
                         if (t.code == 200) {
                             listFile.value = t
                             Log.d("testFileProfile", "notError = " + t.toString())
-                        } else {
-                            isError.value = true
                         }
+//                        else {
+//                            isErrorFile.value = true
+//                        }
                     }
 
                     override fun onError(e: Throwable) {
-                        isError.value = true
+                        isErrorFile.value = true
                         if (e is HttpException) {
                             val errorBody = (e as HttpException).response()?.errorBody()
                             val gson = Gson()
@@ -175,7 +177,7 @@ class ProfileViewModel : ViewModel() {
                                 errorBody?.string(),
                                 UpdateProfileResponse::class.java
                             )
-                            Log.d("testFileProfileError", "error = " + error)
+                            Log.d("testFileProfileError", "error = " + error.toString())
                         }
                     }
                 })
@@ -201,5 +203,9 @@ class ProfileViewModel : ViewModel() {
 
     fun getIsError(): MutableLiveData<Boolean> {
         return isError
+    }
+
+    fun getIsErrorFile(): MutableLiveData<Boolean> {
+        return isErrorFile
     }
 }
