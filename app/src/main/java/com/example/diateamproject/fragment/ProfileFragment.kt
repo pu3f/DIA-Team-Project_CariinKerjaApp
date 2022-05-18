@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.example.diateamproject.R
 import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
@@ -29,6 +31,8 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import androidx.core.widget.addTextChangedListener
+
 
 class ProfileFragment : Fragment() {
     //view binding fragment declaration
@@ -55,10 +59,14 @@ class ProfileFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         pb = ProgressButtonSaveProfile(requireContext(), view)
+
         // call function requestPermission from menu activity
         (activity as MenuActivity).requestPermission()
 
+        viewModelProfile.getProfile(userId)
+        Log.d("profileId", "$userId======getProfile")
         binding.ivProfile.setOnClickListener {
             openGallery()
         }
@@ -79,14 +87,21 @@ class ProfileFragment : Fragment() {
         }
 
         binding.tfCV.setHint("Upload here")
-        viewModelProfile.getProfile(userId)
-        Log.d("profileId", "$userId======getProfile")
 
         binding.btnSaveProfile.cvSaveProfile.setOnClickListener {
             pb.ActiveButton()
             saveProfile()
         }
         setObserver()
+
+        binding.tfPhone.addTextChangedListener {
+            if (binding.tfPhone.text.toString().startsWith("0") || binding.tfPhone.text.toString()
+                    .startsWith("+") || binding.tfPhone.text.toString().startsWith("6")
+            ) {
+                binding.tfPhone.text.clear()
+            }
+            var phoneccp = binding.ccp.selectedCountryCode.toString() + binding.tfPhone.text.toString()
+        }
 
         binding.tfBirth.setOnClickListener {
             datePicker()
@@ -104,9 +119,9 @@ class ProfileFragment : Fragment() {
             binding.tfBio.setText(it.data.jobseekerAbout)
             binding.tfName.setText(it.data.jobseekerName)
             binding.tfEmail.setText(it.data.jobseekerEmail)
-            binding.tfPhone.setText(it.data.jobseekerPhone)
+            binding.tfPhone.setText(it.data.jobseekerPhone.substring(2))
             binding.tfAddress.setText(it.data.jobseekerAddress)
-            binding.tfDegree.setText(it.data.jobseekerEducation)
+            binding.actvDegree.setText(it.data.jobseekerEducation)
             binding.tfSkill.setText(it.data.jobseekerSkill)
             binding.tfProfession.setText(it.data.jobseekerProfession)
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
@@ -132,12 +147,11 @@ class ProfileFragment : Fragment() {
                 Log.i("xxpick", "xxpick")
                 binding.tvPickImage.isGone = false
             }
-
         })
 
         viewModelProfile.listResponseProfile().observe(viewLifecycleOwner, Observer {
             viewModelProfile.getProfile(userId)
-            UpdateCVSuccess()
+            UpdateProfileSuccess()
             pb.FinishButton()
         })
 
@@ -147,14 +161,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateProfile() {
+        val phoneccp = binding.ccp.selectedCountryCode.toString() + binding.tfPhone.text.toString()
         val id = userId
         val updateBio = binding.tfBio.text.toString()
         val updateName = binding.tfName.text.toString()
         val updateEmail = binding.tfEmail.text.toString()
-        val updatePhone = binding.tfPhone.text.toString()
         val updateAddress = binding.tfAddress.text.toString()
         val updateDateOfBirth = binding.tfBirth.text.toString()
-        val updateEducation = binding.tfDegree.text.toString()
+        val updateEducation = binding.actvDegree.text.toString()
         val updateProfession = binding.tfProfession.text.toString()
         val updatePortfolio = binding.tfPorto.text.toString()
         val updateSkill = binding.tfSkill.text.toString()
@@ -165,7 +179,7 @@ class ProfileFragment : Fragment() {
             updateBio,
             updateName,
             updateEmail,
-            updatePhone,
+            phoneccp,
             updateDateOfBirth,
             updateAddress,
             updateEducation,
@@ -239,7 +253,7 @@ class ProfileFragment : Fragment() {
         if (validName && validAddress && validProfession && validSkill && validResume) {
             pb.ActiveButton()
             updateProfile()
-        }else {
+        } else {
             pb.ActiveButton()
             invalidForm()
             pb.FinishButton()
@@ -376,7 +390,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun UpdateCVSuccess() {
+    private fun UpdateProfileSuccess() {
         AlertDialog.Builder(requireContext())
             .setTitle("Successfull")
             .setMessage("Your profile updated")
@@ -384,6 +398,13 @@ class ProfileFragment : Fragment() {
                 //do nothing
             }
             .show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val degrees = resources.getStringArray(R.array.degrees)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.degree_item, degrees)
+        binding.actvDegree.setAdapter(arrayAdapter)
     }
 }
 
