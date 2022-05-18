@@ -16,6 +16,7 @@ import com.example.diateamproject.util.PrefsForgotPassword
 import com.example.diateamproject.util.PrefsForgotPasswordConstant
 import com.example.diateamproject.util.ProgressButtonForgotPassword
 import com.example.diateamproject.viewmodel.EmailResetPasswordViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
     private lateinit var binding: ActivityForgotPasswordBinding
@@ -34,30 +35,29 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
         binding.etEmail.onFocusChangeListener = this
         binding.btnSend.cvForgotPass.setOnClickListener {
             pb.ActiveButton()
-            viewModel.postEmailResetPassword(
-                binding.etEmail.text.toString()
-            )
+            if (validateEmail()) {
+                viewModel.postEmailResetPassword(
+                    binding.etEmail.text.toString()
+                )
+                pb.FinishButton()
+            } else {
+                Snackbar.make(view, "Email required", Snackbar.LENGTH_SHORT).show()
+                pb.FinishButton()
+            }
         }
         setObserver()
 
         binding.btnBack.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            onBackPressed()
         }
     }
 
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
-            if (validateEmail()) {
-                checkEmail()
-                pb.FinishButton()
-                //put user email in prefs for api reset password
-                val userEmail = it.data
-                PrefsForgotPassword.saveString(PrefsForgotPasswordConstant.USEREMAIL, userEmail)
-            } else {
-                invalidForm()
-                pb.FinishButton()
-            }
+            checkEmail()
+            //put user email in prefs for api reset password
+            val userEmail = it.data
+            PrefsForgotPassword.saveString(PrefsForgotPasswordConstant.USEREMAIL, userEmail)
         })
 
         viewModel.getIsError().observe(this, Observer {
@@ -70,7 +70,7 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
         var errorMessage: String? = null
         val value: String = binding.etEmail.text.toString()
         if (value.isEmpty()) {
-            errorMessage = "Enter your email"
+            errorMessage = "Enter your registered email address"
         } else if (!Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
             errorMessage = "Invalid email address"
         }
@@ -103,15 +103,6 @@ class ForgotPasswordActivity : AppCompatActivity(), View.OnFocusChangeListener {
     private fun checkEmail() {
         val dialog = CheckEmailDialogFragment()
         dialog.show(supportFragmentManager, "checkEmailDialog")
-    }
-
-    private fun invalidForm() {
-        AlertDialog.Builder(this)
-            .setMessage("Email required")
-            .setPositiveButton("OK") { _, _ ->
-                //do nothing
-            }
-            .show()
     }
 
     private fun sendEmailFailed() {

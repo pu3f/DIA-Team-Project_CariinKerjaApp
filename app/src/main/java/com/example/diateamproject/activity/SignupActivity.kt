@@ -46,11 +46,16 @@ class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
         }
         binding.btnSignup.cvSignup.setOnClickListener {
             pb.ActiveButton()
+            if (validateName() && validateEmail() && validatePassword()) {
                 viewModel.postRegister(
                     binding.etName.text.toString(),
                     binding.etEmail.text.toString(),
                     binding.etPassword.text.toString()
                 )
+            } else {
+                invalidForm()
+                pb.FailedButton()
+            }
         }
         setObserver()
 
@@ -62,13 +67,8 @@ class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
 
     private fun setObserver() {
         viewModel.listResponse().observe(this, Observer {
-            if (validateName() && validateEmail() && validatePassword()) {
                 signUpSuccess()
                 pb.SuccessButton()
-            } else {
-                invalidForm()
-                pb.FailedButton()
-            }
         })
         viewModel.getIsError().observe(this, Observer {
             signUpFailed()
@@ -89,7 +89,6 @@ class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
                 error = errorMessage
             }
         }
-
         return errorMessage == null
     }
 
@@ -108,7 +107,6 @@ class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
                 error = errorMessage
             }
         }
-
         return errorMessage == null
     }
 
@@ -166,7 +164,6 @@ class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
                         if (binding.tilPassword.isErrorEnabled) {
                             binding.tilPassword.isErrorEnabled = false
                         }
-
                     } else {
                         validatePassword()
                     }
