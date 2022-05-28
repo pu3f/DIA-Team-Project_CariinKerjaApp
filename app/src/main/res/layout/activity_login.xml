@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/LoginTitle"
-                android:textColor="@color/blue_primary"
+                android:textColor="@color/dark_black"
                 android:textSize="20sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -92,7 +92,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/forgotPin"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/medium_blue"/>
+                android:textColor="@color/secondary_text"/>
 
             <include
                 android:id="@+id/btnLogin"
@@ -121,7 +121,7 @@
                     android:layout_marginStart="5dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/signUp"
-                    android:textColor="@color/blue_primary" />
+                    android:textColor="@color/medium_blue" />
             </LinearLayout>
 
         </LinearLayout>

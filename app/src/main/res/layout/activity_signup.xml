@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/SignUpTitle"
-                android:textColor="@color/blue_primary"
+                android:textColor="@color/dark_black"
                 android:textSize="20sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -184,7 +184,7 @@
                     android:layout_marginStart="5dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/login"
-                    android:textColor="@color/blue_primary" />
+                    android:textColor="@color/medium_blue" />
             </LinearLayout>
 
         </LinearLayout>
