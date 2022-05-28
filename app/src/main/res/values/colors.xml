@@ -11,8 +11,19 @@
     <color name="blue_primary">#060684</color>
     <color name="grey">#E5E5E5</color>
     <color name="light_grey">#F3F3F3</color>
+    <color name="gray_placeholder">#838383</color>
     <color name="green">#27AE60</color>
     <color name="red">#EB5757</color>
-    <color name="medium_blue">#007BFF</color>
+    <color name="medium_blue">#006EFF</color>
+    <color name="medium_blueAlpha">#10006EFF</color>
+
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#0058FF</color>
+    <color name="primary_light">#00BCFF</color>
+    <color name="accent">#006EFF</color>
+    <color name="primary_text">#2E3C40</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 
 </resources>

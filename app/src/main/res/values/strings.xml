@@ -53,7 +53,7 @@
     <string name="applyTittle">Want to update your CV?</string>
     <string name="hintProfession">Current Profession</string>
     <string name="skill">Skills</string>
-    <string name="hintSkill">Main skill</string>
+    <string name="hintSkill">Skills</string>
     <string name="link">Link</string>
     <string name="hintSosmed">Social media</string>
     <string name="hintPorto">Portfolio</string>
@@ -91,6 +91,12 @@
     <string name="companyName">company name</string>
     <string name="updateCV">Update</string>
     <string name="btnSave">Save</string>
+    <string name="btnJustApply">Just Apply</string>
+    <string name="sosmedLink">link</string>
+    <string name="skills">Skills</string>
+    <string name="requiredSkill">Choose at least 3 skills</string>
+    <string name="skill1">skill1</string>
+    <string name="btnchoose">Choose</string>
     <string-array name="degrees">
         <item>Senior High School</item>
         <item>Diploma</item>

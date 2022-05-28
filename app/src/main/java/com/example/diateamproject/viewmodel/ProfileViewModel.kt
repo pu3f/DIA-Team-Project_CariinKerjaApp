@@ -163,9 +163,9 @@ class ProfileViewModel : ViewModel() {
                             listFile.value = t
                             Log.d("testFileProfile", "notError = " + t.toString())
                         }
-//                        else {
-//                            isErrorFile.value = true
-//                        }
+                        else {
+                            isErrorFile.value = true
+                        }
                     }
 
                     override fun onError(e: Throwable) {
