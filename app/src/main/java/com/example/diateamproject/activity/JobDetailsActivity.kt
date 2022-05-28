@@ -65,7 +65,7 @@ class JobDetailsActivity : AppCompatActivity() {
             val dialog = ApplyDialogFragment()
             dialog.onApplied = {
                 binding.btnApply.isEnabled = false
-                Snackbar.make(view, "CV required. Upload CV first", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, "Application success", Snackbar.LENGTH_SHORT).show()
             }
             dialog.show(supportFragmentManager, "applyDialog")
         }

@@ -62,23 +62,17 @@
 
         <include
             android:id="@+id/btnUpdateCv"
-            layout="@layout/progress_button_updatecv"
+            layout="@layout/progress_button_upload_newcv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"/>
 
-        <com.google.android.material.button.MaterialButton
+        <include
             android:id="@+id/btnJustApply"
+            layout="@layout/progress_button_justapply"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Just Apply"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:background="@drawable/bg_button_primary"
-            android:layout_marginTop="8dp"
-            app:rippleColor="@color/medium_blue"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
 
     </LinearLayout>
 
