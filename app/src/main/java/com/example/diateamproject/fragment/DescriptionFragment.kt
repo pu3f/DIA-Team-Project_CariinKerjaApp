@@ -43,14 +43,18 @@ class DescriptionFragment : Fragment() {
 
     private fun setObserver() {
         viewModelJobDetail.listJobResponse().observe(viewLifecycleOwner, Observer {
+            val desc = it.data.jobDesc
+            val requre = it.data.jobRequirement
+            val benefit = it.data.recruiterBenefit
             if (it != null) {
-                val desc = it.data.jobDesc
-                val requre = it.data.jobRequirement
-                val benefit = it.data.recruiterBenefit
                 binding.tvJobDescription.text =
-                    convertHtml.convertHtmlString(desc).replaceFirst(".".toRegex(), "$0")
+                    convertHtml.convertHtmlString(desc)
                 binding.tvJobRequirement.text =
                     convertHtml.convertHtmlString(requre)
+                binding.tvJobBenefit.text = convertHtml.convertHtmlString(benefit)
+            } else {
+                binding.tvJobDescription.text = desc
+                binding.tvJobRequirement.text = requre
                 binding.tvJobBenefit.text = benefit
             }
         })
