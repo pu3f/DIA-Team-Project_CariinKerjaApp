@@ -103,6 +103,7 @@
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
         <LinearLayout
+            android:id="@+id/llWeb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -120,12 +121,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="sans-serif"
-                android:text="link"
+                android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"/>
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/llLinkedin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -143,12 +145,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="sans-serif"
-                android:text="link"
+                android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"/>
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/llFb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -166,12 +169,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="sans-serif"
-                android:text="link"
+                android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"/>
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/llIg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -189,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="sans-serif"
-                android:text="link"
+                android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"/>
 
