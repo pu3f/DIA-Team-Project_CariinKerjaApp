@@ -18,4 +18,5 @@ interface AppComponent {
     fun injectView(emailResetPasswordViewModel: EmailResetPasswordViewModel)
     fun injectView(resetPasswordViewModel: ResetPasswordViewModel)
     fun injectView(searchJobViewModel: SearchJobViewModel)
+    fun injectView(skillViewModel: SkillViewModel)
 }

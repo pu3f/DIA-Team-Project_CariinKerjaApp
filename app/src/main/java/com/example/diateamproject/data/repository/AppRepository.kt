@@ -13,6 +13,7 @@ import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
 import com.example.diateamproject.model.searchjob.SearchJobResponse
+import com.example.diateamproject.model.skills.SkillResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,6 +24,7 @@ import retrofit2.http.Query
 interface AppRepository {
     fun getAllJobs(): Single<RecentJobsResponse>
     fun getRecentJobs(): Single<RecentJobsResponse>
+    fun getSkill(): Single<SkillResponse>
 
     fun getApplicationStatus(
         @Path("jobseekerId") id: Int?

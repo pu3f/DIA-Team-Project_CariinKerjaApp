@@ -27,7 +27,7 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
     inner class ViewHolder(val binding: CardApplicationBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
-            binding.tvStatus.setOnClickListener {
+            binding.cvJob.setOnClickListener {
                 onSelectedItemListener?.onItemClick(it, layoutPosition)
             }
         }

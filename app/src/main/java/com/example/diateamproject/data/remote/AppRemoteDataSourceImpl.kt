@@ -14,6 +14,7 @@ import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
 import com.example.diateamproject.model.searchjob.SearchJobResponse
+import com.example.diateamproject.model.skills.SkillResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,6 +29,10 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
 
     override fun getRecentJobs(): Single<RecentJobsResponse> {
         return service.getRecentJobs()
+    }
+
+    override fun getSkill(): Single<SkillResponse> {
+        return service.getSkill()
     }
 
     override fun getApplicationStatus(id: Int?): Single<ApplicationStatusResponse> {

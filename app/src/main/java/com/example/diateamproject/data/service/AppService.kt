@@ -13,6 +13,7 @@ import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
 import com.example.diateamproject.model.searchjob.SearchJobResponse
+import com.example.diateamproject.model.skills.SkillResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -85,6 +86,9 @@ interface AppService {
 
     @GET("api/v1/jobseeker/recent")
     fun getRecentJobs(): Single<RecentJobsResponse>
+
+    @GET("api/v1/jobseeker/get-skill")
+    fun getSkill(): Single<SkillResponse>
 
     //request URL path {}
     @GET("api/v1/jobseeker/apply/status/{jobseekerId}")
