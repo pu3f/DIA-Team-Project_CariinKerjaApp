@@ -42,7 +42,7 @@
             android:fontFamily="sans-serif-black"
             android:text="@string/ok"
             android:textAllCaps="false"
-            android:textColor="@color/blue_primary"
+            android:textColor="@color/medium_blue"
             android:textSize="16sp" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/checkEmailInstruction1"
             android:textAlignment="center"
-            android:textColor="@color/blue_primary"
+            android:textColor="@color/medium_blue"
             android:textSize="12sp" />
 
     </LinearLayout>
