@@ -57,7 +57,7 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/icon_upload_image"
-            app:civ_border_color="@color/blue_primary"
+            app:civ_border_color="@color/medium_blue"
             app:civ_border_width="1dp" />
 
         <TextView
@@ -104,7 +104,7 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary"
+                app:endIconTint="@color/medium_blue"
                 app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -207,7 +207,7 @@
                     app:boxStrokeColor="@color/grey"
                     app:boxStrokeWidth="1dp"
                     app:endIconMode="clear_text"
-                    app:endIconTint="@color/blue_primary"
+                    app:endIconTint="@color/medium_blue"
                     app:hintTextAppearance="?textAppearanceCaption">
 
                     <EditText
@@ -259,7 +259,7 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary"
+                app:endIconTint="@color/medium_blue"
                 app:helperText="@string/helperName"
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="?textAppearanceCaption">
@@ -317,7 +317,7 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary"
+                app:endIconTint="@color/medium_blue"
                 app:helperText="@string/helperName"
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="?textAppearanceCaption">
@@ -349,12 +349,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hintSkill"
-                android:inputType="textCapWords"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary"
+                app:endIconTint="@color/medium_blue"
                 app:helperText="@string/helperName"
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="?textAppearanceCaption">
@@ -363,11 +362,11 @@
                     android:id="@+id/tfSkill"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:editable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -389,7 +388,7 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary"
+                app:endIconTint="@color/medium_blue"
                 app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -413,7 +412,7 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary"
+                app:endIconTint="@color/medium_blue"
                 app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -445,7 +444,7 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/blue_primary"
+                app:endIconTint="@color/medium_blue"
                 app:helperText="@string/helperName"
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="?textAppearanceCaption">

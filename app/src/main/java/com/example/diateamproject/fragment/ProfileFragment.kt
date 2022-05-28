@@ -32,16 +32,23 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import androidx.core.widget.addTextChangedListener
+import com.example.diateamproject.model.skills.Data
+import com.google.android.material.snackbar.Snackbar
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), Skill {
     //view binding fragment declaration
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val REQUEST_IMAGE = 1
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+    val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
     private var selectedImageUri: Uri? = null
     lateinit var pb: ProgressButtonSaveProfile
+    val dialog = UpdateCVFragment()
+    var tempPhone = ""
+    var Skill = ""
+    var temp: ArrayList<String> = ArrayList<String>()
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -71,17 +78,26 @@ class ProfileFragment : Fragment() {
             openGallery()
         }
 
+        binding.tfSkill.setOnClickListener {
+            val skillFragment= BottomSheetSkillFragment(this)
+            val bundle = Bundle()
+            bundle.putSerializable("tes", temp)
+            Log.d("putTes1", "tes = $temp")
+            skillFragment.arguments = bundle
+            skillFragment.show(requireFragmentManager(), "bottomSheetSkill")
+        }
+
         binding.tfCV.setOnClickListener {
-            val dialog = UpdateCVFragment()
             val supportFragmentManager = requireActivity().supportFragmentManager
             dialog.onUpdate = {
-//              //get the paramater from updateCV fragment
+                //get the paramater from updateCV fragment
                 val intent = requireActivity().intent
                 if (intent.extras != null) {
                     val name = intent.getStringExtra("fileName")
                     Log.i("showName", "file name = $name")
                     binding.tfCV.setText(name)
                 }
+                Snackbar.make(view, "CV updated", Snackbar.LENGTH_SHORT).show()
             }
             dialog.show(supportFragmentManager, "updateCVDialog")
         }
@@ -100,7 +116,8 @@ class ProfileFragment : Fragment() {
             ) {
                 binding.tfPhone.text.clear()
             }
-            var phoneccp = binding.ccp.selectedCountryCode.toString() + binding.tfPhone.text.toString()
+            var phoneccp =
+                binding.ccp.selectedCountryCode.toString() + binding.tfPhone.text.toString()
         }
 
         binding.tfBirth.setOnClickListener {
@@ -116,10 +133,13 @@ class ProfileFragment : Fragment() {
 
     private fun setObserver() {
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
+            tempPhone = it.data.jobseekerPhone
             binding.tfBio.setText(it.data.jobseekerAbout)
             binding.tfName.setText(it.data.jobseekerName)
             binding.tfEmail.setText(it.data.jobseekerEmail)
-            binding.tfPhone.setText(it.data.jobseekerPhone.substring(2))
+            if (!tempPhone.isEmpty()) {
+                binding.tfPhone.setText(it.data.jobseekerPhone.substring(2))
+            }
             binding.tfAddress.setText(it.data.jobseekerAddress)
             binding.actvDegree.setText(it.data.jobseekerEducation)
             binding.tfSkill.setText(it.data.jobseekerSkill)
@@ -350,7 +370,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun validSkill(): String? {
-        val skillText = binding.tfSkill.text.toString()
+        val skillText = userSkill
+        binding.tfSkill.setText(userSkill)
         if (skillText.isEmpty()) {
             return "Enter your Main skill"
         }
@@ -405,6 +426,14 @@ class ProfileFragment : Fragment() {
         val degrees = resources.getStringArray(R.array.degrees)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.degree_item, degrees)
         binding.actvDegree.setAdapter(arrayAdapter)
+    }
+
+    override fun setData(arrayList: ArrayList<Data>) {
+        val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
+        Log.d("setText", "Skill = $userSkill")
+        temp.addAll(arrayList as ArrayList<String>)
+        Log.d("putTes", "tes = $temp")
+        binding.tfSkill.setText(userSkill)
     }
 }
 

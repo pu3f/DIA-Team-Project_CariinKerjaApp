@@ -6,5 +6,6 @@ object PrefsLoginConstant {
     const val EMAIL = "JOBSEEKEREMAIL"
     const val PASSWORD = "JOBSEEKERPASSWORD"
     const val IS_LOGIN = "IS_LOGIN"
+    const val SKILL = "SKILL"
 
 }
