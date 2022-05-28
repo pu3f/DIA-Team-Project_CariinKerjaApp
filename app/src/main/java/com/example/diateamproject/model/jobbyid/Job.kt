@@ -16,10 +16,10 @@ data class Job(
     val recruiterDesc: String,
     val recruiterFb: String,
     val recruiterIg: String,
-    val recruiterImage: Any,
+    val recruiterImage: String,
     val recruiterIndustry: String,
     val recruiterLinkedin: String,
-    val recruiterStaff: Int,
+    val recruiterStaff: String,
     val recruiterWebsite: String,
     val applicationStatus: String
 
