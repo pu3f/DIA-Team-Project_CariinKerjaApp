@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentUpdatecvDialogBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -36,7 +37,7 @@ class UpdateCVFragment : DialogFragment() {
     private val REQUEST_FILE = 2
     private var selectedPdfUri: Uri? = null
     var onUpdate: (() -> Unit)? = null
-    lateinit var pb: ProgressButtonUpdatecv
+    lateinit var pb: ProgressButtonUpdateCV
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -55,7 +56,7 @@ class UpdateCVFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pb = ProgressButtonUpdatecv(requireContext(), view)
+        pb = ProgressButtonUpdateCV(requireContext(), view)
         binding.ivClose.setOnClickListener {
             dismiss()
         }
@@ -71,69 +72,62 @@ class UpdateCVFragment : DialogFragment() {
         binding.btnUpdate.cvUpdate.setOnClickListener {
             pb.ActiveButton()
             updateCV()
-            onUpdate?.let {
-                it()
-            }
         }
         setObserver()
     }
 
-    private fun setObserver() {
-        viewModelProfile.listResponseFile().observe(this, Observer {
-            var errorCode = it.errorCode
-            Log.d("error02", "code : $errorCode")
-            if (errorCode == "02") {
-                Toast.makeText(activity, "Invalid file format", Toast.LENGTH_LONG).show()
-            } else {
-                pb.FinishButton()
-            }
-//            dismiss()
-        })
-        viewModelProfile.getIsErrorFile().observe(this, Observer {
-            Log.d("error01", "code : $it")
-//            when(it)
-        })
-    }
-
     private fun updateCV() {
-        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
         //get file name using getFileName function
         val fileName = getFileName(selectedPdfUri!!)
         //put fileName to profile fragment
-        var length = fileName?.length?.toInt()
-        if (fileName?.substring(fileName?.length?.toInt()-4, length!!.toInt())!!.equals(".png") || fileName?.substring(fileName?.length?.toInt()-4, length!!.toInt())!!.equals(".pdf")) {
-            val i = Bundle()
-            val frag = UpdateCVFragment()
-            val fragmentManager: FragmentManager? = fragmentManager
-            i.putString("fileName", fileName)
-            frag.arguments = i
-            fragmentManager!!.beginTransaction()
-                .replace(
-                    R.id.content, ProfileFragment()
-                )
-                .commit()
-
+        val i = Bundle()
+        val frag = UpdateCVFragment()
+        val fragmentManager: FragmentManager? = fragmentManager
+        i.putString("fileName", fileName)
+        frag.arguments = i
+        fragmentManager!!.beginTransaction()
+            .replace(
+                R.id.content, ProfileFragment()
+            )
+            .commit()
+        //handle file format
+        val length = fileName?.length
+        if (fileName?.substring(fileName.length - 4, length!!.toInt()).equals(".png") ||
+            fileName?.substring(fileName.length - 4, length!!.toInt()).equals(".pdf")
+        ) {
             val fileHandler = FileHandler()
             val files = File(fileHandler.handleUri(requireContext(), selectedPdfUri!!)!!)
-            var fl = files.length()/1024
+            //handle file size
+            val fl = files.length() / 1024
             if (fl > 5000) {
                 Toast.makeText(requireContext(), "max file 5 mb", Toast.LENGTH_SHORT).show()
                 pb.FinishButton()
+            } else {
+                val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+                val requestFile: RequestBody =
+                    RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
+                val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "jobseekerResume", files.name.trim(), requestFile
+                )
+                viewModelProfile.updateFileProfile(id, bodyFile)
             }
-            else {
-            val requestFile: RequestBody =
-                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
-            val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "jobseekerResume", files.name.trim(), requestFile
-            )
-            viewModelProfile.updateFileProfile(id, bodyFile)
-        } }
-        else {
-            Toast.makeText(requireContext(), "formatnotvalid", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Invalid file format", Toast.LENGTH_SHORT).show()
             pb.FinishButton()
         }
+    }
 
+    private fun setObserver() {
+        viewModelProfile.listResponseFile().observe(this, Observer {
+            pb.FinishButton()
+            dismiss()
+            onUpdate?.let {
+                it()
+            }
+        })
+        viewModelProfile.getIsErrorFile().observe(this, Observer {
+            Log.d("error01", "code : $it")
+        })
     }
 
     @SuppressLint("Range")
@@ -144,7 +138,7 @@ class UpdateCVFragment : DialogFragment() {
             val cursor: Cursor? =
                 requireActivity().contentResolver.query(uri, null, null, null, null)
             try {
-                var ea = requireActivity().contentResolver.openInputStream(uri)
+                val ea = requireActivity().contentResolver.openInputStream(uri)
                 Log.d("pdfuri", "$ea ====ea")
                 if (cursor != null && cursor.moveToFirst()) {
                     Log.d("pdfuri", "$result ====content")
@@ -174,7 +168,6 @@ class UpdateCVFragment : DialogFragment() {
             selectedPdfUri = data?.data
             Log.i("xxfile", "$selectedPdfUri ==try")
             val fileName = getFileName(selectedPdfUri!!)
-
             binding.btnChooseCv.text = fileName
             binding.btnUpdate.cvUpdate.isEnabled = true.apply {
                 binding.btnUpdate.cvUpdate.setCardBackgroundColor(resources.getColor(R.color.holo_blue_dark))

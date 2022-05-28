@@ -14,8 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -41,7 +39,8 @@ class ApplyDialogFragment : DialogFragment() {
     var page = 0
     var size = 0
     var tempCv = ""
-    lateinit var pb : ProgressButtonUpdatecv
+    lateinit var pb: ProgressButtonUploadNewCV
+    lateinit var pbJustApply: ProgressButtonJustApply
     private val viewModelApply: ApplyViewModel by lazy {
         ViewModelProviders.of(this).get(ApplyViewModel::class.java)
     }
@@ -67,56 +66,62 @@ class ApplyDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pb = ProgressButtonUpdatecv(requireContext(),view)
+        pb = ProgressButtonUploadNewCV(requireContext(), view)
+        pbJustApply = ProgressButtonJustApply(requireContext(), view)
         binding.ivClose.setOnClickListener {
             dismiss()
         }
 
         viewModelProfile.getProfile(userId)
-        binding.btnJustApply.setOnClickListener {
-                if (tempCv.isEmpty()) {
-                    Log.d("resume test", "is empty $tempCv")
-                    onApplied?.let {
-                        it()
-                    }
-                } else {
-                    applyJob()
+        binding.btnJustApply.cvJustApply.setOnClickListener {
+            pbJustApply.ActiveButton()
+            //resume null condition
+            if (tempCv.isEmpty()) {
+                Log.d("resume test", "is empty $tempCv")
+                Toast.makeText(activity, "Upload your newest CV first", Toast.LENGTH_SHORT).show()
+                pbJustApply.FinishButton()
+
+            } else {
+                applyJob()
+                onApplied?.let {
+                    it()
                 }
+            }
         }
 
         binding.tvUpdateCv.setOnClickListener {
             openDirectory()
         }
 
-        binding.btnUpdateCv.cvUpdate.isEnabled = false.apply {
-            binding.btnUpdateCv.cvUpdate.setCardBackgroundColor(Color.GRAY)
+        binding.btnUpdateCv.cvUpload.isEnabled = false.apply {
+            binding.btnUpdateCv.cvUpload.setCardBackgroundColor(Color.GRAY)
         }
-        binding.btnUpdateCv.cvUpdate.setOnClickListener {
+        binding.btnUpdateCv.cvUpload.setOnClickListener {
             pb.ActiveButton()
-            updateResume()
+            updateCV()
         }
         setObserver()
     }
 
     private fun setObserver() {
         viewModelApply.responseApply().observe(this, Observer {
+            pbJustApply.FinishButton()
             getApplicationStatus()
+            dismiss()
             onApplied?.let {
                 it()
             }
-            dismiss()
         })
 
         viewModelProfile.responseProfile().observe(this, Observer {
-            //resume null condition
             tempCv = it.data.jobseekerResume
         })
 
         viewModelProfile.listResponseFile().observe(this, Observer {
             pb.FinishButton()
+            Toast.makeText(activity, "CV Updated", Toast.LENGTH_SHORT).show()
         })
     }
-
     private fun applyJob() {
         val idJob = activity?.intent?.getIntExtra("jobId", 0)
         val jobId = idJob.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -130,13 +135,11 @@ class ApplyDialogFragment : DialogFragment() {
     private fun getApplicationStatus() {
         Log.d("testStatus", "=====status")
         viewModelApplication.getApplyJobStatus(userId, page, size)
-        context?.let { Toast.makeText(it, "Success Applied", Toast.LENGTH_LONG).show() }
-        Log.d("testToast", "=====toastApply")
     }
 
     private fun openDirectory() {
         val intent = Intent(Intent(Intent.ACTION_GET_CONTENT))
-        intent.type = "application/pdf"
+        intent.type = "*/*"
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(intent, REQUEST_FILE)
     }
@@ -149,29 +152,42 @@ class ApplyDialogFragment : DialogFragment() {
             val fileName = getFileName(selectedPdfUri!!)
             binding.tvUpdateCv.text = fileName
             binding.tvUpdateCv.setCompoundDrawables(null, null, null, null)
-            binding.btnUpdateCv.cvUpdate.isEnabled = true.apply {
-                binding.btnUpdateCv.cvUpdate.setBackgroundResource(R.drawable.bg_border_mediumblue)
-                binding.btnUpdateCv.tvUpdate.setTextColor(resources.getColor(R.color.medium_blue))
+            binding.btnUpdateCv.cvUpload.isEnabled = true.apply {
+                binding.btnUpdateCv.cvUpload.setBackgroundResource(R.drawable.bg_border_mediumblue)
+                binding.btnUpdateCv.tvUpload.setTextColor(resources.getColor(R.color.medium_blue))
             }
         }
     }
 
-    private fun updateResume() {
-        val id = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-            .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
+    private fun updateCV() {
         //get file name using getFileName function
         val fileName = getFileName(selectedPdfUri!!)
         Log.d("pdfuri", "$fileName")
-
-        val fileHandler = FileHandler()
-        val files = File(fileHandler.handleUri(requireContext(), selectedPdfUri!!)!!)
-        val requestFile: RequestBody =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
-        val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
-            "jobseekerResume", files.name.trim(), requestFile
-        )
-        viewModelProfile.updateFileProfile(id, bodyFile)
+        //handle file format
+        val length = fileName?.length
+        if (fileName?.substring(fileName.length - 4, length!!.toInt()).equals(".png") ||
+            fileName?.substring(fileName.length - 4, length!!.toInt()).equals(".pdf")
+        ) {
+            val fileHandler = FileHandler()
+            val files = File(fileHandler.handleUri(requireContext(), selectedPdfUri!!)!!)
+            //handle file size
+            val fl = files.length() / 1024
+            if (fl > 5000) {
+                Toast.makeText(requireContext(), "max file 5 mb", Toast.LENGTH_SHORT).show()
+                pb.FinishButton()
+            } else {
+                val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+                val requestFile: RequestBody =
+                    RequestBody.create("multipart/form-data".toMediaTypeOrNull(), files)
+                val bodyFile: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "jobseekerResume", files.name.trim(), requestFile
+                )
+                viewModelProfile.updateFileProfile(id, bodyFile)
+            }
+        } else {
+            Toast.makeText(requireContext(), "Invalid file format", Toast.LENGTH_SHORT).show()
+            pb.FinishButton()
+        }
     }
 
     @SuppressLint("Range")
