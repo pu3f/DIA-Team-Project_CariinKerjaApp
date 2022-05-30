@@ -104,29 +104,27 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
 
     override fun addData(list: String) {
         Log.d("noList", "skillList = $list")
-//        for (i in temp.indices) {
         if (!temp.contains(list)) {
             temp.add(list)
-            Log.d("noList", "skillList = $temp")
+            Log.d("addNoList", "skillList = $temp")
         }
         adapter = SkillAdapter(temp, this)
         binding.rvSkill.adapter = adapter
         adapter.initData(arraySkill)
-        Log.d("haveList", "skillList = $arraySkill")
+        Log.d("addHaveList", "skillList = $arraySkill")
         adapter.notifyDataSetChanged()
-//        }
     }
 
     override fun removeData(list: String) {
         for (i in temp.indices) {
             if (temp.contains(list)) {
-                Log.d("haveList", "skillList = $list")
+                Log.d("removeHaveList", "skillList = $temp")
                 temp.remove(list)
             }
 //            adapter = SkillAdapter(temp, this)
 //            binding.rvSkill.adapter = adapter
 //            adapter.initData(arraySkill)
-//            Log.d("noList", "skillList = $arraySkill")
+//            Log.d("removeNoList", "skillList = $arraySkill")
 //            adapter.notifyDataSetChanged()
         }
     }

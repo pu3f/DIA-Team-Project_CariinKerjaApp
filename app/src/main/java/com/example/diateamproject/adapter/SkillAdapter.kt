@@ -46,20 +46,25 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
             with(skillList[position]) {
                 Log.d("tempSkill", "temp = $temp")
                 for (i in temp.indices) {
-                    if (temp[i].equals(skillName)) {
-                        binding.chipList.isSelected = true
+                    if (temp.equals(skillName)) {
+                        binding.chipList.isChecked = true
                     }
                 }
                 binding.chipList.text = skillName
                 binding.chipList.setOnClickListener {
                     Log.d("tempSkill1", "temp = $temp")
-//                    if (binding.chipList.isChecked) {
-//                        listener.removeData(skillName)
-//                    } else {
+                    if ((binding.chipList.isSelected==true|| binding.chipList.isChecked==true)) {
+                        listener.removeData(skillName)
+                        Log.d("removeData", "data = $skillName")
+                        binding.chipList.isSelected= false
+                        binding.chipList.isChecked = false
+                    } else {
+                        binding.chipList.isSelected= true
+                        binding.chipList.isChecked = true
                         listener.addData(skillName)
-//                    }
+                        Log.d("addData", "data = $skillName")
+                    }
                 }
-
             }
         }
     }
