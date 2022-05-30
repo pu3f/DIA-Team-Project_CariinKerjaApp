@@ -169,7 +169,7 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnApply"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -181,7 +181,10 @@
         android:text="Apply"
         android:textAllCaps="false"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:rippleColor="@color/white"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
