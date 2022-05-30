@@ -293,6 +293,8 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
+                app:endIconDrawable="@drawable/ic_arrow_down"
+                app:endIconTint="@color/medium_blue"
                 app:hintTextAppearance="?textAppearanceCaption">
 
                 <AutoCompleteTextView
@@ -352,8 +354,6 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/medium_blue"
                 app:helperText="@string/helperName"
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="?textAppearanceCaption">
@@ -366,7 +366,9 @@
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
                     android:textStyle="normal"
-                    android:editable="false"/>
+                    android:editable="false"
+                    android:drawableEnd="@drawable/ic_arrow_down"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
