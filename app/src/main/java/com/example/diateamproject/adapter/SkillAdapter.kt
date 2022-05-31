@@ -53,7 +53,7 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
                 binding.chipList.text = skillName
                 binding.chipList.setOnClickListener {
                     Log.d("tempSkill1", "temp = $temp")
-                    if ((binding.chipList.isSelected==true|| binding.chipList.isChecked==true)) {
+                    if ((binding.chipList.isSelected==true || binding.chipList.isChecked==true)) {
                         listener.removeData(skillName)
                         Log.d("removeData", "data = $skillName")
                         binding.chipList.isSelected= false
