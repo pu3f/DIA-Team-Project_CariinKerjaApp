@@ -59,7 +59,8 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
         val tempSkill = arguments?.getSerializable("tes")
         Log.d("tempSkill1", "xx = $tempSkill")
         if (tempSkill != null) {
-            temp = tempSkill as ArrayList<String>
+            temp.addAll(tempSkill as ArrayList<String>)
+            Log.d("tempSkill1", "xx2 = $temp")
         }
 
         binding.btnChoose.setOnClickListener {
@@ -86,8 +87,9 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
     private fun setObserver() {
         viewModelSkill.responseSkill().observe(viewLifecycleOwner, Observer {
             adapter = SkillAdapter(temp, this)
+            Log.d("listSkills", "xx11,"+temp.toString())
             binding.rvSkill.adapter = adapter
-            Log.d("listSkill", "xx11")
+
             arraySkill = it.data as ArrayList<Data>
             adapter.initData(arraySkill)
         })
@@ -103,11 +105,12 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
 //    }
 
     override fun addData(list: String) {
-        Log.d("noList", "skillList = $list")
+
         if (!temp.contains(list)) {
             temp.add(list)
             Log.d("addNoList", "skillList = $temp")
         }
+        Log.d("AfterListAdd", "skillList = $temp")
         adapter = SkillAdapter(temp, this)
         binding.rvSkill.adapter = adapter
         adapter.initData(arraySkill)
@@ -121,6 +124,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
                 Log.d("removeHaveList", "skillList = $temp")
                 temp.remove(list)
             }
+            Log.d("AfterListRemove", "skillList = $temp")
 //            adapter = SkillAdapter(temp, this)
 //            binding.rvSkill.adapter = adapter
 //            adapter.initData(arraySkill)

@@ -44,26 +44,33 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
     override fun onBindViewHolder(holder: SkillAdapter.ViewHolder, position: Int) {
         with(holder) {
             with(skillList[position]) {
-                Log.d("tempSkill", "temp = $temp")
+                Log.d("tempSkill123", "temp = $temp")
                 for (i in temp.indices) {
-                    if (temp.equals(skillName)) {
+                    //notePutri
+                    //ini salah harusnya temp.get(i)
+                    if (temp.get(i).equals(skillName)) {
                         binding.chipList.isChecked = true
+                        binding.chipList.isSelected= true
                     }
                 }
                 binding.chipList.text = skillName
                 binding.chipList.setOnClickListener {
                     Log.d("tempSkill1", "temp = $temp")
-                    if ((binding.chipList.isSelected==true || binding.chipList.isChecked==true)) {
+                    if (binding.chipList.isSelected ) {
                         listener.removeData(skillName)
                         Log.d("removeData", "data = $skillName")
                         binding.chipList.isSelected= false
                         binding.chipList.isChecked = false
-                    } else {
-                        binding.chipList.isSelected= true
-                        binding.chipList.isChecked = true
+                    }
+
+                    else if(!binding.chipList.isSelected || !binding.chipList.isChecked) {
+
+                     binding.chipList.isCheckable=true
+                        binding.chipList.isSelected =true
                         listener.addData(skillName)
                         Log.d("addData", "data = $skillName")
                     }
+
                 }
             }
         }

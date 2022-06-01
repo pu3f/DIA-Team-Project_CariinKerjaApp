@@ -79,7 +79,7 @@ class ProfileFragment : Fragment(), Skill {
         }
 
         binding.tfSkill.setOnClickListener {
-            val skillFragment= BottomSheetSkillFragment(this)
+            val skillFragment = BottomSheetSkillFragment(this)
             val bundle = Bundle()
             bundle.putSerializable("tes", temp)
             Log.d("putTes1", "tes = $temp")
@@ -143,6 +143,16 @@ class ProfileFragment : Fragment(), Skill {
             binding.tfAddress.setText(it.data.jobseekerAddress)
             binding.actvDegree.setText(it.data.jobseekerEducation)
             binding.tfSkill.setText(it.data.jobseekerSkill)
+            //notePutri
+            //ini harus di import dulu ke arraynya temp
+            if (it.data.jobseekerSkill.isNotEmpty()) {
+                val testr = it.data.jobseekerSkill.split(";").toTypedArray()
+                Log.d("testingtrai", testr.toString())
+                temp.addAll(testr)
+            }
+//endNotePutri
+
+
             binding.tfProfession.setText(it.data.jobseekerProfession)
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
             binding.tfPorto.setText(it.data.jobseekerPortfolio)
