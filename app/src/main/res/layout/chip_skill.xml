@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.chip.ChipGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/chipGroupList"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:chipSpacingHorizontal="8dp"
     app:chipSpacingVertical="12dp">
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chipList"
+        style="@style/CustomChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/skill1"
         android:paddingHorizontal="12dp"
-        style="@style/CustomChipStyle"/>
+        android:text="@string/skill1"
+        android:clickable="true"
+        android:focusable="true"
+        android:checkable="true"/>
 
 </com.google.android.material.chip.ChipGroup>
