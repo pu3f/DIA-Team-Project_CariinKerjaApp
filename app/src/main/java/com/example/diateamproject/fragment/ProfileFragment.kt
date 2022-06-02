@@ -42,12 +42,10 @@ class ProfileFragment : Fragment(), Skill {
     private val binding get() = _binding!!
     private val REQUEST_IMAGE = 1
     val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
-    val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
     private var selectedImageUri: Uri? = null
     lateinit var pb: ProgressButtonSaveProfile
     val dialog = UpdateCVFragment()
     var tempPhone = ""
-    var Skill = ""
     var temp: ArrayList<String> = ArrayList<String>()
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
@@ -71,22 +69,22 @@ class ProfileFragment : Fragment(), Skill {
 
         // call function requestPermission from menu activity
         (activity as MenuActivity).requestPermission()
-
         viewModelProfile.getProfile(userId)
         Log.d("profileId", "$userId======getProfile")
-        binding.ivProfile.setOnClickListener {
+
+        binding.btnUpdateImg.setOnClickListener {
             openGallery()
         }
-
+        //show bottom sheet skill
         binding.tfSkill.setOnClickListener {
-            val skillFragment= BottomSheetSkillFragment(this)
+            val skillFragment = BottomSheetSkillFragment(this)
             val bundle = Bundle()
             bundle.putSerializable("tes", temp)
             Log.d("putTes1", "tes = $temp")
             skillFragment.arguments = bundle
             skillFragment.show(requireFragmentManager(), "bottomSheetSkill")
         }
-
+        //show update cv dialog
         binding.tfCV.setOnClickListener {
             val supportFragmentManager = requireActivity().supportFragmentManager
             dialog.onUpdate = {
@@ -101,7 +99,6 @@ class ProfileFragment : Fragment(), Skill {
             }
             dialog.show(supportFragmentManager, "updateCVDialog")
         }
-
         binding.tfCV.setHint("Upload here")
 
         binding.btnSaveProfile.cvSaveProfile.setOnClickListener {
@@ -114,10 +111,8 @@ class ProfileFragment : Fragment(), Skill {
             if (binding.tfPhone.text.toString().startsWith("0") || binding.tfPhone.text.toString()
                     .startsWith("+") || binding.tfPhone.text.toString().startsWith("6")
             ) {
-                binding.tfPhone.text.clear()
+                binding.tfPhone.text?.clear()
             }
-            var phoneccp =
-                binding.ccp.selectedCountryCode.toString() + binding.tfPhone.text.toString()
         }
 
         binding.tfBirth.setOnClickListener {
@@ -137,17 +132,29 @@ class ProfileFragment : Fragment(), Skill {
             binding.tfBio.setText(it.data.jobseekerAbout)
             binding.tfName.setText(it.data.jobseekerName)
             binding.tfEmail.setText(it.data.jobseekerEmail)
-            if (!tempPhone.isEmpty()) {
+            if (tempPhone.isNotEmpty()) {
                 binding.tfPhone.setText(it.data.jobseekerPhone.substring(2))
             }
             binding.tfAddress.setText(it.data.jobseekerAddress)
             binding.actvDegree.setText(it.data.jobseekerEducation)
-            binding.tfSkill.setText(it.data.jobseekerSkill)
+            //jobseekerSkill isNotEmpty condition
+            if (it.data.jobseekerSkill.isNotEmpty()) {
+                binding.tfSkill.setText(it.data.jobseekerSkill)
+                val skills = it.data.jobseekerSkill.split(";").toTypedArray()
+                Log.d("trySkills", skills.joinToString(separator = ";"))
+                //add skills to temp array
+                temp.addAll(skills)
+            }
             binding.tfProfession.setText(it.data.jobseekerProfession)
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
             binding.tfPorto.setText(it.data.jobseekerPortfolio)
             binding.tfBirth.setText(it.data.jobseekerDateOfBirth)
             binding.tfCV.setText(it.data.jobseekerResume)
+            binding.tfCompanyName.setText(it.data.jobsekerCompany)
+            if (it.data.workStartYear != 0 && it.data.workEndYear !=0) {
+                binding.tfDateStart.setText(it.data.workStartYear.toString())
+                binding.tfDateEnd.setText(it.data.workEndYear.toString())
+            }
 
             fullnameFocusListener()
             addressFocusListener()
@@ -175,6 +182,17 @@ class ProfileFragment : Fragment(), Skill {
             pb.FinishButton()
         })
 
+        viewModelProfile.getIsErrorUpdate().observe(viewLifecycleOwner, Observer {
+            val snackbar = Snackbar.make(requireView(), "Something Wrong", Snackbar.LENGTH_SHORT)
+            snackbar.setAction("Try again") {
+                it.setOnClickListener {
+                    snackbar.dismiss()
+                }
+            }
+            snackbar.show()
+            pb.FinishButton()
+        })
+
         viewModelProfile.listResponseImage().observe(viewLifecycleOwner, Observer {
             Toast.makeText(activity, "Image Updated", Toast.LENGTH_SHORT).show()
         })
@@ -193,6 +211,9 @@ class ProfileFragment : Fragment(), Skill {
         val updatePortfolio = binding.tfPorto.text.toString()
         val updateSkill = binding.tfSkill.text.toString()
         val updateMedsos = binding.tfSosmed.text.toString()
+        val updateCompanyName = binding.tfCompanyName.text.toString().capitalize()
+        val updateYearStart = binding.tfDateStart.text.toString().toIntOrNull()
+        val updateYearEnd = binding.tfDateEnd.text.toString().toIntOrNull()
 
         viewModelProfile.updateProfile(
             id,
@@ -206,7 +227,10 @@ class ProfileFragment : Fragment(), Skill {
             updateProfession,
             updatePortfolio,
             updateSkill,
-            updateMedsos
+            updateMedsos,
+            updateCompanyName,
+            updateYearStart,
+            updateYearEnd
         )
     }
 
@@ -225,7 +249,7 @@ class ProfileFragment : Fragment(), Skill {
                 uriPathHelper.getPath(requireContext(), it).toString()
         }
 
-        var file: File = File(pathImage)
+        val file: File = File(pathImage)
         val requestImage: RequestBody =
             file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
         val bodyImage: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -369,11 +393,12 @@ class ProfileFragment : Fragment(), Skill {
         }
     }
 
+
     private fun validSkill(): String? {
+        val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
         val skillText = userSkill
-        binding.tfSkill.setText(userSkill)
         if (skillText.isEmpty()) {
-            return "Enter your Main skill"
+            return "Choose your skills"
         }
         return null
     }
@@ -398,11 +423,11 @@ class ProfileFragment : Fragment(), Skill {
     fun actionLogout() {
         binding.ivLogout.setOnClickListener {
             PrefsLogin.clear()
-            var alertLogout = AlertDialog.Builder(activity)
+            val alertLogout = AlertDialog.Builder(activity)
             alertLogout.setTitle("Confirm Logout")
             alertLogout.setMessage("Are you sure want to logout?")
             alertLogout.setPositiveButton("Sure", { dialog: DialogInterface?, which: Int ->
-                var intentLogin = Intent(activity, LoginActivity::class.java)
+                val intentLogin = Intent(activity, LoginActivity::class.java)
                 startActivity(intentLogin)
                 activity?.finish()
             })
@@ -431,9 +456,13 @@ class ProfileFragment : Fragment(), Skill {
     override fun setData(arrayList: ArrayList<Data>) {
         val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
         Log.d("setText", "Skill = $userSkill")
-        temp.addAll(arrayList as ArrayList<String>)
-        Log.d("putTes", "tes = $temp")
-        binding.tfSkill.setText(userSkill)
+        if (arrayList != temp) {
+            //clear array temp before add to array list
+            temp.clear()
+            temp.addAll(arrayList as ArrayList<String>)
+            Log.d("putTes", "tes = $temp")
+            binding.tfSkill.setText(userSkill)
+        }
     }
 }
 
