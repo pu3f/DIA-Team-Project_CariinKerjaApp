@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-<!--        <solid android:color="@android:color/transparent" />-->
         <shape android:shape="rectangle">
             <stroke
                 android:width="5dip"
-                android:color="@color/light_grey"
+                android:color="@color/grey"
                 />
             <padding
                 android:bottom="0dip"
@@ -17,7 +16,7 @@
     </item>
     <item android:top="2dp" >
         <shape android:shape="rectangle">
-            <solid android:color="#FFFFFF" />
+            <solid android:color="#FFFFFF"/>
         </shape>
     </item>
 </layer-list>

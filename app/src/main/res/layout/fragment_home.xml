@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_grey"
-    tools:context=".fragment.HomeFragment"
-    android:paddingHorizontal="16dp">
+    android:background="@color/grey_light"
+    android:paddingHorizontal="16dp"
+    tools:context=".fragment.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:paddingVertical="16dp"
             android:background="@drawable/bg_header_home"
+            android:paddingVertical="16dp"
             app:cardCornerRadius="14dp"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -32,9 +32,9 @@
                     android:id="@+id/tvHello"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
                     android:text="@string/helloUsername"
                     android:textColor="@color/white"
-                    android:fontFamily="sans-serif-medium"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -43,11 +43,11 @@
                     android:id="@+id/tvSearchTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/searchTitle"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvHello" />
 
@@ -55,20 +55,20 @@
                     android:id="@+id/btnSearchHome"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvSearchTitle"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/ic_search"
                     android:fontFamily="sans-serif"
                     android:text="@string/searchHere"
-                    android:textAllCaps="false"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/darker_gray"
                     android:textAlignment="textStart"
-                    android:drawableLeft="@drawable/ic_search"
-                    app:cornerRadius="20dp"/>
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp"
+                    app:cornerRadius="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSearchTitle" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,8 +78,8 @@
             android:id="@+id/llRecentJobTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cvGreetings">
 
@@ -87,10 +87,10 @@
                 android:id="@+id/tvJobList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/JobListTitle"
-                android:textColor="@color/dark_black"/>
+                android:textColor="@color/dark_black"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvShowMore"
@@ -108,20 +108,19 @@
         </RelativeLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeToRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/swipeToRefresh">
+            android:layout_height="match_parent">
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle"
-                android:orientation="vertical"
-                android:paddingBottom="?actionBarSize"
                 android:clipToPadding="false"
-                android:scrollbars="none">
+                android:orientation="vertical"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -131,17 +130,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        tools:listitem="@layout/card_job"
-                        tools:itemCount="5"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/card_job" />
 
                     <ProgressBar
                         android:id="@+id/pbHome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         style="?attr/progressBarStyle"
-                        android:layout_gravity="center"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </ScrollView>
 

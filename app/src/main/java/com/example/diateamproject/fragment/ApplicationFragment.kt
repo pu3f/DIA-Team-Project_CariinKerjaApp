@@ -1,19 +1,16 @@
 package com.example.diateamproject.fragment
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.diateamproject.activity.JobDetailsActivity
 import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.adapter.ApplicationStatusAdapter
@@ -58,7 +55,7 @@ class ApplicationFragment : Fragment() {
         listRefresh()
         getApplyJobStatus(false)
 
-        var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
+        val scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
             override fun onLoadMore(totalItemsCount: Int, recyclerView: RecyclerView) {
                 if (!isLastPage) {
                     page++
@@ -95,7 +92,6 @@ class ApplicationFragment : Fragment() {
     private fun setObserver() {
         viewModelApplication.allListResponse().observe(viewLifecycleOwner, Observer {
             isLastPage = it.last
-
             if (it != null) {
                 Log.d("listStatus", "if11")
                 binding.rvListApplication.setHasFixedSize(true)
@@ -128,7 +124,6 @@ class ApplicationFragment : Fragment() {
                 binding.rvListApplication.visibility = View.GONE
                 binding.llNoApplication.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.INVISIBLE
-
             } else {
                 binding.rvListApplication.visibility = View.VISIBLE
                 binding.llNoApplication.visibility = View.GONE

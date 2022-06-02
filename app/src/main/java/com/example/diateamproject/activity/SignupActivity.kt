@@ -1,22 +1,18 @@
 package com.example.diateamproject.activity
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.AttributeSet
 import android.util.Patterns
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivitySignupBinding
-import com.example.diateamproject.databinding.ProgressButtonSignupBinding
 import com.example.diateamproject.util.ProgressButtonSignup
 import com.example.diateamproject.viewmodel.RegisterViewModel
 
@@ -177,9 +173,9 @@ class SignupActivity : AppCompatActivity(), View.OnFocusChangeListener {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            var userName = binding.etName.text!!.trim().isNotEmpty()
-            var userEmail = binding.etEmail.text!!.trim().isNotEmpty()
-            var userPassword = binding.etPassword.text!!.trim().isNotEmpty()
+            val userName = binding.etName.text!!.trim().isNotEmpty()
+            val userEmail = binding.etEmail.text!!.trim().isNotEmpty()
+            val userPassword = binding.etPassword.text!!.trim().isNotEmpty()
             binding.btnSignup.cvSignup.isEnabled = userName && userEmail && userPassword.apply {
                 binding.btnSignup.cvSignup.setCardBackgroundColor(getColor(R.color.medium_blue))
             }

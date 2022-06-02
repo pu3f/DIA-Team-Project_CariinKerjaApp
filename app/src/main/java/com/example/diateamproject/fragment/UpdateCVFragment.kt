@@ -22,7 +22,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentUpdatecvDialogBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
-import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

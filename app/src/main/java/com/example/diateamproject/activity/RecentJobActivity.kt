@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.diateamproject.adapter.AllJobAdapter
 import com.example.diateamproject.databinding.ActivityRecentJobBinding
 import com.example.diateamproject.listener.OnItemClickListener
@@ -40,7 +39,7 @@ class RecentJobActivity : AppCompatActivity() {
         listRefresh()
         getAllJobs(false)
 
-        var scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
+        val scrollListener = object : EndlessScrollingRecyclerView(layoutManager) {
             override fun onLoadMore(totalItemsCount: Int, recyclerView: RecyclerView) {
                 if (!isLastPage) {
                     page++

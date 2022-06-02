@@ -71,7 +71,6 @@ class ApplyDialogFragment : DialogFragment() {
         binding.ivClose.setOnClickListener {
             dismiss()
         }
-
         viewModelProfile.getProfile(userId)
         binding.btnJustApply.cvJustApply.setOnClickListener {
             pbJustApply.ActiveButton()
@@ -80,7 +79,6 @@ class ApplyDialogFragment : DialogFragment() {
                 Log.d("resume test", "is empty $tempCv")
                 Toast.makeText(activity, "Upload your newest CV first", Toast.LENGTH_SHORT).show()
                 pbJustApply.FinishButton()
-
             } else {
                 applyJob()
                 onApplied?.let {
@@ -198,7 +196,7 @@ class ApplyDialogFragment : DialogFragment() {
             val cursor: Cursor? =
                 requireActivity().contentResolver.query(uri, null, null, null, null)
             try {
-                var ea = requireActivity().contentResolver.openInputStream(uri)
+                val ea = requireActivity().contentResolver.openInputStream(uri)
                 Log.d("pdfuri", "$ea ====ea")
                 if (cursor != null && cursor.moveToFirst()) {
                     Log.d("pdfuri", "$result ====content")

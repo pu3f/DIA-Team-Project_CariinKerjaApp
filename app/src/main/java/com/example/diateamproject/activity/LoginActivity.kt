@@ -1,11 +1,8 @@
 package com.example.diateamproject.activity
 
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,11 +10,8 @@ import com.example.diateamproject.databinding.ActivityLoginBinding
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.util.ProgressButtonLogin
-import com.example.diateamproject.util.ProgressButtonSignup
 import com.example.diateamproject.viewmodel.LoginViewModel
 import com.pixplicity.easyprefs.library.Prefs
-import kotlinx.coroutines.delay
-
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

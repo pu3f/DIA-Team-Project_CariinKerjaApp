@@ -55,7 +55,7 @@
     <string name="skill">Skills</string>
     <string name="hintSkill">Skills</string>
     <string name="link">Link</string>
-    <string name="hintSosmed">Social media</string>
+    <string name="hintLinkedin">LinkedIn</string>
     <string name="hintPorto">Portfolio</string>
     <string name="fileRequired">File size max 5 mb</string>
     <string name="helperName">*Required</string>
@@ -65,7 +65,7 @@
     <string name="btnSignUp">Sign Up</string>
     <string name="pinRequired">minimum 8 character</string>
     <string name="fpinTitle">Forgot your password?</string>
-    <string name="fpinInstruction">Enter your registered email to recieve password reset instruction</string>
+    <string name="fpinInstruction">Enter your registered email to receive password reset instruction</string>
     <string name="send">Send Email</string>
     <string name="hintNewPin">New password</string>
     <string name="hintConfirmPin">Confirm new password</string>
@@ -78,8 +78,8 @@
     <string name="ok">Got It</string>
     <string name="checkEmailInstruction">Did not receive the email? check you spam folder or</string>
     <string name="checkEmailInstruction1">try another email address</string>
-    <string name="successAlert">Successfull</string>
-    <string name="successMessage">Nice! You’ve succesfully updated your password</string>
+    <string name="successAlert">Successful</string>
+    <string name="successMessage">Nice! You’ve successfully updated your password</string>
     <string name="backLogin">Go back to Login</string>
     <string name="pinRequired1">1 upper-case [A-Z]</string>
     <string name="pinRequired2">1 lower-case [a-z]</string>
@@ -97,6 +97,10 @@
     <string name="requiredSkill">Choose at least 3 skills</string>
     <string name="skill1">skill1</string>
     <string name="btnchoose">Choose</string>
+    <string name="latestWorkExperience">Latest Work Experience</string>
+    <string name="hintCompanyName">Company Name</string>
+    <string name="hintDateStart">Year Start</string>
+    <string name="hintDateEnd">Year End</string>
     <string-array name="degrees">
         <item>Senior High School</item>
         <item>Diploma</item>

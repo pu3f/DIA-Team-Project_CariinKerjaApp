@@ -4,18 +4,15 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityResetPasswordBinding
 import com.example.diateamproject.fragment.SuccessfullDialogFragment
 import com.example.diateamproject.util.PrefsForgotPasswordConstant
-import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.ResetPasswordViewModel
 import com.pixplicity.easyprefs.library.Prefs
 

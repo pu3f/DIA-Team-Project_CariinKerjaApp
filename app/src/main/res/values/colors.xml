@@ -10,8 +10,8 @@
     <color name="dark_black">#2E3C40</color>
     <color name="blue_primary">#060684</color>
     <color name="grey">#E5E5E5</color>
-    <color name="light_grey">#F3F3F3</color>
-    <color name="gray_placeholder">#838383</color>
+    <color name="grey_light">#F3F3F3</color>
+    <color name="grey_dark">#838383</color>
     <color name="green">#27AE60</color>
     <color name="red">#EB5757</color>
     <color name="medium_blue">#006EFF</color>

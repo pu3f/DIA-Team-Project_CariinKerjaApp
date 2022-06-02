@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diateamproject.adapter.SearchJobAdapter
 import com.example.diateamproject.databinding.ActivitySearchBinding
 import com.example.diateamproject.listener.OnItemClickListener
-import com.example.diateamproject.model.allpostingjobs.Content
 import com.example.diateamproject.model.searchjob.Jobs
 import com.example.diateamproject.viewmodel.SearchJobViewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchActivity : AppCompatActivity() {
