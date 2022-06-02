@@ -13,6 +13,8 @@ import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.recentpostingjobs.Jobs
 import com.example.diateamproject.util.Path
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class RecentJobAdapter : RecyclerView.Adapter<RecentJobAdapter.ViewHolder>() {
     var recentJobList = arrayListOf<Jobs>()
@@ -37,14 +39,18 @@ class RecentJobAdapter : RecyclerView.Adapter<RecentJobAdapter.ViewHolder>() {
         )
     }
 
+    @SuppressLint("NewApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
             with(recentJobList[position]) {
                 binding.tvJobPosition.text = jobName
                 binding.tvCompanyName.text = recruiterCompany
                 binding.tvLocation.text = jobAddress
-                val date = createdAt.substringBefore(" ")
-                binding.tvPostDate.text = date
+                val formatter: DateTimeFormatter =
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
+                val dateTime: LocalDateTime = LocalDateTime.parse(createdAt, formatter)
+                val formatter2: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                binding.tvPostDate.text = dateTime.format(formatter2)
 
                 Glide.with(context!!)
                     .load(Path.IMAGE_URL + recruiterImage)
