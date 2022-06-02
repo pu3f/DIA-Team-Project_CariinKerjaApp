@@ -58,7 +58,6 @@ interface AppService {
         @Query("size") size: Int?
     ): Single<AllPostingJobsResponse>
 
-
     @PATCH("api/v1/jobseeker/user/update?")
     fun updateProfile(
         @Query("jobseekerId") jobseekerId: Int?,
@@ -72,7 +71,10 @@ interface AppService {
         @Query("jobseekerProfession") jobseekerProfession: String?,
         @Query("jobseekerPortfolio") jobseekerPortfolio: String?,
         @Query("jobseekerSkill") jobseekerSkill: String?,
-        @Query("jobseekerMedsos") jobseekerMedsos: String?
+        @Query("jobseekerMedsos") jobseekerMedsos: String?,
+        @Query("jobseekerCompany") jobsekerCompany: String?,
+        @Query("workStartYear") workStartYear: Int?,
+        @Query("workEndYear") workEndYear: Int?
     ): Single<UpdateProfileResponse>
 
     @GET("api/v1/jobseeker/search?")

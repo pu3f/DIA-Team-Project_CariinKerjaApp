@@ -24,6 +24,7 @@ class ProfileViewModel : ViewModel() {
     private val listFile = MutableLiveData<UpdateProfileResponse>()
     private val compositeDisposable = CompositeDisposable()
     private val isError = MutableLiveData<Boolean>()
+    private val isErrorUpdate = MutableLiveData<Boolean>()
     private val isErrorFile = MutableLiveData<Boolean>()
 
     @Inject
@@ -76,7 +77,10 @@ class ProfileViewModel : ViewModel() {
         jobseekerProfession: String?,
         jobseekerPortfolio: String?,
         jobseekerSkill: String?,
-        jobseekerMedsos: String?
+        jobseekerMedsos: String?,
+        jobsekerCompany: String?,
+        workStartYear: Int?,
+        workEndYear: Int?
     ) {
         compositeDisposable.add(
             repository.updateProfile(
@@ -91,7 +95,10 @@ class ProfileViewModel : ViewModel() {
                 jobseekerProfession,
                 jobseekerPortfolio,
                 jobseekerSkill,
-                jobseekerMedsos
+                jobseekerMedsos,
+                jobsekerCompany,
+                workStartYear,
+                workEndYear
             )
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -101,12 +108,12 @@ class ProfileViewModel : ViewModel() {
                             listProfile.value = t
                             Log.d("testUpdateProfile", "notError = " + t.toString())
                         } else {
-                            isError.value = true
+                            isErrorUpdate.value = true
                         }
                     }
 
                     override fun onError(e: Throwable) {
-                        isError.value = true
+                        isErrorUpdate.value = true
                         if (e is HttpException) {
                             val errorBody = (e as HttpException).response()?.errorBody()
                             val gson = Gson()
@@ -162,8 +169,7 @@ class ProfileViewModel : ViewModel() {
                         if (t.code == 200) {
                             listFile.value = t
                             Log.d("testFileProfile", "notError = " + t.toString())
-                        }
-                        else {
+                        } else {
                             isErrorFile.value = true
                         }
                     }
@@ -203,6 +209,10 @@ class ProfileViewModel : ViewModel() {
 
     fun getIsError(): MutableLiveData<Boolean> {
         return isError
+    }
+
+    fun getIsErrorUpdate(): MutableLiveData<Boolean> {
+        return isErrorUpdate
     }
 
     fun getIsErrorFile(): MutableLiveData<Boolean> {

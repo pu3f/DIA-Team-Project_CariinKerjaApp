@@ -82,7 +82,10 @@ interface AppRemoteDataSource {
         @Query("jobseekerProfession") jobseekerProfession: String?,
         @Query("jobseekerPortfolio") jobseekerPortfolio: String?,
         @Query("jobseekerSkill") jobseekerSkill: String?,
-        @Query("jobseekerMedsos") jobseekerMedsos: String?
+        @Query("jobseekerMedsos") jobseekerMedsos: String?,
+        @Query("jobseekerCompany") jobsekerCompany: String?,
+        @Query("workStartYear") workStartYear: Int?,
+        @Query("workEndYear") workEndYear: Int?
     ): Single<UpdateProfileResponse>
 
     fun getSearchJob(

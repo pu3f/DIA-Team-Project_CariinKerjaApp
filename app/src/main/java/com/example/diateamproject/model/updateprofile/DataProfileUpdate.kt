@@ -14,5 +14,8 @@ data class DataProfileUpdate(
     val jobseekerPortfolio: String,
     val jobseekerProfession: String,
     val jobseekerResume: String,
-    val jobseekerSkill: String
+    val jobseekerSkill: String,
+    val jobsekerCompany: String,
+    val workStartYear: Int,
+    val workEndYear: Int
 )

@@ -99,7 +99,10 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
         jobseekerProfession: String?,
         jobseekerPortfolio: String?,
         jobseekerSkill: String?,
-        jobseekerMedsos: String?
+        jobseekerMedsos: String?,
+        jobsekerCompany: String?,
+        workStartYear: Int?,
+        workEndYear: Int?
     ): Single<UpdateProfileResponse> {
         return service.updateProfile(
             jobseekerId,
@@ -113,7 +116,10 @@ class AppRemoteDataSourceImpl @Inject constructor(private val service: AppServic
             jobseekerProfession,
             jobseekerPortfolio,
             jobseekerSkill,
-            jobseekerMedsos
+            jobseekerMedsos,
+            jobsekerCompany,
+            workStartYear,
+            workEndYear
         )
     }
 

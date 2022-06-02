@@ -98,7 +98,10 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
         jobseekerProfession: String?,
         jobseekerPortfolio: String?,
         jobseekerSkill: String?,
-        jobseekerMedsos: String?
+        jobseekerMedsos: String?,
+        jobsekerCompany: String?,
+        workStartYear: Int?,
+        workEndYear: Int?
     ): Single<UpdateProfileResponse> {
         return remoteDataSource.updateProfile(
             jobseekerId,
@@ -112,7 +115,10 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
             jobseekerProfession,
             jobseekerPortfolio,
             jobseekerSkill,
-            jobseekerMedsos
+            jobseekerMedsos,
+            jobsekerCompany,
+            workStartYear,
+            workEndYear
         )
     }
 
