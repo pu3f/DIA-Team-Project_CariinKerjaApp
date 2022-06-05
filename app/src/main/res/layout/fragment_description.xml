@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.DescriptionFragment"
-    android:scrollbars="vertical"
+    android:scrollbars="none"
     android:paddingVertical="8dp"
     android:paddingHorizontal="8dp">
 
