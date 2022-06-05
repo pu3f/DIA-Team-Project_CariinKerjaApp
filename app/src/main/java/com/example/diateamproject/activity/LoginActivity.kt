@@ -90,4 +90,8 @@ class LoginActivity : AppCompatActivity() {
                 .show()
         }
     }
+
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }
