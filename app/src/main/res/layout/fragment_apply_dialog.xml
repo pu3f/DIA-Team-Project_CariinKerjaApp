@@ -58,7 +58,35 @@
             app:drawableStartCompat="@drawable/ic_file"
             android:clickable="true"
             android:focusable="true"
+            android:layout_marginBottom="8dp"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="4dp"
+            android:text="@string/fileRequired"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_important"
+            android:drawablePadding="4dp"
+            android:layout_gravity="start"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="4dp"
+            android:text="@string/fileRequired1"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_important"
+            android:drawablePadding="4dp"
+            android:layout_gravity="start"/>
 
         <include
             android:id="@+id/btnUpdateCv"
@@ -72,7 +100,7 @@
             layout="@layout/progress_button_justapply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
