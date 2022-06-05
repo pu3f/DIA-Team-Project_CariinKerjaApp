@@ -65,7 +65,8 @@ class UpdateCVFragment : DialogFragment() {
         }
 
         binding.btnUpdate.cvUpdate.isEnabled = false.apply {
-            binding.btnUpdate.cvUpdate.setCardBackgroundColor(Color.GRAY)
+            binding.btnUpdate.cvUpdate.setCardBackgroundColor(resources.getColor(com.example.diateamproject.R.color.grey))
+            binding.btnUpdate.tvUpdate.setTextColor(Color.GRAY)
         }
 
         binding.btnUpdate.cvUpdate.setOnClickListener {
@@ -169,7 +170,8 @@ class UpdateCVFragment : DialogFragment() {
             val fileName = getFileName(selectedPdfUri!!)
             binding.btnChooseCv.text = fileName
             binding.btnUpdate.cvUpdate.isEnabled = true.apply {
-                binding.btnUpdate.cvUpdate.setCardBackgroundColor(resources.getColor(R.color.holo_blue_dark))
+                binding.btnUpdate.cvUpdate.setCardBackgroundColor(resources.getColor(com.example.diateamproject.R.color.medium_blue))
+                binding.btnUpdate.tvUpdate.setTextColor(Color.WHITE)
             }
         }
     }
