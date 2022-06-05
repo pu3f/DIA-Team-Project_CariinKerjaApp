@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="4dp"
@@ -82,7 +82,7 @@
                 layout="@layout/progress_button_updatecv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"/>
+                android:layout_marginVertical="16dp" />
 
         </LinearLayout>
 

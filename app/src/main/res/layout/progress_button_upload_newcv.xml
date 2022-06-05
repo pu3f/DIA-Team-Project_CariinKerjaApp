@@ -12,7 +12,8 @@
         android:clickable="true"
         android:focusable="true"
         app:cardBackgroundColor="@color/medium_blue"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
