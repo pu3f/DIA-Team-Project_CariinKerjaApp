@@ -32,7 +32,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import androidx.core.widget.addTextChangedListener
-import com.example.diateamproject.model.skills.Data
+import com.example.diateamproject.model.allskills.Data
+import com.example.diateamproject.model.updateprofile.SkillData
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -47,6 +48,10 @@ class ProfileFragment : Fragment(), Skill {
     val dialog = UpdateCVFragment()
     var tempPhone = ""
     var temp: ArrayList<String> = ArrayList<String>()
+    var tempSkill: ArrayList<String> = ArrayList<String>()
+    //note
+    //tambah variable arraylist skill
+    var getSkillList = arrayListOf<SkillData>()
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -132,18 +137,28 @@ class ProfileFragment : Fragment(), Skill {
             binding.tfBio.setText(it.data.jobseekerAbout)
             binding.tfName.setText(it.data.jobseekerName)
             binding.tfEmail.setText(it.data.jobseekerEmail)
-            if (tempPhone.isNotEmpty()) {
+            if (!tempPhone.isNullOrEmpty()) {
                 binding.tfPhone.setText(it.data.jobseekerPhone.substring(2))
             }
             binding.tfAddress.setText(it.data.jobseekerAddress)
             binding.actvDegree.setText(it.data.jobseekerEducation)
+
             //jobseekerSkill isNotEmpty condition
-            if (it.data.jobseekerSkill.isNotEmpty()) {
-                binding.tfSkill.setText(it.data.jobseekerSkill)
-                val skills = it.data.jobseekerSkill.split(";").toTypedArray()
-                Log.d("trySkills", skills.joinToString(separator = ";"))
-                //add skills to temp array
-                temp.addAll(skills)
+            if (!it.data.skills.isNullOrEmpty()) {
+//                binding.tfSkill.setText(it.data.skills[id].skillName).toString()
+                getSkillList = it.data.skills as ArrayList<SkillData>
+                Log.d("LookSkillData", "dataxx = $getSkillList")
+                val inputSkill = getSkillList.joinToString(separator = ",")
+                binding.tfSkill.setText(inputSkill)
+
+                //note
+                //skill.indices
+                //skill.position.id >> add to temp
+                for (i in temp.indices) {
+                    if (temp.get(i).equals(getSkillList[id].skillName)) {
+                        temp.addAll(getSkillList as ArrayList<String>)
+                    }
+                }
             }
             binding.tfProfession.setText(it.data.jobseekerProfession)
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
@@ -317,7 +332,6 @@ class ProfileFragment : Fragment(), Skill {
         if (resultCode == Activity.RESULT_OK && requestCode == this.REQUEST_IMAGE) {
             selectedImageUri = data?.data
             Log.i("xximage", "xximage $selectedImageUri")
-
             //put selectedImage to ivProfile
             binding.ivProfile.setImageURI(selectedImageUri)
             binding.tvPickImage.isGone = true
@@ -393,11 +407,10 @@ class ProfileFragment : Fragment(), Skill {
         }
     }
 
-
     private fun validSkill(): String? {
         val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
         val skillText = userSkill
-        if (skillText.isEmpty()) {
+        if (skillText.isNullOrEmpty()) {
             return "Choose your skills"
         }
         return null
@@ -465,4 +478,3 @@ class ProfileFragment : Fragment(), Skill {
         }
     }
 }
-

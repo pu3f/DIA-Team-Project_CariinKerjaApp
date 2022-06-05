@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diateamproject.databinding.ChipSkillBinding
 import com.example.diateamproject.listener.OnItemClickListener
-import com.example.diateamproject.model.skills.Data
+import com.example.diateamproject.model.allskills.Data
+import com.example.diateamproject.model.updateprofile.SkillData
 import com.example.diateamproject.util.Testing
-
 
 class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
     RecyclerView.Adapter<SkillAdapter.ViewHolder>() {
     private var context: Context? = null
     var skillList = arrayListOf<Data>()
+    var updateSkillList = arrayListOf<SkillData>()
     var onSelectedItemListener: OnItemClickListener? = null
     var listener = testing
 
@@ -47,17 +48,23 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
                 Log.d("tempSkill", "temp = $temp")
                 for (i in temp.indices) {
                     //temp.get(i) condition
-                    if (temp.get(i).equals(skillName)) {
+                        //note
+                        //ubah kondisi jadi temp.id = skillId
+                    if (temp.get(i).equals(skillId)) {
                         binding.chipList.isChecked = true
                         binding.chipList.isSelected = true
                     }
                 }
+                //note
+                //pake list skill
                 binding.chipList.text = skillName
                 binding.chipList.setOnClickListener {
                     Log.d("tempSkill1", "temp = $temp")
                     //onclick isSelected condition
                     if (binding.chipList.isSelected) {
-                        listener.removeData(skillName)
+                        //note
+                        //yang di remove id nya
+                        listener.removeData(skillId.toString())
                         Log.d("removeData", "data = $skillName")
                         binding.chipList.isChecked = false
                         binding.chipList.isSelected= false
@@ -65,7 +72,9 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
                     } else if (!binding.chipList.isSelected) {
                         binding.chipList.isChecked = true
                         binding.chipList.isSelected= true
-                        listener.addData(skillName)
+                        //note
+                        //yang di add id nya
+                        listener.addData(skillId.toString())
                         Log.d("addData", "data = $skillName")
                     }
                 }

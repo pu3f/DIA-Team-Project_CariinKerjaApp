@@ -1,4 +1,4 @@
-package com.example.diateamproject.model.skills
+package com.example.diateamproject.model.allskills
 
 data class SkillResponse(
     val code: Int,

@@ -1,5 +1,7 @@
 package com.example.diateamproject.model.profile
 
+import com.example.diateamproject.model.updateprofile.SkillData
+
 data class DataProfile(
     val jobseekerAbout: String,
     val jobseekerAddress: String,
@@ -14,7 +16,7 @@ data class DataProfile(
     val jobseekerPortfolio: String,
     val jobseekerProfession: String,
     val jobseekerResume: String,
-    val jobseekerSkill: String,
+    val skills: List<SkillData>,
     val jobsekerCompany: String,
     val workStartYear: Int,
     val workEndYear: Int

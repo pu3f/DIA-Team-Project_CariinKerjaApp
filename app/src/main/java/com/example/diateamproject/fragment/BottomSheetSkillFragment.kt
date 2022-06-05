@@ -12,7 +12,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.diateamproject.adapter.SkillAdapter
 import com.example.diateamproject.databinding.FragmentBottomsheetSkillBinding
-import com.example.diateamproject.model.skills.Data
+import com.example.diateamproject.model.allskills.Data
+import com.example.diateamproject.model.updateprofile.SkillData
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.util.Skill
@@ -20,7 +21,6 @@ import com.example.diateamproject.util.Testing
 import com.example.diateamproject.viewmodel.SkillViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import okhttp3.internal.notify
 
 class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Testing {
     var skillListener: Skill = skill
@@ -30,6 +30,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
     var temp: ArrayList<String> = ArrayList<String>()
     lateinit var adapter: SkillAdapter
     var arraySkill: ArrayList<Data> = ArrayList<Data>()
+    var listSkill: ArrayList<SkillData> = ArrayList<SkillData>()
     var skill: String = ""
 
     private val viewModelSkill: SkillViewModel by lazy {
@@ -56,7 +57,10 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
         val tempSkill = arguments?.getSerializable("tes")
         Log.d("tempSkill1", "xx = $tempSkill")
         if (tempSkill != null) {
-            temp.addAll(tempSkill as ArrayList<String>)
+            //note
+            //add array list skill
+            listSkill = tempSkill as ArrayList<SkillData>
+            temp.addAll(listSkill as ArrayList<String>)
             Log.d("tempSkill1", "newxx = $temp")
         }
 
@@ -73,9 +77,9 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
             else if (arraySkill != temp) {
                 for (i in temp.indices) {
                     if (i == 0) {
-                        skill = skill + temp[0].toString()
+                        skill = skill + temp[0]
                     } else {
-                        skill = skill + ";" + temp[i].toString()
+                        skill = skill + "," + temp[i]
                     }
                 }
                 Log.d("newSkill", "skillList = $skill")
@@ -89,7 +93,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
     private fun setObserver() {
         viewModelSkill.responseSkill().observe(viewLifecycleOwner, Observer {
             adapter = SkillAdapter(temp, this)
-            Log.d("listSkills", "xx11 = "+temp.toString())
+            Log.d("listSkills", "xx11 = " + temp.toString())
             binding.rvSkill.adapter = adapter
             arraySkill = it.data as ArrayList<Data>
             adapter.initData(arraySkill)

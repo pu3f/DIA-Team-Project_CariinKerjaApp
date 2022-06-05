@@ -14,7 +14,7 @@ import com.example.diateamproject.model.updateprofile.UpdateProfileResponse
 import com.example.diateamproject.model.register.RegisterResponse
 import com.example.diateamproject.model.resetpassword.ResetPasswordResponse
 import com.example.diateamproject.model.searchjob.SearchJobResponse
-import com.example.diateamproject.model.skills.SkillResponse
+import com.example.diateamproject.model.allskills.SkillResponse
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
