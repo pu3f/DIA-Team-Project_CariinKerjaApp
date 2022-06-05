@@ -92,7 +92,8 @@ class ApplyDialogFragment : DialogFragment() {
         }
 
         binding.btnUpdateCv.cvUpload.isEnabled = false.apply {
-            binding.btnUpdateCv.cvUpload.setCardBackgroundColor(Color.GRAY)
+            binding.btnUpdateCv.cvUpload.setCardBackgroundColor(resources.getColor(R.color.grey))
+            binding.btnUpdateCv.tvUpload.setTextColor(Color.GRAY)
         }
         binding.btnUpdateCv.cvUpload.setOnClickListener {
             pb.ActiveButton()
@@ -151,7 +152,7 @@ class ApplyDialogFragment : DialogFragment() {
             binding.tvUpdateCv.text = fileName
             binding.tvUpdateCv.setCompoundDrawables(null, null, null, null)
             binding.btnUpdateCv.cvUpload.isEnabled = true.apply {
-                binding.btnUpdateCv.cvUpload.setBackgroundResource(R.drawable.bg_border_mediumblue)
+                binding.btnUpdateCv.cvUpload.setBackgroundResource(R.drawable.bg_btn_secondary)
                 binding.btnUpdateCv.tvUpload.setTextColor(resources.getColor(R.color.medium_blue))
             }
         }
