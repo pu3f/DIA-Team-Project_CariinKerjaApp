@@ -91,7 +91,7 @@
     <string name="companyName">company name</string>
     <string name="updateCV">Update</string>
     <string name="btnSave">Save</string>
-    <string name="btnJustApply">Just Apply</string>
+    <string name="btnJustApply">Apply</string>
     <string name="sosmedLink">link</string>
     <string name="skills">Skills</string>
     <string name="requiredSkill">Choose at least 3 skills</string>
