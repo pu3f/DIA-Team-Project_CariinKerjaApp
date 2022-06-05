@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentCompanyBinding
+import com.example.diateamproject.util.ConvertHtml
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.JobDetailViewModel
@@ -17,6 +18,7 @@ class CompanyFragment : Fragment() {
     private var _binding: FragmentCompanyBinding? = null
     private val binding get() = _binding!!
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
+    val convertHtml = ConvertHtml()
     private val viewModelJobDetail: JobDetailViewModel by lazy {
         ViewModelProviders.of(this).get(JobDetailViewModel::class.java)
     }
@@ -68,7 +70,7 @@ class CompanyFragment : Fragment() {
             if (culture == ("")) {
                 binding.tvCulture.text = "-"
             } else {
-                binding.tvCulture.text = culture
+                binding.tvCulture.text = convertHtml.convertHtmlString(culture)
             }
             if (website == ("")) {
                 binding.ivLink.visibility = View.GONE
