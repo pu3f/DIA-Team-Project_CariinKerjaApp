@@ -74,7 +74,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
                 Toast.makeText(activity, "minimal pilih 3 skill", Toast.LENGTH_SHORT).show()
             }
             // add new array to skill condition
-            else if (arraySkill != temp) {
+            else if (listSkill != temp) {
                 for (i in temp.indices) {
                     if (i == 0) {
                         skill = skill + temp[0]
