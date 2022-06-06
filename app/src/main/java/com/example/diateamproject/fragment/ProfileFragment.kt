@@ -145,26 +145,25 @@ class ProfileFragment : Fragment(), Skill {
 
             //jobseekerSkill isNotEmpty condition
             if (!it.data.skills.isNullOrEmpty()) {
-//                binding.tfSkill.setText(it.data.skills[id].skillName).toString()
-                getSkillList = it.data.skills as ArrayList<SkillData>
-                Log.d("LookSkillData", "dataxx = $getSkillList")
-                val inputSkill = getSkillList.joinToString(separator = ",")
-                binding.tfSkill.setText(inputSkill)
-
+                for (i in it.data.skills.indices) {
+                    val skillName = it.data.skills[i].skillName
+                    Log.d("LookSkillData", "dataxx = $skillName")
+//                    if (!temp.get(i).equals(skillName)) {
+                        binding.tfSkill.setText(skillName)
+                    temp.addAll(listOf(skillName))
+//                    }
+                }
                 //note
                 //skill.indices
                 //skill.position.id >> add to temp
-                for (i in temp.indices) {
-                    if (temp.get(i).equals(getSkillList[id].skillName)) {
-                        temp.addAll(getSkillList as ArrayList<String>)
-                    }
-                }
             }
             binding.tfProfession.setText(it.data.jobseekerProfession)
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
             binding.tfPorto.setText(it.data.jobseekerPortfolio)
             binding.tfBirth.setText(it.data.jobseekerDateOfBirth)
-            binding.tfCV.setText(it.data.jobseekerResume)
+            if (!it.data.jobseekerResume.isNullOrEmpty()) {
+                binding.tfCV.setText(it.data.jobseekerResume)
+            }
             binding.tfCompanyName.setText(it.data.jobsekerCompany)
             if (it.data.workStartYear != 0 && it.data.workEndYear !=0) {
                 binding.tfDateStart.setText(it.data.workStartYear.toString())
