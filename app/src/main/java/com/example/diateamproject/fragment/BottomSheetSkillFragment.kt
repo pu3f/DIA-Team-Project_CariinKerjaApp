@@ -21,6 +21,9 @@ import com.example.diateamproject.util.Testing
 import com.example.diateamproject.viewmodel.SkillViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.xiaofeng.flowlayoutmanager.Alignment
+import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
+
 
 class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Testing {
     var skillListener: Skill = skill
@@ -32,6 +35,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
     var arraySkill: ArrayList<Data> = ArrayList<Data>()
     var listSkill: ArrayList<SkillData> = ArrayList<SkillData>()
     var skill: String = ""
+    var flowLayoutManager = FlowLayoutManager()
 
     private val viewModelSkill: SkillViewModel by lazy {
         ViewModelProviders.of(this).get(SkillViewModel::class.java)
@@ -48,20 +52,26 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (dialog as? BottomSheetDialog)?.behavior?.halfExpandedRatio
-        val layoutManager =
-            StaggeredGridLayoutManager(NUM_COLUMNS, StaggeredGridLayoutManager.VERTICAL)
-        binding.rvSkill.layoutManager = layoutManager
         viewModelSkill.getSkill()
+        (dialog as? BottomSheetDialog)?.behavior?.halfExpandedRatio
+        flowLayoutManager.isAutoMeasureEnabled = true
+        binding.rvSkill.layoutManager = flowLayoutManager.setAlignment(Alignment.LEFT)
 
         val tempSkill = arguments?.getSerializable("tes")
         Log.d("tempSkill1", "xx = $tempSkill")
+
         if (tempSkill != null) {
             //note
             //add array list skill
-            listSkill = tempSkill as ArrayList<SkillData>
-            temp.addAll(listSkill as ArrayList<String>)
+            listSkill.addAll(tempSkill as ArrayList<SkillData>)
             Log.d("tempSkill1", "newxx = $temp")
+            for (i in listSkill.indices) {
+                temp.add(listSkill[i].skillId.toString())
+                adapter = SkillAdapter(temp, this)
+                Log.d("tempSkill33", "newxx = $temp")
+                binding.rvSkill.adapter = adapter
+                adapter.notifyDataSetChanged()
+            }
         }
 
         binding.ivHideSheet.setOnClickListener {
@@ -74,7 +84,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
                 Toast.makeText(activity, "minimal pilih 3 skill", Toast.LENGTH_SHORT).show()
             }
             // add new array to skill condition
-            else if (listSkill != temp) {
+            else if (arraySkill != temp) {
                 for (i in temp.indices) {
                     if (i == 0) {
                         skill = skill + temp[0]
@@ -93,7 +103,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
     private fun setObserver() {
         viewModelSkill.responseSkill().observe(viewLifecycleOwner, Observer {
             adapter = SkillAdapter(temp, this)
-            Log.d("listSkills", "xx11 = " + temp.toString())
+            Log.d("listSkills", "xx11 = " + it.data as ArrayList<Data>)
             binding.rvSkill.adapter = adapter
             arraySkill = it.data as ArrayList<Data>
             adapter.initData(arraySkill)
@@ -125,6 +135,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        skillListener.setData(temp as ArrayList<Data>)
+        skillListener.setData(temp)
+        Log.d("lasss", "skillList = $temp")
     }
 }

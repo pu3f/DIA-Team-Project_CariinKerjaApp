@@ -48,9 +48,11 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
                 Log.d("tempSkill", "temp = $temp")
                 for (i in temp.indices) {
                     //temp.get(i) condition
+                    Log.d("testingtrytemp","$skillId,${temp.get(i)}")
                         //note
                         //ubah kondisi jadi temp.id = skillId
-                    if (temp.get(i).equals(skillId)) {
+                    if (temp.get(i).toInt() == skillId) {
+                        Log.d("testingtrytemp","true")
                         binding.chipList.isChecked = true
                         binding.chipList.isSelected = true
                     }
@@ -62,8 +64,6 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
                     Log.d("tempSkill1", "temp = $temp")
                     //onclick isSelected condition
                     if (binding.chipList.isSelected) {
-                        //note
-                        //yang di remove id nya
                         listener.removeData(skillId.toString())
                         Log.d("removeData", "data = $skillName")
                         binding.chipList.isChecked = false
@@ -72,8 +72,6 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
                     } else if (!binding.chipList.isSelected) {
                         binding.chipList.isChecked = true
                         binding.chipList.isSelected= true
-                        //note
-                        //yang di add id nya
                         listener.addData(skillId.toString())
                         Log.d("addData", "data = $skillName")
                     }

@@ -34,7 +34,9 @@ import java.io.File
 import androidx.core.widget.addTextChangedListener
 import com.example.diateamproject.model.allskills.Data
 import com.example.diateamproject.model.updateprofile.SkillData
+import com.example.diateamproject.viewmodel.SkillViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.io.Serializable
 
 
 class ProfileFragment : Fragment(), Skill {
@@ -47,13 +49,17 @@ class ProfileFragment : Fragment(), Skill {
     lateinit var pb: ProgressButtonSaveProfile
     val dialog = UpdateCVFragment()
     var tempPhone = ""
+    var arraySkill: ArrayList<Data> = ArrayList<Data>()
     var temp: ArrayList<String> = ArrayList<String>()
     var tempSkill: ArrayList<String> = ArrayList<String>()
-    //note
-    //tambah variable arraylist skill
-    var getSkillList = arrayListOf<SkillData>()
+    var tempSkillApi: String = ""
+    var texttemp = ""
+    var getSkillList: ArrayList<SkillData> = ArrayList<SkillData>()
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+    }
+    private val viewModelSkill: SkillViewModel by lazy {
+        ViewModelProviders.of(this).get(SkillViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -84,8 +90,8 @@ class ProfileFragment : Fragment(), Skill {
         binding.tfSkill.setOnClickListener {
             val skillFragment = BottomSheetSkillFragment(this)
             val bundle = Bundle()
-            bundle.putSerializable("tes", temp)
-            Log.d("putTes1", "tes = $temp")
+            bundle.putSerializable("tes", getSkillList)
+            Log.d("putTes1", "tes = $getSkillList")
             skillFragment.arguments = bundle
             skillFragment.show(requireFragmentManager(), "bottomSheetSkill")
         }
@@ -132,6 +138,25 @@ class ProfileFragment : Fragment(), Skill {
     }
 
     private fun setObserver() {
+        viewModelSkill.responseSkill().observe(viewLifecycleOwner, Observer {
+            arraySkill = it.data as ArrayList<Data>
+            Log.d("txterei", arraySkill.toString())
+            Log.d("txterei", tempSkill.toString())
+            for (i in tempSkill.indices) {
+                for (a in arraySkill.indices) {
+                    if (tempSkill[i].toString() == arraySkill[a].skillId.toString()) {
+                        if (texttemp == "") {
+                            texttemp += arraySkill[a].skillName
+                        } else {
+                            texttemp += "," + arraySkill[a].skillName
+                        }
+                        binding.tfSkill.setText(texttemp)
+                        Log.d("texttemptoo", "$texttemp")
+                    }
+
+                }
+            }
+        })
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
             tempPhone = it.data.jobseekerPhone
             binding.tfBio.setText(it.data.jobseekerAbout)
@@ -145,17 +170,23 @@ class ProfileFragment : Fragment(), Skill {
 
             //jobseekerSkill isNotEmpty condition
             if (!it.data.skills.isNullOrEmpty()) {
-                for (i in it.data.skills.indices) {
-                    val skillName = it.data.skills[i].skillName
-                    Log.d("LookSkillData", "dataxx = $skillName")
-//                    if (!temp.get(i).equals(skillName)) {
-                        binding.tfSkill.setText(skillName)
-                    temp.addAll(listOf(skillName))
-//                    }
+                getSkillList = it.data.skills as ArrayList<SkillData>
+                Log.d("LookSkillSize", "sizexx = ${getSkillList.size}")
+                for (i in getSkillList.indices) {
+                    if (texttemp.equals("")) {
+                        texttemp += getSkillList[i].skillName
+                    } else {
+                        texttemp += "," + getSkillList[i].skillName
+                    }
                 }
-                //note
-                //skill.indices
-                //skill.position.id >> add to temp
+                binding.tfSkill.setText(texttemp)
+                Log.d("texttemptest", "$texttemp")
+
+                for (i in temp.indices) {
+                    if (temp.get(i).equals(getSkillList[id].skillName)) {
+                        temp.addAll(getSkillList as ArrayList<String>)
+                    }
+                }
             }
             binding.tfProfession.setText(it.data.jobseekerProfession)
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
@@ -165,7 +196,7 @@ class ProfileFragment : Fragment(), Skill {
                 binding.tfCV.setText(it.data.jobseekerResume)
             }
             binding.tfCompanyName.setText(it.data.jobsekerCompany)
-            if (it.data.workStartYear != 0 && it.data.workEndYear !=0) {
+            if (it.data.workStartYear != 0 && it.data.workEndYear != 0) {
                 binding.tfDateStart.setText(it.data.workStartYear.toString())
                 binding.tfDateEnd.setText(it.data.workEndYear.toString())
             }
@@ -223,7 +254,7 @@ class ProfileFragment : Fragment(), Skill {
         val updateEducation = binding.actvDegree.text.toString()
         val updateProfession = binding.tfProfession.text.toString()
         val updatePortfolio = binding.tfPorto.text.toString()
-        val updateSkill = binding.tfSkill.text.toString()
+        val updateSkill = tempSkillApi
         val updateMedsos = binding.tfSosmed.text.toString()
         val updateCompanyName = binding.tfCompanyName.text.toString().capitalize()
         val updateYearStart = binding.tfDateStart.text.toString().toIntOrNull()
@@ -465,15 +496,18 @@ class ProfileFragment : Fragment(), Skill {
         binding.actvDegree.setAdapter(arrayAdapter)
     }
 
-    override fun setData(arrayList: ArrayList<Data>) {
-        val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
-        Log.d("setText", "Skill = $userSkill")
-        if (arrayList != temp) {
-            //clear array temp before add to array list
-            temp.clear()
-            temp.addAll(arrayList as ArrayList<String>)
-            Log.d("putTes", "tes = $temp")
-            binding.tfSkill.setText(userSkill)
+    override fun setData(arrayList: Serializable) {
+        tempSkillApi = ""
+        texttemp = ""
+        tempSkill = arrayList as ArrayList<String>
+        for (i in tempSkill.indices) {
+            if (tempSkillApi.equals("")) {
+                tempSkillApi += tempSkill[i].toString()
+            } else {
+                tempSkillApi += "," + tempSkill[i].toString()
+            }
         }
+        viewModelSkill.getSkill()
+        Log.d("lastval", tempSkillApi)
     }
 }

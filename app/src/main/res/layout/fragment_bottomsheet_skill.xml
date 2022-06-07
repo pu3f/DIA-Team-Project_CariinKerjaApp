@@ -2,29 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ModalBottomSheetDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="20dp"
-    style="@style/ModalBottomSheetDialog">
+    android:paddingVertical="20dp">
 
     <ImageView
         android:id="@+id/ivHideSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_remove"
-        android:contentDescription="ivHide"/>
+        android:contentDescription="ivHide"
+        android:src="@drawable/ic_remove" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@string/skills"
         android:fontFamily="sans-serif-black"
-        android:textColor="@color/dark_black"
+        android:gravity="start"
         android:paddingTop="12dp"
-        android:textSize="16sp"/>
+        android:text="@string/skills"
+        android:textColor="@color/dark_black"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,26 +35,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
             android:gravity="start"
             android:text="@string/requiredSkill"
-            android:fontFamily="sans-serif-medium"
             android:textColor="@color/dark_black"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_important"/>
+            android:src="@drawable/ic_important" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSkill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             tools:listitem="@layout/chip_skill"/>
+
     </ScrollView>
 
     <com.google.android.material.button.MaterialButton
@@ -63,13 +65,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="4dp"
-        app:cornerRadius="20dp"
+        android:backgroundTint="@color/medium_blue"
         android:fontFamily="sans-serif-black"
         android:text="@string/btnchoose"
-        android:textColor="@color/white"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="16sp"
-        app:rippleColor="@color/white"
-        android:backgroundTint="@color/medium_blue"/>
+        app:cornerRadius="20dp"
+        app:rippleColor="@color/white" />
 
 </LinearLayout>

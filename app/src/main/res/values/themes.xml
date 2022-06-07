@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.ProjectDIA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/medium_blue</item>
+        <item name="colorPrimary">@color/primary_dark</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/grey_light</item>
         <!-- Secondary brand color. -->

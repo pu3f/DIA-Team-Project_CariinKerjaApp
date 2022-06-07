@@ -39,6 +39,7 @@ android {
 repositories {
     google()
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 def daggerVersion = '2.14.1'
@@ -105,4 +106,13 @@ dependencies {
 
     //country code picker
     implementation 'com.hbb20:ccp:2.5.0'
+
+    //flow layout manager
+    implementation 'com.github.simonebortolin:FlowLayoutManager:1.8.0'
+
+    //carousel view
+    implementation 'com.synnapps:carouselview:0.1.5'
+
+    //bezier view pager
+    implementation 'com.github.qdxxxx:BezierViewPager:v1.0.7'
 }
