@@ -11,20 +11,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.diateamproject.R
 import com.example.diateamproject.activity.JobDetailsActivity
 import com.example.diateamproject.activity.RecentJobActivity
 import com.example.diateamproject.activity.SearchActivity
+import com.example.diateamproject.adapter.BannerAdapter
 import com.example.diateamproject.adapter.RecentJobAdapter
 import com.example.diateamproject.databinding.FragmentHomeBinding
 import com.example.diateamproject.listener.OnItemClickListener
+import com.example.diateamproject.util.BannerItem
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.RecentJobViewModel
-import com.synnapps.carouselview.CarouselView
-import com.synnapps.carouselview.ImageListener
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 
 class HomeFragment : Fragment(){
@@ -33,8 +38,7 @@ class HomeFragment : Fragment(){
     private val binding get() = _binding!!
     private val adapter = RecentJobAdapter()
     private var isLoading = false
-    var bannerArray: ArrayList<Int> = ArrayList()
-    var carouselView: CarouselView? = null
+    private lateinit var viewPager: ViewPager2
     private val viewModelRecent: RecentJobViewModel by lazy {
         ViewModelProviders.of(this).get(RecentJobViewModel::class.java)
     }
@@ -69,13 +73,25 @@ class HomeFragment : Fragment(){
             startActivity(Intent(requireContext(), SearchActivity::class.java) )
         }
 
-        bannerArray.add(R.drawable.ic_banner_postjob)
-        bannerArray.add(R.drawable.ic_banner_digicource)
-        bannerArray.add(R.drawable.ic_banner_updateprofile)
-        carouselView = binding.selvBanner
-        carouselView!!.pageCount = bannerArray.size
-        carouselView!!.setImageListener(imageListener)
+        viewPager = binding.vpBanner
+        val bannerItems: MutableList<BannerItem> = ArrayList()
+        bannerItems.add(BannerItem(R.drawable.ic_banner_postjob))
+        bannerItems.add(BannerItem(R.drawable.ic_banner_digicource))
+        bannerItems.add(BannerItem(R.drawable.ic_banner_updateprofile))
+        viewPager.adapter = BannerAdapter(bannerItems, viewPager)
+        viewPager.clipToPadding = false
+        viewPager.clipChildren = false
+        viewPager.offscreenPageLimit = 3
+        viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer(20))
+        compositePageTransformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r * 0.25f
+        }
+
+        viewPager.setPageTransformer(compositePageTransformer)
 
 
         binding.tvShowMore.setOnClickListener {
@@ -83,8 +99,6 @@ class HomeFragment : Fragment(){
             startActivity(intent)
         }
     }
-
-    var imageListener = ImageListener{ position, imageView -> imageView.setImageResource(bannerArray[position])  }
 
     private fun setObserver() {
         viewModelRecent.recentListResponse().observe(viewLifecycleOwner, Observer {

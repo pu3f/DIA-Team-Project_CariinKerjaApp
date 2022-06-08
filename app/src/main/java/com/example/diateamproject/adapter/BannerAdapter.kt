@@ -1,11 +1,13 @@
 package com.example.diateamproject.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.diateamproject.databinding.ItemBannerBinding
+import com.example.diateamproject.R
 import com.example.diateamproject.util.BannerItem
+import com.makeramen.roundedimageview.RoundedImageView
 
 class BannerAdapter internal constructor(
     bannerItems: MutableList<BannerItem>,
@@ -18,23 +20,23 @@ class BannerAdapter internal constructor(
         this.bannerItems = bannerItems
     }
 
-    class BannerViewHolder(val binding: ItemBannerBinding) :
-        RecyclerView.ViewHolder(binding.root ) {
+    class BannerViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
+        private val imageView: RoundedImageView = itemView.findViewById(R.id.ivBanner)
 
             fun image(bannerItem: BannerItem) {
-                binding.ivBanner.setImageResource(bannerItem.image)
+                imageView.setImageResource(bannerItem.image)
             }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         return BannerViewHolder(
-            ItemBannerBinding.inflate(
-                LayoutInflater.from(
-                    parent.context),
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_banner,
                     parent,
                     false
-                )
+                ),
             )
     }
 
