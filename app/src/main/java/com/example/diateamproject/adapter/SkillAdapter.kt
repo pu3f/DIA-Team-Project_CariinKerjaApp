@@ -51,7 +51,7 @@ class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
                     Log.d("testingtrytemp","$skillId,${temp.get(i)}")
                         //note
                         //ubah kondisi jadi temp.id = skillId
-                    if (temp.get(i).toInt() == skillId) {
+                    if (temp[i].toInt() == skillId) {
                         Log.d("testingtrytemp","true")
                         binding.chipList.isChecked = true
                         binding.chipList.isSelected = true

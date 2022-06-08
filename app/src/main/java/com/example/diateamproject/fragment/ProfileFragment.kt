@@ -180,10 +180,10 @@ class ProfileFragment : Fragment(), Skill {
                     }
                 }
                 binding.tfSkill.setText(texttemp)
-                Log.d("texttemptest", "$texttemp")
+                Log.d("texttemptest", texttemp)
 
                 for (i in temp.indices) {
-                    if (temp.get(i).equals(getSkillList[id].skillName)) {
+                    if (temp[i] == getSkillList[id].skillName) {
                         temp.addAll(getSkillList as ArrayList<String>)
                     }
                 }

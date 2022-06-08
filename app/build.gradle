@@ -63,6 +63,12 @@ dependencies {
     //circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //rounded image view
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //view pager 2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
     //easyPrefs
     implementation 'com.pixplicity.easyprefs:EasyPrefs:1.10.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -99,10 +105,10 @@ dependencies {
     compileOnly 'com.github.pengrad:jdk9-deps:1.0'
 
     // fragment
-    implementation('androidx.fragment:fragment-ktx:1.4.0-alpha02')
+    implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha02'
 
     //swipe refresh layout
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     //country code picker
     implementation 'com.hbb20:ccp:2.5.0'

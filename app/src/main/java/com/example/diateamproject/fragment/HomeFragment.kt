@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.diateamproject.R
 import com.example.diateamproject.activity.JobDetailsActivity
 import com.example.diateamproject.activity.RecentJobActivity
 import com.example.diateamproject.activity.SearchActivity
@@ -20,7 +21,10 @@ import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.RecentJobViewModel
+import com.synnapps.carouselview.CarouselView
+import com.synnapps.carouselview.ImageListener
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment(){
@@ -29,6 +33,8 @@ class HomeFragment : Fragment(){
     private val binding get() = _binding!!
     private val adapter = RecentJobAdapter()
     private var isLoading = false
+    var bannerArray: ArrayList<Int> = ArrayList()
+    var carouselView: CarouselView? = null
     private val viewModelRecent: RecentJobViewModel by lazy {
         ViewModelProviders.of(this).get(RecentJobViewModel::class.java)
     }
@@ -63,11 +69,22 @@ class HomeFragment : Fragment(){
             startActivity(Intent(requireContext(), SearchActivity::class.java) )
         }
 
+        bannerArray.add(R.drawable.ic_banner_postjob)
+        bannerArray.add(R.drawable.ic_banner_digicource)
+        bannerArray.add(R.drawable.ic_banner_updateprofile)
+        carouselView = binding.selvBanner
+        carouselView!!.pageCount = bannerArray.size
+        carouselView!!.setImageListener(imageListener)
+
+
+
         binding.tvShowMore.setOnClickListener {
             val intent = Intent(requireContext(), RecentJobActivity::class.java)
             startActivity(intent)
         }
     }
+
+    var imageListener = ImageListener{ position, imageView -> imageView.setImageResource(bannerArray[position])  }
 
     private fun setObserver() {
         viewModelRecent.recentListResponse().observe(viewLifecycleOwner, Observer {
