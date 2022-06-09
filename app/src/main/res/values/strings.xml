@@ -101,6 +101,10 @@
     <string name="hintCompanyName">Company Name</string>
     <string name="hintDateStart">Year Start</string>
     <string name="hintDateEnd">Year End</string>
+    <string name="getStated">Get Started</string>
+    <string name="onboarddesc">Description</string>
+    <string name="onboardtitle">Title</string>
+    <string name="onboardsubtitle">Sub-Title</string>
     <string-array name="degrees">
         <item>Senior High School</item>
         <item>Diploma</item>

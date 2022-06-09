@@ -23,7 +23,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 val intent = Intent(this, MenuActivity::class.java)
                 this.startActivity(intent)
             } else {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, OnBoardingActivity::class.java)
                 this.startActivity(intent)
             }
         },1000)
