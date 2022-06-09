@@ -140,11 +140,17 @@ class ProfileFragment : Fragment(), Skill {
     private fun setObserver() {
         viewModelSkill.responseSkill().observe(viewLifecycleOwner, Observer {
             arraySkill = it.data as ArrayList<Data>
+            //note 10Juli
+            getSkillList.clear()
+            //note 10Juli
             Log.d("txterei", arraySkill.toString())
             Log.d("txterei", tempSkill.toString())
             for (i in tempSkill.indices) {
                 for (a in arraySkill.indices) {
                     if (tempSkill[i].toString() == arraySkill[a].skillId.toString()) {
+                        //note 10Juli
+                        getSkillList.add(SkillData(arraySkill[a].skillId,arraySkill[a].skillName))
+                        //note 10Juli
                         if (texttemp == "") {
                             texttemp += arraySkill[a].skillName
                         } else {
@@ -500,6 +506,8 @@ class ProfileFragment : Fragment(), Skill {
         tempSkillApi = ""
         texttemp = ""
         tempSkill = arrayList as ArrayList<String>
+
+
         for (i in tempSkill.indices) {
             if (tempSkillApi.equals("")) {
                 tempSkillApi += tempSkill[i].toString()
@@ -508,6 +516,7 @@ class ProfileFragment : Fragment(), Skill {
             }
         }
         viewModelSkill.getSkill()
+
         Log.d("lastval", tempSkillApi)
     }
 }
