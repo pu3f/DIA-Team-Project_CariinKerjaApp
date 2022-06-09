@@ -16,10 +16,14 @@
     <color name="red">#EB5757</color>
     <color name="medium_blue">#006EFF</color>
     <color name="medium_blueAlpha">#10006EFF</color>
+    <color name="blue_teal">#0089BA</color>
+    <color name="blue_tealAlpha">#420089BA</color>
+    <color name="blue_soft">#66A8FF</color>
 
     <color name="primary">#3F51B5</color>
     <color name="primary_dark">#0058FF</color>
     <color name="primary_light">#00BCFF</color>
+    <color name="primary_lightAlpha">#4200BCFF</color>
     <color name="accent">#006EFF</color>
     <color name="primary_text">#2E3C40</color>
     <color name="secondary_text">#757575</color>
