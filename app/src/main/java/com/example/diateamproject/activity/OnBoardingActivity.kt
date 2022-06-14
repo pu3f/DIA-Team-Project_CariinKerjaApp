@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.viewpager.widget.ViewPager
 import com.example.diateamproject.R
@@ -13,7 +12,6 @@ import com.example.diateamproject.adapter.OnBoardingAdapter
 import com.example.diateamproject.databinding.ActivityOnBoardingBinding
 import com.example.diateamproject.model.onboarding.OnBoardingData
 import com.google.android.material.tabs.TabLayout
-import kotlin.math.log
 
 class OnBoardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardingBinding
@@ -44,7 +42,7 @@ class OnBoardingActivity : AppCompatActivity() {
                 title = "Have a dream job?",
                 subTitle = "Go for it now!",
                 desc = "Have access to thousands of open vacancies in the most recognizable fields and more",
-                R.drawable.icon_vacancy
+                R.drawable.ic_vacancy
             )
         )
         onBoardingData.add(
