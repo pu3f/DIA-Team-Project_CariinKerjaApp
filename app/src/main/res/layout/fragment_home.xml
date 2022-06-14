@@ -31,10 +31,10 @@
                     android:id="@+id/tvHello"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="@string/helloUsername"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="@font/montserrat_extrabold"
                     android:text="@string/searchTitle"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -57,7 +57,7 @@
                     android:layout_marginTop="16dp"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/ic_search"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="@string/searchHere"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
@@ -77,47 +77,13 @@
             android:id="@+id/vpBanner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="8dp"
             android:paddingHorizontal="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <RelativeLayout
-            android:id="@+id/llRecentJobTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vpBanner">
-
-            <TextView
-                android:id="@+id/tvJobList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/JobListTitle"
-                android:textColor="@color/dark_black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvShowMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:fontFamily="sans-serif"
-                android:paddingStart="147dp"
-                android:paddingEnd="0dp"
-                android:text="@string/Show"
-                android:textColor="@color/medium_blue"
-                android:textSize="12sp" />
-
-        </RelativeLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -141,13 +107,53 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <include
+                        android:id="@+id/cvGuest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        layout="@layout/card_home_guest"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RelativeLayout
+                        android:id="@+id/llRecentJobTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/cvGuest"
+                        tools:ignore="NotSibling">
+
+                        <TextView
+                            android:id="@+id/tvJobList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:text="@string/JobListTitle"
+                            android:textColor="@color/dark_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvShowMore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:paddingStart="147dp"
+                            android:paddingEnd="0dp"
+                            android:text="@string/Show"
+                            android:textColor="@color/medium_blue"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvListJob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:paddingHorizontal="16dp"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/llRecentJobTitle"
                         tools:itemCount="5"
                         tools:listitem="@layout/card_job" />
 

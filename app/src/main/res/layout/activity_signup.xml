@@ -11,13 +11,13 @@
     <LinearLayout
         android:id="@+id/llLogoSignup"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_marginTop="?actionBarSize"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_logo" />
 
     </LinearLayout>
@@ -31,8 +31,7 @@
         <LinearLayout
             android:id="@+id/llSignUpForm"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/llLogoSignup"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="40dp"
             android:paddingTop="?actionBarSize">
@@ -41,10 +40,10 @@
                 android:id="@+id/tvSignUpTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/SignUpTitle"
                 android:textColor="@color/dark_black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilName"
@@ -62,8 +61,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:inputType="textCapWords"
-                    android:paddingHorizontal="16dp" />
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="12sp"
+                    android:inputType="textCapWords"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,9 +83,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="12sp"
                     android:inputType="textEmailAddress"
-                    android:lines="1"
-                    android:paddingHorizontal="16dp" />
+                    android:lines="1"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,8 +106,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="20dp"
-                    android:inputType="textPassword"
-                    android:paddingHorizontal="16dp" />
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="12sp"
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -115,46 +117,47 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/requireTitle"
                 android:textColor="@color/medium_blue"
+                android:fontFamily="@font/montserrat_medium"
                 android:textSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/pinRequired"
                 android:textAlignment="center"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_dot"
                 android:drawablePadding="4dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/pinRequired1"
                 android:textAlignment="center"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_dot"
                 android:drawablePadding="4dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/pinRequired2"
                 android:textAlignment="center"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_dot"
                 android:drawablePadding="4dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/pinRequired3"
                 android:textAlignment="center"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_dot"
                 android:drawablePadding="4dp"/>
 
@@ -175,14 +178,18 @@
                     android:id="@+id/tvHaveAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/haveAccount" />
+                    android:text="@string/haveAccount"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/dark_black"/>
 
                 <TextView
                     android:id="@+id/tvLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textSize="12sp"
                     android:text="@string/login"
                     android:textColor="@color/medium_blue" />
             </LinearLayout>

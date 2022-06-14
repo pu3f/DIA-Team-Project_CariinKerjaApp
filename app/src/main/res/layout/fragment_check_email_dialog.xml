@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingVertical="24dp"
+        android:paddingHorizontal="16dp">
 
         <TextView
             android:id="@+id/tvDialogTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_semibold"
             android:gravity="center"
             android:text="@string/checkEmailTitle"
             android:textColor="@color/dark_black"
@@ -26,30 +27,31 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_light"
             android:text="@string/checkEmailMessage"
             android:textAlignment="center"
             android:textColor="@color/dark_black"
             android:textSize="14sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnOk"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_btn_secondary"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/ok"
             android:textAllCaps="false"
             android:textColor="@color/medium_blue"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:rippleColor="@color/medium_blue"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_regular"
             android:text="@string/checkEmailInstruction"
             android:textAlignment="center"
             android:textColor="@color/dark_black"
@@ -60,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_medium"
             android:text="@string/checkEmailInstruction1"
             android:textAlignment="center"
             android:textColor="@color/medium_blue"

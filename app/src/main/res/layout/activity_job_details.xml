@@ -28,8 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/jobDetail"
             android:textColor="@color/dark_black"
             android:textSize="20sp" />
@@ -57,8 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
-            android:fontFamily="sans-serif-black"
-            android:text="Job Position"
+            android:fontFamily="@font/montserrat_extrabold"
+            android:text="@string/jobPosition"
             android:textColor="@color/dark_black"
             android:textSize="16sp" />
 
@@ -69,8 +68,8 @@
             android:layout_below="@id/tvJobPosition"
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
-            android:fontFamily="sans-serif-medium"
-            android:text="Company Name"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/companyName"
             android:textSize="14sp" />
 
         <TextView
@@ -80,8 +79,8 @@
             android:layout_below="@id/tvCompanyName"
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
-            android:fontFamily="sans-serif"
-            android:text="Company location"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/companyLocation"
             android:textColor="@color/dark_black"
             android:textSize="12sp" />
 
@@ -93,11 +92,11 @@
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
             android:drawablePadding="4dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/dark_black"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center"
             android:paddingVertical="4dp"
-            android:text="Date created:"
+            android:text="@string/dateCreated"
+            android:textColor="@color/dark_black"
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_time" />
 
@@ -109,9 +108,9 @@
             android:layout_marginStart="4dp"
             android:layout_toEndOf="@id/tvDate"
             android:fontFamily="sans-serif"
-            android:textColor="@color/dark_black"
             android:paddingVertical="4dp"
             android:text="date"
+            android:textColor="@color/dark_black"
             android:textSize="12sp" />
 
     </RelativeLayout>

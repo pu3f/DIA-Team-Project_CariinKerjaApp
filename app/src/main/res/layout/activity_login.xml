@@ -11,13 +11,13 @@
     <LinearLayout
         android:id="@+id/llLogoLogin"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_marginTop="?actionBarSize"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_logo" />
 
     </LinearLayout>
@@ -25,15 +25,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:layout_below="@id/llLogoLogin">
+        android:layout_below="@id/llLogoLogin"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/llLoginForm"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/llLogoLogin"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingHorizontal="40dp"
             android:paddingTop="?actionBarSize">
 
@@ -41,10 +40,10 @@
                 android:id="@+id/tvLoginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/LoginTitle"
                 android:textColor="@color/dark_black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -52,9 +51,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="@string/hintEmail"
+                app:boxBackgroundColor="@color/white"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/medium_blue"
-                app:boxBackgroundColor="@color/white">
+                app:endIconTint="@color/medium_blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
@@ -62,6 +61,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:inputType="textEmailAddress"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="12sp"
                     android:paddingHorizontal="16dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -72,9 +73,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="@string/hintPin"
+                app:boxBackgroundColor="@color/white"
                 app:endIconMode="password_toggle"
-                app:endIconTint="@color/medium_blue"
-                app:boxBackgroundColor="@color/white">
+                app:endIconTint="@color/medium_blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
@@ -82,7 +83,9 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="20dp"
                     android:inputType="textPassword"
-                    android:paddingHorizontal="16dp"/>
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -92,14 +95,16 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/forgotPin"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/secondary_text"/>
+                android:textColor="@color/secondary_text"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="12sp"/>
 
             <include
                 android:id="@+id/btnLogin"
-                layout="@layout/progress_button_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"/>
+                layout="@layout/progress_button_login"
+                android:layout_marginVertical="16dp" />
 
             <LinearLayout
                 android:id="@+id/llSignUpLink"
@@ -112,14 +117,18 @@
                     android:id="@+id/tvNoAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/NoAccount" />
+                    android:text="@string/NoAccount"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/dark_black"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tvSignup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textSize="12sp"
                     android:text="@string/signUp"
                     android:textColor="@color/medium_blue" />
             </LinearLayout>
@@ -127,5 +136,18 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGuest"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/loginasguest"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
 
 </RelativeLayout>

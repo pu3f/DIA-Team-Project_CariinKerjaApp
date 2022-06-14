@@ -6,14 +6,14 @@
     android:layout_height="wrap_content"
     app:chipSpacingHorizontal="12dp"
     app:chipSpacingVertical="12dp"
-    android:paddingRight="8dp">
+    android:paddingEnd="8dp"
+    android:paddingStart="0dp">
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chipList"
         style="@style/CustomChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp"
         android:text="@string/skill1"
         android:clickable="true"
         android:focusable="true"

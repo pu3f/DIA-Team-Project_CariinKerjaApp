@@ -26,9 +26,10 @@
             android:id="@+id/tvDialogTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Want to upload new CV?"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/tittleUploadNewCV"
             android:textAlignment="center"
-            android:textColor="@color/blue_primary"
+            android:textColor="@color/dark_black"
             android:textSize="16sp"/>
 
         <LinearLayout
@@ -44,21 +45,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_border_mediumblue"
-                android:fontFamily="sans-serif-medium"
-                android:text="Choose File Here"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/chooseFile"
                 android:textAllCaps="false"
                 android:textColor="@color/dark_black"
+                app:drawableTint="@color/dark_black"
                 android:layout_marginBottom="8dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="4dp"
                 android:text="@string/fileRequired"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_important"
                 android:drawablePadding="4dp"
                 android:layout_gravity="start"/>
@@ -67,12 +69,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="4dp"
                 android:text="@string/fileRequired1"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_important"
                 android:drawablePadding="4dp"
                 android:layout_gravity="start"/>
