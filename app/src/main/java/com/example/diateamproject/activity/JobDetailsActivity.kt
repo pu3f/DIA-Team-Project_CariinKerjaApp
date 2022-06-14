@@ -1,6 +1,7 @@
 package com.example.diateamproject.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.JobDetailViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.pixplicity.easyprefs.library.Prefs
 import java.text.NumberFormat
 import java.util.*
 
@@ -58,12 +60,19 @@ class JobDetailsActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
 
         binding.btnApply.setOnClickListener {
-            val dialog = ApplyDialogFragment()
-            dialog.onApplied = {
-                binding.btnApply.isEnabled = false
-                Snackbar.make(view, "Application success", Snackbar.LENGTH_SHORT).show()
+            //get isLogin conditions
+            val isLogin = Prefs.getBoolean(PrefsLoginConstant.IS_LOGIN, false)
+            if (isLogin) {
+                val dialog = ApplyDialogFragment()
+                dialog.onApplied = {
+                    binding.btnApply.isEnabled = false
+                    Snackbar.make(view, "Application success", Snackbar.LENGTH_SHORT).show()
+                }
+                dialog.show(supportFragmentManager, "applyDialog")
+            } else {
+                //for guest
+                startActivity(Intent(this, LoginActivity::class.java))
             }
-            dialog.show(supportFragmentManager, "applyDialog")
         }
 
         binding.ivBack.setOnClickListener { onBackPressed() }

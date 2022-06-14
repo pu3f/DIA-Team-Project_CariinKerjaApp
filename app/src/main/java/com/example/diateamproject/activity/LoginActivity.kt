@@ -44,6 +44,14 @@ class LoginActivity : AppCompatActivity() {
         binding.tvForgotPin.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
+
+        //isLogin == false , intent to home
+        binding.btnGuest.setOnClickListener {
+            val isLogin = Prefs.getBoolean(PrefsLoginConstant.IS_LOGIN, false)
+            if (!isLogin) {
+                startActivity(Intent(this, MenuActivity::class.java))
+            }
+        }
     }
 
     private fun setObserver() {
@@ -67,7 +75,6 @@ class LoginActivity : AppCompatActivity() {
         viewModel.getIsError().observe(this, Observer {
             logInFailed()
             pb.FinishButton()
-
         })
     }
 
@@ -92,6 +99,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        finishAffinity()
+        finish()
     }
 }
