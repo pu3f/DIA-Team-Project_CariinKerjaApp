@@ -140,45 +140,61 @@ class ProfileFragment : Fragment(), Skill {
     private fun setObserver() {
         viewModelSkill.responseSkill().observe(viewLifecycleOwner, Observer {
             arraySkill = it.data as ArrayList<Data>
+            //empty array getSkillList
+            getSkillList.clear()
             Log.d("txterei", arraySkill.toString())
             Log.d("txterei", tempSkill.toString())
             for (i in tempSkill.indices) {
                 for (a in arraySkill.indices) {
                     if (tempSkill[i].toString() == arraySkill[a].skillId.toString()) {
+                        //add skillData to array getSkillList
+                        getSkillList.add(
+                            SkillData(arraySkill[a].skillId, arraySkill[a].skillName)
+                        )
+
                         if (texttemp == "") {
                             texttemp += arraySkill[a].skillName
                         } else {
                             texttemp += "," + arraySkill[a].skillName
                         }
+
+                        //set text after choose skill list
                         binding.tfSkill.setText(texttemp)
-                        Log.d("texttemptoo", "$texttemp")
+                        Log.d("texttemptoo", texttemp)
                     }
 
                 }
             }
         })
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
-            tempPhone = it.data.jobseekerPhone
             binding.tfBio.setText(it.data.jobseekerAbout)
             binding.tfName.setText(it.data.jobseekerName)
             binding.tfEmail.setText(it.data.jobseekerEmail)
+
+            tempPhone = it.data.jobseekerPhone
             if (!tempPhone.isNullOrEmpty()) {
                 binding.tfPhone.setText(it.data.jobseekerPhone.substring(2))
             }
+
             binding.tfAddress.setText(it.data.jobseekerAddress)
             binding.actvDegree.setText(it.data.jobseekerEducation)
 
             //jobseekerSkill isNotEmpty condition
             if (!it.data.skills.isNullOrEmpty()) {
                 getSkillList = it.data.skills as ArrayList<SkillData>
-                Log.d("LookSkillSize", "sizexx = ${getSkillList.size}")
+
+                Log.d("cekText11", texttemp)
+                texttemp = ""
+                Log.d("cekText22", texttemp)
+
                 for (i in getSkillList.indices) {
-                    if (texttemp.equals("")) {
+                    if (texttemp == "") {
                         texttemp += getSkillList[i].skillName
                     } else {
                         texttemp += "," + getSkillList[i].skillName
                     }
                 }
+                //set text after load data from api
                 binding.tfSkill.setText(texttemp)
                 Log.d("texttemptest", texttemp)
 
@@ -192,9 +208,11 @@ class ProfileFragment : Fragment(), Skill {
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
             binding.tfPorto.setText(it.data.jobseekerPortfolio)
             binding.tfBirth.setText(it.data.jobseekerDateOfBirth)
+
             if (!it.data.jobseekerResume.isNullOrEmpty()) {
                 binding.tfCV.setText(it.data.jobseekerResume)
             }
+
             binding.tfCompanyName.setText(it.data.jobsekerCompany)
             if (it.data.workStartYear != 0 && it.data.workEndYear != 0) {
                 binding.tfDateStart.setText(it.data.workStartYear.toString())
@@ -472,7 +490,7 @@ class ProfileFragment : Fragment(), Skill {
             alertLogout.setPositiveButton("Sure", { dialog: DialogInterface?, which: Int ->
                 val intentLogin = Intent(activity, LoginActivity::class.java)
                 startActivity(intentLogin)
-                activity?.finish()
+                activity?.finishAffinity()
             })
             alertLogout.setNegativeButton("Cancel", { dialog: DialogInterface?, which: Int -> })
             alertLogout.show()
