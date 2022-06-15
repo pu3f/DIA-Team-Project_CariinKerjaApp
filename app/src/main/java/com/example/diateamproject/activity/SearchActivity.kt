@@ -1,11 +1,11 @@
 package com.example.diateamproject.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,7 +45,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText!!.isEmpty()) {
+                if(newText!!.isEmpty()) {
 //                    binding.rvListJob.visibility = View.GONE
                 }
                 return true

@@ -20,7 +20,7 @@
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_back" />
 
-        <androidx.appcompat.widget.SearchView
+        <SearchView
             android:id="@+id/srvJob"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
@@ -29,7 +29,7 @@
             android:iconifiedByDefault="false"
             android:queryBackground="@android:color/transparent"
             android:queryHint="@string/searchJob"
-            app:searchIcon="@drawable/ic_search" />
+            android:searchIcon="@drawable/ic_search" />
     </RelativeLayout>
 
     <ScrollView
