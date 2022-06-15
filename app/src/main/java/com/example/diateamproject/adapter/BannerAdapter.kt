@@ -23,10 +23,9 @@ import com.pixplicity.easyprefs.library.Prefs
 class BannerAdapter internal constructor(
     bannerItems: MutableList<BannerItem>,
     viewPager: ViewPager2
-): RecyclerView.Adapter<BannerAdapter.BannerViewHolder>(){
+) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
 
     private val bannerItems: List<BannerItem>
-    var pos: Int = 0
 
     init {
         this.bannerItems = bannerItems
@@ -34,59 +33,57 @@ class BannerAdapter internal constructor(
 
     inner class BannerViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        private val imageView: RoundedImageView = itemView.findViewById(R.id.ivBanner)
-        private val newActivity = itemView.context as AppCompatActivity
-        private val intentWeb = Intent(Intent.ACTION_VIEW, Uri.parse("http://ideaco.co.id/"))
-        private val intentPlayStore = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/"))
+        var imageView: RoundedImageView = itemView.findViewById(R.id.ivBanner)
+        var newActivity = itemView.context as AppCompatActivity
 
-            fun image(bannerItem: BannerItem) {
-                imageView.setImageResource(bannerItem.image)
-                imageView.setOnClickListener {
-                    Log.d("wherePosition", "$pos")
-                    when(pos) {
-                        0 -> {
-                            Log.d("wherePosition0", "$pos")
-                            newActivity.startActivity(intentWeb)
-                        }
-                        1 -> {
-                            Log.d("wherePosition1", "$pos")
-                            newActivity.startActivity(intentPlayStore)
-                        }
-                        2 -> {
-                            //get isLogin conditions
-                            val isLogin = Prefs.getBoolean(PrefsLoginConstant.IS_LOGIN, false)
-                            if (isLogin) {
-                                Log.d("wherePosition2", "$pos")
-                                val fragment: Fragment = ProfileFragment()
-                                val fragmentManger = newActivity.supportFragmentManager
-                                val transaction: FragmentTransaction = fragmentManger.beginTransaction()
-                                transaction.replace(R.id.content, fragment).commit()
-                            } else {
-                                val intentLogin = Intent(newActivity, LoginActivity::class.java)
-                                newActivity.startActivity(intentLogin)
-                            }
-                        }
-                    }
-                }
-            }
+        fun image(bannerItem: BannerItem) {
+            imageView.setImageResource(bannerItem.image)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         return BannerViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.item_banner,
-                    parent,
-                    false
-                ),
-            )
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_banner,
+                parent,
+                false
+            ),
+        )
     }
 
     override fun onBindViewHolder(holder: BannerViewHolder, position: Int) {
+        val newActivity = holder.newActivity
+        val intentWeb = Intent(Intent.ACTION_VIEW, Uri.parse("https://toptalentapp.com/"))
+        val intentPlayStore = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/"))
         holder.image(bannerItems[position])
-        pos = position
+        holder.imageView.setOnClickListener {
+            Log.d("positionsxx", "$position")
+            when (position) {
+                0 -> {
+                    Log.d("positions0", "$position")
+                    newActivity.startActivity(intentWeb)
+                }
+                1 -> {
+                    newActivity.startActivity(intentPlayStore)
+                }
+                2 -> {
+                    //get isLogin conditions
+                    val isLogin = Prefs.getBoolean(PrefsLoginConstant.IS_LOGIN, false)
+                    if (isLogin) {
+                        val fragment: Fragment = ProfileFragment()
+                        val fragmentManger = newActivity.supportFragmentManager
+                        val transaction: FragmentTransaction = fragmentManger.beginTransaction()
+                        transaction.replace(R.id.content, fragment).commit()
+                    } else {
+                        val intentLogin = Intent(newActivity, LoginActivity::class.java)
+                        newActivity.startActivity(intentLogin)
+                    }
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
-       return bannerItems.size
+        return bannerItems.size
     }
 }
