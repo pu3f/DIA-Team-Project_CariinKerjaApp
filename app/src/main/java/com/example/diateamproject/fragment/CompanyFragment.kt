@@ -52,43 +52,43 @@ class CompanyFragment : Fragment() {
             val linkedin = it.data.recruiterLinkedin
             val fb = it.data.recruiterFb
 
-            if (aboutCompany.isNullOrEmpty()) {
+            if (aboutCompany.isNullOrEmpty() || aboutCompany == ("")) {
                 binding.tvAboutCompany.text = "-"
             } else {
                 binding.tvAboutCompany.text = aboutCompany
             }
-            if (industries.isNullOrEmpty()) {
+            if (industries.isNullOrEmpty() || industries == ("")) {
                 binding.tvIndustries.text = "-"
             } else {
                 binding.tvIndustries.text = industries
             }
-            if (employee == ("")) {
+            if (employee.isNullOrEmpty() || employee == ("")) {
                 binding.tvEmployee.text = "-"
             } else {
                 binding.tvEmployee.text = employee
             }
-            if (culture == ("")) {
+            if (culture.isNullOrEmpty() || culture == ("")) {
                 binding.tvCulture.text = "-"
             } else {
                 binding.tvCulture.text = convertHtml.convertHtmlString(culture)
             }
-            if (website == ("")) {
+            if (website.isNullOrEmpty() || website == ("")) {
                 binding.ivLink.visibility = View.GONE
                 binding.tvWebsite.text = "-"
             } else {
                 binding.tvWebsite.text = website
             }
-            if (linkedin == ("")) {
+            if (linkedin.isNullOrEmpty() ||linkedin == ("")) {
                 binding.llLinkedin.visibility = View.GONE
             } else {
                 binding.tvLinkedin.text = linkedin
             }
-            if (fb == ("")) {
+            if (fb.isNullOrEmpty() || fb == ("")) {
                 binding.llFb.visibility = View.GONE
             } else {
                 binding.tvFb.text = fb
             }
-            if (ig == ("")) {
+            if (ig.isNullOrEmpty() || ig == ("")) {
                 binding.llIg.visibility = View.GONE
             } else {
                 binding.tvIg.text = ig
