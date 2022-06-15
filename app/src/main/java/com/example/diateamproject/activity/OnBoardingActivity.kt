@@ -39,25 +39,22 @@ class OnBoardingActivity : AppCompatActivity() {
         val onBoardingData: MutableList<OnBoardingData> = ArrayList()
         onBoardingData.add(
             OnBoardingData(
-                title = "Have a dream job?",
-                subTitle = "Go for it now!",
-                desc = "Have access to thousands of open vacancies in the most recognizable fields and more",
+                title = "<font color=#f4f830>+1000</font> open vacancies on Toptalent App",
+                subTitle = "",
                 R.drawable.ic_vacancy
             )
         )
         onBoardingData.add(
             OnBoardingData(
-                title = "Track your job application easily!",
+                title = "<font color=#f4f830>Easy</font> Track for your job application!",
                 subTitle = "",
-                desc = "No more wondering about the status of your job application. You will have a full insight on Toptalent App!",
                 R.drawable.ic_trackjob
             )
         )
         onBoardingData.add(
             OnBoardingData(
-                title = "Are you an employer?",
-                subTitle = "Post your job, now on toptalent.id!",
-                desc = "We make your recruitment process easily",
+                title = "<font color=#f4f830>Free</font> Job Posting on toptalentapp.com",
+                subTitle = "For your first job posting",
                 R.drawable.ic_screening
             )
         )

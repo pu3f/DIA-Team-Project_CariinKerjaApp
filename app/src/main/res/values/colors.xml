@@ -21,6 +21,7 @@
     <color name="blue_teal">#0089BA</color>
     <color name="blue_tealAlpha">#420089BA</color>
     <color name="blue_soft">#66A8FF</color>
+    <color name="yellow_light">#F4F830</color>
 
     <color name="primary">#3F51B5</color>
     <color name="primary_dark">#0058FF</color>
