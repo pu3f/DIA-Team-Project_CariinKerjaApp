@@ -33,9 +33,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.abs
 
-
 class HomeFragment : Fragment(){
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val adapter = RecentJobAdapter()
