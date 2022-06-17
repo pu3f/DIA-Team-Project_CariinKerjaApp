@@ -19,6 +19,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentUpdatecvDialogBinding
+import com.example.diateamproject.listener.Updated
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -26,7 +27,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-
 
 class UpdateCVFragment : DialogFragment() {
     private var _binding: FragmentUpdatecvDialogBinding? = null
@@ -36,7 +36,9 @@ class UpdateCVFragment : DialogFragment() {
     private var selectedPdfUri: Uri? = null
     var onUpdate: (() -> Unit)? = null
     lateinit var pb: ProgressButtonUpdateCV
+    lateinit var listener: Updated
     var name : String = ""
+
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -72,6 +74,7 @@ class UpdateCVFragment : DialogFragment() {
         binding.btnUpdate.cvUpdate.setOnClickListener {
             pb.ActiveButton()
             updateCV()
+
         }
         setObserver()
     }
@@ -79,17 +82,6 @@ class UpdateCVFragment : DialogFragment() {
     private fun updateCV() {
         //get file name using getFileName function
         val fileName = getFileName(selectedPdfUri!!)
-        //put fileName to profile fragment
-//        val i = Bundle()
-//        val frag = UpdateCVFragment()
-//        val fragmentManager: FragmentManager? = fragmentManager
-//        i.putString("fileName", fileName)
-//        frag.arguments = i
-//        fragmentManager!!.beginTransaction()
-//            .replace(
-//                R.id.content, ProfileFragment()
-//            )
-//            .commit()
 
         //handle file format
         val length = fileName?.length
@@ -123,6 +115,8 @@ class UpdateCVFragment : DialogFragment() {
             name = it.data.jobseekerResume
             pb.FinishButton()
             dismiss()
+            //snackbar from update listener
+            listener.showSnackBar()
             onUpdate?.let {
                 it()
             }
@@ -178,9 +172,12 @@ class UpdateCVFragment : DialogFragment() {
         }
     }
 
+    fun setCallback(updated: Updated) {
+        this.listener = updated
+    }
+
     override fun onDismiss(dialog: DialogInterface) {
+        listener.updateText(name)
         super.onDismiss(dialog)
-        (targetFragment as ProfileFragment?)?.updated(name)
-        Log.d("updatetextxx", name)
     }
 }

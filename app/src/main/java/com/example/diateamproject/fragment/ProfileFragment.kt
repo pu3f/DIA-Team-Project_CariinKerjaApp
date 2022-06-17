@@ -32,14 +32,15 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import androidx.core.widget.addTextChangedListener
+import com.example.diateamproject.listener.Skill
+import com.example.diateamproject.listener.Updated
 import com.example.diateamproject.model.allskills.Data
 import com.example.diateamproject.model.updateprofile.SkillData
 import com.example.diateamproject.viewmodel.SkillViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
 
-
-class ProfileFragment : Fragment(), Skill {
+class ProfileFragment : Fragment(), Skill, Updated {
     //view binding fragment declaration
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -55,6 +56,7 @@ class ProfileFragment : Fragment(), Skill {
     var tempSkillApi: String = ""
     var texttemp = ""
     var getSkillList: ArrayList<SkillData> = ArrayList<SkillData>()
+
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -64,7 +66,7 @@ class ProfileFragment : Fragment(), Skill {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
@@ -98,22 +100,8 @@ class ProfileFragment : Fragment(), Skill {
         //show update cv dialog
         binding.tfCV.setOnClickListener {
             val cvFragment = UpdateCVFragment()
+            cvFragment.setCallback(this)
             cvFragment.show(requireFragmentManager(), "dialogUpdateCV")
-
-//            val supportFragmentManager = requireActivity().supportFragmentManager
-//            dialog.onUpdate = {
-//                //get the paramater from updateCV fragment
-//                val intent = requireActivity().intent
-//                if (intent.extras != null) {
-//                    val name = intent.getStringExtra("fileName")
-//                    Log.i("showName", "file name = $name")
-//                    binding.tfCV.setText(name)
-//                }
-//                Snackbar.make(view, "CV updated", Snackbar.LENGTH_SHORT).show()
-//            }
-//            dialog.show(supportFragmentManager, "updateCVDialog")
-//            (activity as MenuActivity).show()
-
 
         }
         binding.tfCV.setHint("Upload here")
@@ -494,6 +482,7 @@ class ProfileFragment : Fragment(), Skill {
             return "Choose your skills"
         }
         return null
+
     }
 
     private fun resumeFocusListener() {
@@ -512,6 +501,7 @@ class ProfileFragment : Fragment(), Skill {
             return "Upload your newest Resume"
         }
         return null
+
     }
 
     @Suppress("MoveLambdaOutsideParentheses")
@@ -528,6 +518,7 @@ class ProfileFragment : Fragment(), Skill {
             })
             alertLogout.setNegativeButton("Cancel", { dialog: DialogInterface?, which: Int -> })
             alertLogout.show()
+
         }
     }
 
@@ -539,6 +530,7 @@ class ProfileFragment : Fragment(), Skill {
                 //do nothing
             }
             .show()
+
     }
 
     override fun onResume() {
@@ -546,6 +538,7 @@ class ProfileFragment : Fragment(), Skill {
         val degrees = resources.getStringArray(R.array.degrees)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.degree_item, degrees)
         binding.actvDegree.setAdapter(arrayAdapter)
+
     }
 
     override fun setData(arrayList: Serializable) {
@@ -561,11 +554,15 @@ class ProfileFragment : Fragment(), Skill {
         }
         viewModelSkill.getSkill()
         Log.d("lastval", tempSkillApi)
+
     }
 
-    fun updated(text: String){
+    override fun updateText(text: String) {
         binding.tfCV.setText(text)
         Log.d("updatetext", text)
+    }
+
+    override fun showSnackBar() {
         Snackbar.make(requireView(), "CV updated", Snackbar.LENGTH_SHORT).show()
     }
 }
