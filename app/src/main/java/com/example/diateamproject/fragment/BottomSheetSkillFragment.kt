@@ -9,13 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.diateamproject.adapter.SkillAdapter
 import com.example.diateamproject.databinding.FragmentBottomsheetSkillBinding
 import com.example.diateamproject.model.allskills.Data
 import com.example.diateamproject.model.updateprofile.SkillData
-import com.example.diateamproject.util.PrefsLogin
-import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.util.Skill
 import com.example.diateamproject.util.Testing
 import com.example.diateamproject.viewmodel.SkillViewModel
@@ -29,7 +26,6 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
     var skillListener: Skill = skill
     private var _binding: FragmentBottomsheetSkillBinding? = null
     private val binding get() = _binding!!
-    var NUM_COLUMNS = 2
     var temp: ArrayList<String> = ArrayList<String>()
     lateinit var adapter: SkillAdapter
     var arraySkill: ArrayList<Data> = ArrayList<Data>()
@@ -81,7 +77,7 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
         binding.btnChoose.setOnClickListener {
             if (temp.size < 3) {
                 Log.d("listSize", "size = ${temp.size}")
-                Toast.makeText(activity, "minimal pilih 3 skill", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Choose at least 3 skills", Toast.LENGTH_SHORT).show()
             }
             // add new array to skill condition
             else if (arraySkill != temp) {
@@ -92,8 +88,6 @@ class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Test
                         skill = skill + "," + temp[i]
                     }
                 }
-                Log.d("newSkill", "skillList = $skill")
-                PrefsLogin.saveString(PrefsLoginConstant.SKILL, skill)
                 dismiss()
             }
         }
