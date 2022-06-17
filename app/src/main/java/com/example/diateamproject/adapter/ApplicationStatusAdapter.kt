@@ -16,6 +16,8 @@ import com.example.diateamproject.model.applicationstatus.Data
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
 import com.example.diateamproject.model.applyjobstatus.Content
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -42,10 +44,15 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
         )
     }
 
+    @SuppressLint("NewApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
             with(applicationList[position]) {
-                val date = createdAt.substringBefore("T")
+                val formatter: DateTimeFormatter =
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
+                val dateTime: LocalDateTime = LocalDateTime.parse(createdAt, formatter)
+                val formatter2: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                binding.tvPostDate.text = dateTime.format(formatter2)
                 binding.tvJobPosition.text = jobName
                 binding.tvCompanyName.text = recruiterCompany
                 binding.tvStatus.text = applicationStatus.capitalize()
@@ -59,7 +66,7 @@ class ApplicationStatusAdapter : RecyclerView.Adapter<ApplicationStatusAdapter.V
                         )
                     )
                 }
-                binding.tvPostDate.text = date
+
                 Glide.with(context!!)
                     .load("http://54.255.4.75:9091/resources/$recruiterImage")
                     .placeholder(R.drawable.ic_placeholder_list)
