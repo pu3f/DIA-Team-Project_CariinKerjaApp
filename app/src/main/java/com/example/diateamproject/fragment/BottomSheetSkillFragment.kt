@@ -13,8 +13,8 @@ import com.example.diateamproject.adapter.SkillAdapter
 import com.example.diateamproject.databinding.FragmentBottomsheetSkillBinding
 import com.example.diateamproject.model.allskills.Data
 import com.example.diateamproject.model.updateprofile.SkillData
-import com.example.diateamproject.util.Skill
-import com.example.diateamproject.util.Testing
+import com.example.diateamproject.listener.Skill
+import com.example.diateamproject.listener.UpdateSkill
 import com.example.diateamproject.viewmodel.SkillViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,7 +22,7 @@ import com.xiaofeng.flowlayoutmanager.Alignment
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
 
 
-class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), Testing {
+class BottomSheetSkillFragment(skill: Skill) : BottomSheetDialogFragment(), UpdateSkill {
     var skillListener: Skill = skill
     private var _binding: FragmentBottomsheetSkillBinding? = null
     private val binding get() = _binding!!
