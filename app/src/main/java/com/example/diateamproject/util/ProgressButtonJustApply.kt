@@ -21,6 +21,6 @@ class ProgressButtonJustApply (context: Context, view: View) {
 
     fun FinishButton(){
         progress.visibility = View.GONE
-        text.text = "Just Apply"
+        text.text = "Apply"
     }
 }
