@@ -1,8 +1,8 @@
 package com.example.diateamproject.fragment
 
-import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Color
@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentUpdatecvDialogBinding
@@ -37,6 +36,7 @@ class UpdateCVFragment : DialogFragment() {
     private var selectedPdfUri: Uri? = null
     var onUpdate: (() -> Unit)? = null
     lateinit var pb: ProgressButtonUpdateCV
+    var name : String = ""
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
@@ -44,7 +44,7 @@ class UpdateCVFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentUpdatecvDialogBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -80,16 +80,17 @@ class UpdateCVFragment : DialogFragment() {
         //get file name using getFileName function
         val fileName = getFileName(selectedPdfUri!!)
         //put fileName to profile fragment
-        val i = Bundle()
-        val frag = UpdateCVFragment()
-        val fragmentManager: FragmentManager? = fragmentManager
-        i.putString("fileName", fileName)
-        frag.arguments = i
-        fragmentManager!!.beginTransaction()
-            .replace(
-                R.id.content, ProfileFragment()
-            )
-            .commit()
+//        val i = Bundle()
+//        val frag = UpdateCVFragment()
+//        val fragmentManager: FragmentManager? = fragmentManager
+//        i.putString("fileName", fileName)
+//        frag.arguments = i
+//        fragmentManager!!.beginTransaction()
+//            .replace(
+//                R.id.content, ProfileFragment()
+//            )
+//            .commit()
+
         //handle file format
         val length = fileName?.length
         if (fileName?.substring(fileName.length - 4, length!!.toInt()).equals(".png") ||
@@ -119,6 +120,7 @@ class UpdateCVFragment : DialogFragment() {
 
     private fun setObserver() {
         viewModelProfile.listResponseFile().observe(this, Observer {
+            name = it.data.jobseekerResume
             pb.FinishButton()
             dismiss()
             onUpdate?.let {
@@ -174,5 +176,11 @@ class UpdateCVFragment : DialogFragment() {
                 binding.btnUpdate.tvUpdate.setTextColor(Color.WHITE)
             }
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        (targetFragment as ProfileFragment?)?.updated(name)
+        Log.d("updatetextxx", name)
     }
 }
