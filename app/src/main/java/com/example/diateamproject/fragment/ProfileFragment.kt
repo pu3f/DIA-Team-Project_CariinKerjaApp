@@ -97,18 +97,24 @@ class ProfileFragment : Fragment(), Skill {
         }
         //show update cv dialog
         binding.tfCV.setOnClickListener {
-            val supportFragmentManager = requireActivity().supportFragmentManager
-            dialog.onUpdate = {
-                //get the paramater from updateCV fragment
-                val intent = requireActivity().intent
-                if (intent.extras != null) {
-                    val name = intent.getStringExtra("fileName")
-                    Log.i("showName", "file name = $name")
-                    binding.tfCV.setText(name)
-                }
-                Snackbar.make(view, "CV updated", Snackbar.LENGTH_SHORT).show()
-            }
-            dialog.show(supportFragmentManager, "updateCVDialog")
+            val cvFragment = UpdateCVFragment()
+            cvFragment.show(requireFragmentManager(), "dialogUpdateCV")
+
+//            val supportFragmentManager = requireActivity().supportFragmentManager
+//            dialog.onUpdate = {
+//                //get the paramater from updateCV fragment
+//                val intent = requireActivity().intent
+//                if (intent.extras != null) {
+//                    val name = intent.getStringExtra("fileName")
+//                    Log.i("showName", "file name = $name")
+//                    binding.tfCV.setText(name)
+//                }
+//                Snackbar.make(view, "CV updated", Snackbar.LENGTH_SHORT).show()
+//            }
+//            dialog.show(supportFragmentManager, "updateCVDialog")
+//            (activity as MenuActivity).show()
+
+
         }
         binding.tfCV.setHint("Upload here")
 
@@ -182,8 +188,8 @@ class ProfileFragment : Fragment(), Skill {
             //jobseekerSkill isNotEmpty condition
             if (!it.data.skills.isNullOrEmpty()) {
                 getSkillList = it.data.skills as ArrayList<SkillData>
-
                 Log.d("cekText11", texttemp)
+
                 texttemp = ""
                 Log.d("cekText22", texttemp)
 
@@ -220,6 +226,7 @@ class ProfileFragment : Fragment(), Skill {
             }
 
             fullnameFocusListener()
+            birthFocusListener()
             addressFocusListener()
             professionFocusListener()
             skillFocusListener()
@@ -346,18 +353,20 @@ class ProfileFragment : Fragment(), Skill {
 
     private fun saveProfile() {
         binding.tilName.helperText = validName()
+        binding.tilBirth.helperText = validBirth()
         binding.tflAddress.helperText = validAddress()
         binding.tflProfession.helperText = validProfession()
         binding.tflSkill.helperText = validSkill()
         binding.tflResume.helperText = validCv()
 
         val validName = binding.tilName.helperText == null
+        val validBirth = binding.tilBirth.helperText == null
         val validAddress = binding.tflAddress.helperText == null
         val validProfession = binding.tflProfession.helperText == null
         val validSkill = binding.tflSkill.helperText == null
         val validResume = binding.tflResume.helperText == null
 
-        if (validName && validAddress && validProfession && validSkill && validResume) {
+        if (validName && validAddress && validProfession && validSkill && validResume && validBirth) {
             pb.ActiveButton()
             updateProfile()
         } else {
@@ -415,10 +424,30 @@ class ProfileFragment : Fragment(), Skill {
         return null
     }
 
+    private fun birthFocusListener() {
+        binding.tfBirth.setOnFocusChangeListener { _, focused ->
+            if (!focused) {
+                binding.tilBirth.helperText = validBirth()
+            } else {
+                binding.tilBirth.isHelperTextEnabled = false
+            }
+        }
+    }
+
+    private fun validBirth(): String? {
+        val birtText = binding.tfBirth.text.toString()
+        if (birtText.isNullOrEmpty()) {
+            return "Enter your date of birth"
+        }
+        return null
+    }
+
     private fun addressFocusListener() {
         binding.tfAddress.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflAddress.helperText = validAddress()
+            } else {
+                binding.tflAddress.isHelperTextEnabled = false
             }
         }
     }
@@ -435,13 +464,15 @@ class ProfileFragment : Fragment(), Skill {
         binding.tfProfession.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflProfession.helperText = validProfession()
+            } else {
+                binding.tflProfession.isHelperTextEnabled = false
             }
         }
     }
 
     private fun validProfession(): String? {
         val professionText = binding.tfProfession.text.toString()
-        if (professionText.isEmpty()) {
+        if (professionText.isNullOrEmpty()) {
             return "Enter your Current profession"
         }
         return null
@@ -451,13 +482,14 @@ class ProfileFragment : Fragment(), Skill {
         binding.tfSkill.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflSkill.helperText = validSkill()
+            } else {
+                binding.tflSkill.isHelperTextEnabled = false
             }
         }
     }
 
     private fun validSkill(): String? {
-        val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
-        val skillText = userSkill
+        val skillText = binding.tfAddress.text.toString()
         if (skillText.isNullOrEmpty()) {
             return "Choose your skills"
         }
@@ -468,6 +500,8 @@ class ProfileFragment : Fragment(), Skill {
         binding.tfCV.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflResume.helperText = validCv()
+            } else {
+                binding.tflResume.isHelperTextEnabled = false
             }
         }
     }
@@ -527,5 +561,11 @@ class ProfileFragment : Fragment(), Skill {
         }
         viewModelSkill.getSkill()
         Log.d("lastval", tempSkillApi)
+    }
+
+    fun updated(text: String){
+        binding.tfCV.setText(text)
+        Log.d("updatetext", text)
+        Snackbar.make(requireView(), "CV updated", Snackbar.LENGTH_SHORT).show()
     }
 }
