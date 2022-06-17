@@ -193,8 +193,8 @@
                     android:id="@+id/tfEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_regular"
                     android:enabled="false"
+                    android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/hintEmail"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
@@ -252,6 +252,7 @@
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilBirth"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -260,6 +261,8 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
+                app:helperText="@string/helperName"
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -268,6 +271,7 @@
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_date"
                     android:focusable="false"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="none"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -396,8 +400,8 @@
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_arrow_down"
                     android:editable="false"
+                    android:fontFamily="@font/montserrat_regular"
                     android:padding="10dp"
-                    android:fontFamily="@font/montserrat_medium"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
                     android:textStyle="normal" />
@@ -431,6 +435,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
+                    android:fontFamily="@font/montserrat_regular"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
@@ -454,9 +459,9 @@
                     android:id="@+id/tfDateStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="number"
                     android:padding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
                     android:textStyle="normal" />
@@ -479,9 +484,9 @@
                     android:id="@+id/tfDateEnd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="number"
                     android:padding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
                     android:textStyle="normal" />
@@ -551,6 +556,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/cv"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"

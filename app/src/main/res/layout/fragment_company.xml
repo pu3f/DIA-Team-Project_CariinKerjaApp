@@ -30,7 +30,6 @@
             android:layout_height="match_parent"
             android:paddingHorizontal="8dp"
             android:fontFamily="@font/montserrat_regular"
-            android:padding="4dp"
             android:text="@string/content"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
@@ -101,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/montserrat_bold"
-            android:padding="4dp"
+            android:paddingHorizontal="8dp"
             android:text="@string/contactLink"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
