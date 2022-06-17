@@ -2,7 +2,6 @@ package com.example.diateamproject.data.repository
 
 import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
-import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
 import com.example.diateamproject.model.emailresetpassword.EmailResetPasswordResponse
@@ -25,10 +24,6 @@ interface AppRepository {
     fun getAllJobs(): Single<RecentJobsResponse>
     fun getRecentJobs(): Single<RecentJobsResponse>
     fun getSkill(): Single<SkillResponse>
-
-    fun getApplicationStatus(
-        @Path("jobseekerId") id: Int?
-    ): Single<ApplicationStatusResponse>
 
     fun getProfile(
         @Path("jobseekerId") id: Int?

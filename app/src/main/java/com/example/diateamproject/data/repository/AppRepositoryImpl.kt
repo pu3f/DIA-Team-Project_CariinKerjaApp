@@ -3,7 +3,6 @@ package com.example.diateamproject.data.repository
 import com.example.diateamproject.data.remote.AppRemoteDataSource
 import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
-import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
 import com.example.diateamproject.model.emailresetpassword.EmailResetPasswordResponse
@@ -33,10 +32,6 @@ class AppRepositoryImpl @Inject constructor(private val remoteDataSource: AppRem
 
     override fun getSkill(): Single<SkillResponse> {
         return remoteDataSource.getSkill()
-    }
-
-    override fun getApplicationStatus(id: Int?): Single<ApplicationStatusResponse> {
-        return remoteDataSource.getApplicationStatus(id)
     }
 
     override fun getProfile(id: Int?): Single<ProfileResponse> {

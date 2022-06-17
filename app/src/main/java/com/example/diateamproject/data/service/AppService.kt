@@ -2,7 +2,6 @@ package com.example.diateamproject.data.service
 
 import com.example.diateamproject.model.recentpostingjobs.RecentJobsResponse
 import com.example.diateamproject.model.allpostingjobs.AllPostingJobsResponse
-import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.apply.ApplyResponse
 import com.example.diateamproject.model.applyjobstatus.ApplyJobStatusResponse
 import com.example.diateamproject.model.emailresetpassword.EmailResetPasswordResponse
@@ -93,10 +92,6 @@ interface AppService {
     fun getSkill(): Single<SkillResponse>
 
     //request URL path {}
-    @GET("api/v1/jobseeker/apply/status/{jobseekerId}")
-    fun getApplicationStatus(
-        @Path("jobseekerId") id: Int?
-    ): Single<ApplicationStatusResponse>
 
     @GET("api/v1/jobseeker/user/{jobseekerId}")
     fun getProfile(
