@@ -39,6 +39,10 @@ class ApplyDialogFragment : DialogFragment() {
     var page = 0
     var size = 0
     var tempCv = ""
+    var tempName = ""
+    var tempAddress = ""
+    var tempProf = ""
+    var tempSkill = ""
     lateinit var pb: ProgressButtonUploadNewCV
     lateinit var pbJustApply: ProgressButtonJustApply
     private val viewModelApply: ApplyViewModel by lazy {
@@ -75,16 +79,25 @@ class ApplyDialogFragment : DialogFragment() {
         binding.btnJustApply.cvJustApply.setOnClickListener {
             pbJustApply.ActiveButton()
             //resume null condition
-            if (tempCv.isEmpty()) {
-                Log.d("resume test", "is empty $tempCv")
+            Log.d("skillTesB","name = $tempSkill")
+            if (tempName.isNullOrEmpty() || tempAddress.isNullOrEmpty() || tempProf.isNullOrEmpty() || tempSkill.isNullOrEmpty()) {
+                Log.d("skillTesA","name = $tempSkill")
+                Log.d("addTes","add = $tempAddress")
+                Toast.makeText(activity, "Complete your Profile first", Toast.LENGTH_SHORT).show()
+                pbJustApply.FinishButton()
+            }
+            else if (tempCv.isNullOrEmpty()) {
+                Log.d("cvTes","cv = $tempCv")
                 Toast.makeText(activity, "Upload your newest CV first", Toast.LENGTH_SHORT).show()
                 pbJustApply.FinishButton()
+
             } else {
                 applyJob()
                 onApplied?.let {
                     it()
                 }
             }
+
         }
 
         binding.tvUpdateCv.setOnClickListener {
@@ -114,6 +127,10 @@ class ApplyDialogFragment : DialogFragment() {
 
         viewModelProfile.responseProfile().observe(this, Observer {
             tempCv = it.data.jobseekerResume
+            tempName = it.data.jobseekerName
+            tempAddress = it.data.jobseekerAddress
+            tempProf = it.data.jobseekerProfession
+            tempSkill = it.data.skills.toString()
         })
 
         viewModelProfile.listResponseFile().observe(this, Observer {
@@ -121,6 +138,7 @@ class ApplyDialogFragment : DialogFragment() {
             Toast.makeText(activity, "CV Updated", Toast.LENGTH_SHORT).show()
         })
     }
+
     private fun applyJob() {
         val idJob = activity?.intent?.getIntExtra("jobId", 0)
         val jobId = idJob.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())

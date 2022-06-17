@@ -18,15 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/jobDesc"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/dark_black"
             android:textSize="16sp"/>
         <TextView
             android:id="@+id/tvJobDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="content"
-            android:fontFamily="sans-serif"
+            android:text="@string/content"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="8dp"
             android:textColor="@color/dark_black"
             android:textSize="12sp"
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/jobRequire"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/dark_black"
             android:textSize="16sp"
             android:layout_marginTop="8dp"/>
@@ -45,8 +45,8 @@
             android:id="@+id/tvJobRequirement"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="requirement list"
-            android:fontFamily="sans-serif"
+            android:text="@string/requirementList"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="8dp"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/jobBenefit"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/dark_black"
             android:textSize="16sp"
             android:layout_marginTop="8dp"/>
@@ -64,9 +64,9 @@
             android:id="@+id/tvJobBenefit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="benefit list"
+            android:text="@string/benefitList"
             android:padding="8dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_regular"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
 

@@ -28,7 +28,8 @@
             android:background="@drawable/bg_searchbar"
             android:iconifiedByDefault="false"
             android:queryBackground="@android:color/transparent"
-            android:queryHint="@string/searchJob"/>
+            android:queryHint="@string/searchJob"
+            android:searchIcon="@drawable/ic_search"/>
     </RelativeLayout>
 
     <ScrollView

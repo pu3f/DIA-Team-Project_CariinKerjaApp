@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:padding="4dp"
             android:text="@string/aboutCompany"
             android:textColor="@color/dark_black"
@@ -29,16 +29,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="8dp"
-            android:fontFamily="sans-serif"
-            android:padding="4dp"
-            android:text="content"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/content"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:padding="4dp"
             android:text="@string/industries"
             android:textColor="@color/dark_black"
@@ -49,16 +48,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="8dp"
-            android:fontFamily="sans-serif"
+            android:paddingEnd="0dp"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="4dp"
-            android:text="content"
+            android:text="@string/content"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:padding="4dp"
             android:text="@string/employee"
             android:textColor="@color/dark_black"
@@ -69,16 +69,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="8dp"
-            android:fontFamily="sans-serif"
+            android:paddingEnd="0dp"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="4dp"
-            android:text="content"
+            android:text="@string/content"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:padding="4dp"
             android:text="@string/culture"
             android:textColor="@color/dark_black"
@@ -89,7 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="8dp"
-            android:fontFamily="sans-serif"
+            android:paddingEnd="0dp"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="4dp"
             android:text="content"
             android:textColor="@color/dark_black"
@@ -97,8 +99,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="sans-serif-black"
-            android:padding="4dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingHorizontal="8dp"
             android:text="@string/contactLink"
             android:textColor="@color/dark_black"
             android:textSize="12sp"/>
@@ -121,10 +123,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"/>
+                android:textSize="11sp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -145,10 +147,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"/>
+                android:textSize="11sp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -169,10 +171,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"/>
+                android:textSize="11sp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -193,13 +195,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="12sp"/>
+                android:textSize="11sp"/>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

@@ -1,15 +1,19 @@
 package com.example.diateamproject.activity
 
 import android.Manifest
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.diateamproject.R
 import com.example.diateamproject.databinding.ActivityMenuBinding
 import com.example.diateamproject.fragment.*
+import com.example.diateamproject.util.PrefsLoginConstant
+import com.pixplicity.easyprefs.library.Prefs
 
 class MenuActivity : AppCompatActivity() {
     lateinit var binding: ActivityMenuBinding
@@ -19,6 +23,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
         val fragmentt: Fragment = HomeFragment()
         val transactionn: FragmentTransaction = supportFragmentManager.beginTransaction()
+        val isLogin = Prefs.getBoolean(PrefsLoginConstant.IS_LOGIN, false)
         transactionn.replace(R.id.content, fragmentt).commit()
         binding.navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -29,15 +34,27 @@ class MenuActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menuTwo -> {
-                    val fragment: Fragment = ApplicationFragment()
-                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.content, fragment).commit()
+                    //get isLogin conditions
+                    if (isLogin) {
+                        val fragment: Fragment = ApplicationFragment()
+                        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                        transaction.replace(R.id.content, fragment).commit()
+                    } else {
+                        //for guest
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
                     true
                 }
                 R.id.menuThree -> {
-                    val fragment: Fragment = ProfileFragment()
-                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.content, fragment).commit()
+                    //get isLogin conditions
+                    if (isLogin) {
+                        val fragment: Fragment = ProfileFragment()
+                        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                        transaction.replace(R.id.content, fragment).commit()
+                    } else {
+                        //for guest
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
                     true
                 }
                 else -> {
@@ -49,6 +66,10 @@ class MenuActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         finishAffinity()
+    }
+
+    fun show() {
+        binding.navigation.visibility = View.VISIBLE
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

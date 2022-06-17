@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_onboarding">
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvOnBoardTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="sans-serif-black"
-        android:textSize="24sp"
-        android:textColor="@color/white"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/montserrat_black"
         android:text="@string/onboardtitle"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,42 +27,31 @@
         android:id="@+id/tvOnBoardSubTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="62dp"
-        android:layout_marginVertical="12dp"
+        android:layout_below="@id/tvOnBoardTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="@string/onboardsubtitle"
         android:textAlignment="center"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOnBoardTitle" />
 
     <ImageView
         android:id="@+id/ivOnBoard"
-        android:layout_width="300dp"
-        android:layout_height="422dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@id/tvOnBoardSubTitle"
         android:layout_marginHorizontal="28dp"
-        android:layout_marginVertical="12dp"
+        android:layout_marginTop="62dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOnBoardSubTitle"
         app:srcCompat="@drawable/ic_placeholder_list" />
 
-    <TextView
-        android:id="@+id/tvOnBoardDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="114dp"
-        android:text="@string/onboarddesc"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--        app:layout_constraintDimensionRatio="H,5:4"-->

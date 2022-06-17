@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjectDIA</string>
+    <string name="app_name">TopTalent</string>
     <string name="haveAccount">Have an account?</string>
     <string name="buttonRegister">Sign up</string>
     <string name="hintPin">Password</string>
@@ -87,8 +87,7 @@
     <string name="noJob">No Job Available</string>
     <string name="searchJob">Search job here</string>
     <string name="noJobList">Job not found</string>
-    <string name="jobPosition">job Position</string>
-    <string name="companyName">company name</string>
+    <string name="companyName">Company Name</string>
     <string name="updateCV">Update</string>
     <string name="btnSave">Save</string>
     <string name="btnJustApply">Apply</string>
@@ -105,6 +104,26 @@
     <string name="onboarddesc">Description</string>
     <string name="onboardtitle">Title</string>
     <string name="onboardsubtitle">Sub-Title</string>
+    <string name="jobPosition">Job Position</string>
+    <string name="companyLocation">Company Location</string>
+    <string name="dateCreated">Date created:</string>
+    <string name="loginasguest">Login as a Guest</string>
+    <string name="instruction">"Create Top Talent Profile "</string>
+    <string name="introguest">Get personalised recommendations and apply to jobs easily and fast</string>
+    <string name="createAt">create at</string>
+    <string name="ivHideSheet">ivHide</string>
+    <string name="content">content</string>
+    <string name="requirementList">requirement list</string>
+    <string name="benefitList">benefit list</string>
+    <string name="tittleUploadNewCV">Want to upload new CV?</string>
+    <string name="chooseFile">Choose File Here</string>
+    <string name="date">date</string>
+    <string name="type">Type:</string>
+    <string name="jobType">job type</string>
+    <string name="salary">Salary:</string>
+    <string name="salaryRange">salary range</string>
+    <string name="job">Job</string>
+    <string name="company">Company</string>
     <string-array name="degrees">
         <item>Senior High School</item>
         <item>Diploma</item>

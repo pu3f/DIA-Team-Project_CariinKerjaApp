@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ProjectDIA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ProjectDIA" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- force dark mode -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q"> false</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_dark</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -13,7 +15,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!--    Bottom sheet theme-->
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
-        <!-- Customize your theme here. -->
+
     </style>
 
 <!--    Bottom sheet style-->
@@ -43,8 +45,30 @@
         <item name="chipStrokeColor">@color/chip_stroke_color</item>
         <item name="rippleColor">@color/white</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="chipSpacingHorizontal">12dp</item>
 
     </style>
+
+<!--    primary button style-->
+    <style name="primaryButtonStyle" parent="@style/Widget.MaterialComponents.Button">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="background">@drawable/bg_button_primary</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+<!--    tab text style-->
+    <style name="tab_text" parent="@style/Widget.MaterialComponents.TabLayout">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--    bottom navigation text style-->
+    <style name="bottomnav_text" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:fontFamily">@font/montserrat_light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

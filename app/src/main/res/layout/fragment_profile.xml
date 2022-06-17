@@ -5,8 +5,8 @@
     android:id="@+id/profileFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/grey_light"
+    android:orientation="vertical"
     tools:context=".fragment.ProfileFragment">
 
     <RelativeLayout
@@ -28,12 +28,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/profileTitle"
             android:textColor="@color/dark_black"
-            android:textSize="24sp"/>
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/ivLogout"
@@ -59,9 +58,9 @@
             android:background="@drawable/ic_img_profile_placeholder"
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnUpdateImg"
@@ -82,13 +81,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ivProfile"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center"
             android:paddingTop="8dp"
             android:text="@string/uploadPhoto"
             android:textColor="@color/dark_black"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/ivProfile"/>
+            app:layout_constraintTop_toBottomOf="@id/ivProfile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -107,8 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/aboutYou"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/black_medium"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -129,6 +129,7 @@
                     android:id="@+id/tfBio"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:fontFamily="@font/montserrat_regular"
                     android:gravity="top"
                     android:inputType="textMultiLine"
                     android:lines="3"
@@ -142,8 +143,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/personalInfo"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/black_medium"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -160,12 +162,14 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/blue_primary"
                 app:helperText="@string/helperName"
-                app:helperTextTextColor="@android:color/holo_red_dark">
+                app:helperTextTextColor="@android:color/holo_red_dark"
+                app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/fullName"
                     android:inputType="textCapWords"
                     android:maxLength="50"
@@ -184,11 +188,13 @@
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
                 app:hintTextAppearance="?textAppearanceCaption">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/hintEmail"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
@@ -202,20 +208,20 @@
                 android:id="@+id/llPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
                 <com.hbb20.CountryCodePicker
                     android:id="@+id/ccp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:ccp_defaultNameCode="ID"
-                    app:ccp_showNameCode="false"
-                    app:ccp_autoDetectCountry="true"
-                    app:ccp_rememberLastSelection="true"
-                    app:ccp_textSize="12dp"
+                    android:layout_gravity="center_vertical"
                     app:ccpDialog_textColor="@color/dark_black"
-                    android:layout_gravity="center_vertical"/>
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_defaultNameCode="ID"
+                    app:ccp_rememberLastSelection="true"
+                    app:ccp_showNameCode="false"
+                    app:ccp_textSize="12dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -234,6 +240,7 @@
                         android:id="@+id/tfPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_regular"
                         android:inputType="number"
                         android:maxLength="13"
                         android:padding="10dp"
@@ -245,6 +252,7 @@
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilBirth"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -253,6 +261,8 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="1dp"
+                app:helperText="@string/helperName"
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="?textAppearanceCaption">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -261,6 +271,7 @@
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_date"
                     android:focusable="false"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="none"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -288,6 +299,7 @@
                     android:id="@+id/tfAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="textCapWords"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -299,6 +311,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/education"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"
@@ -321,11 +334,12 @@
                     android:id="@+id/actvDegree"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="none"
+                    android:labelFor="@id/actvDegree"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:labelFor="@id/actvDegree"/>
+                    android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -348,6 +362,7 @@
                     android:id="@+id/tfProfession"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="textCapWords"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -359,6 +374,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/skill"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"
@@ -382,19 +398,20 @@
                     android:id="@+id/tfSkill"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_arrow_down"
+                    android:editable="false"
+                    android:fontFamily="@font/montserrat_regular"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:editable="false"
-                    android:drawableEnd="@drawable/ic_arrow_down"
-                    />
+                    android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/latestWorkExperience"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"
@@ -418,6 +435,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
+                    android:fontFamily="@font/montserrat_regular"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
@@ -441,6 +459,7 @@
                     android:id="@+id/tfDateStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="number"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -465,6 +484,7 @@
                     android:id="@+id/tfDateEnd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="number"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -476,6 +496,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/link"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"
@@ -498,6 +519,7 @@
                     android:id="@+id/tfSosmed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="textWebEditText"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -522,6 +544,7 @@
                     android:id="@+id/tfPorto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="textWebEditText"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
@@ -533,6 +556,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/cv"
                 android:textColor="@color/dark_black"
                 android:textSize="12sp"
@@ -559,7 +583,7 @@
                     android:autofillHints=""
                     android:drawableEnd="@drawable/ic_file"
                     android:editable="false"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/montserrat_regular"
                     android:padding="10dp"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp"
@@ -568,12 +592,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <include
+                android:id="@+id/btnSaveProfile"
                 layout="@layout/progress_button_saveprofile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:layout_marginBottom="24dp"
-                android:id="@+id/btnSaveProfile"/>
+                android:layout_marginBottom="24dp" />
 
         </LinearLayout>
 

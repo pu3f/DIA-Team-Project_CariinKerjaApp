@@ -97,18 +97,24 @@ class ProfileFragment : Fragment(), Skill {
         }
         //show update cv dialog
         binding.tfCV.setOnClickListener {
-            val supportFragmentManager = requireActivity().supportFragmentManager
-            dialog.onUpdate = {
-                //get the paramater from updateCV fragment
-                val intent = requireActivity().intent
-                if (intent.extras != null) {
-                    val name = intent.getStringExtra("fileName")
-                    Log.i("showName", "file name = $name")
-                    binding.tfCV.setText(name)
-                }
-                Snackbar.make(view, "CV updated", Snackbar.LENGTH_SHORT).show()
-            }
-            dialog.show(supportFragmentManager, "updateCVDialog")
+            val cvFragment = UpdateCVFragment()
+            cvFragment.show(requireFragmentManager(), "dialogUpdateCV")
+
+//            val supportFragmentManager = requireActivity().supportFragmentManager
+//            dialog.onUpdate = {
+//                //get the paramater from updateCV fragment
+//                val intent = requireActivity().intent
+//                if (intent.extras != null) {
+//                    val name = intent.getStringExtra("fileName")
+//                    Log.i("showName", "file name = $name")
+//                    binding.tfCV.setText(name)
+//                }
+//                Snackbar.make(view, "CV updated", Snackbar.LENGTH_SHORT).show()
+//            }
+//            dialog.show(supportFragmentManager, "updateCVDialog")
+//            (activity as MenuActivity).show()
+
+
         }
         binding.tfCV.setHint("Upload here")
 
@@ -140,51 +146,61 @@ class ProfileFragment : Fragment(), Skill {
     private fun setObserver() {
         viewModelSkill.responseSkill().observe(viewLifecycleOwner, Observer {
             arraySkill = it.data as ArrayList<Data>
-            //note 10Juli
+            //empty array getSkillList
             getSkillList.clear()
-            //note 10Juli
             Log.d("txterei", arraySkill.toString())
             Log.d("txterei", tempSkill.toString())
             for (i in tempSkill.indices) {
                 for (a in arraySkill.indices) {
                     if (tempSkill[i].toString() == arraySkill[a].skillId.toString()) {
-                        //note 10Juli
-                        getSkillList.add(SkillData(arraySkill[a].skillId,arraySkill[a].skillName))
-                        //note 10Juli
+                        //add skillData to array getSkillList
+                        getSkillList.add(
+                            SkillData(arraySkill[a].skillId, arraySkill[a].skillName)
+                        )
+
                         if (texttemp == "") {
                             texttemp += arraySkill[a].skillName
                         } else {
                             texttemp += "," + arraySkill[a].skillName
                         }
+
+                        //set text after choose skill list
                         binding.tfSkill.setText(texttemp)
-                        Log.d("texttemptoo", "$texttemp")
+                        Log.d("texttemptoo", texttemp)
                     }
 
                 }
             }
         })
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
-            tempPhone = it.data.jobseekerPhone
             binding.tfBio.setText(it.data.jobseekerAbout)
             binding.tfName.setText(it.data.jobseekerName)
             binding.tfEmail.setText(it.data.jobseekerEmail)
+
+            tempPhone = it.data.jobseekerPhone
             if (!tempPhone.isNullOrEmpty()) {
                 binding.tfPhone.setText(it.data.jobseekerPhone.substring(2))
             }
+
             binding.tfAddress.setText(it.data.jobseekerAddress)
             binding.actvDegree.setText(it.data.jobseekerEducation)
 
             //jobseekerSkill isNotEmpty condition
             if (!it.data.skills.isNullOrEmpty()) {
                 getSkillList = it.data.skills as ArrayList<SkillData>
-                Log.d("LookSkillSize", "sizexx = ${getSkillList.size}")
+                Log.d("cekText11", texttemp)
+
+                texttemp = ""
+                Log.d("cekText22", texttemp)
+
                 for (i in getSkillList.indices) {
-                    if (texttemp.equals("")) {
+                    if (texttemp == "") {
                         texttemp += getSkillList[i].skillName
                     } else {
                         texttemp += "," + getSkillList[i].skillName
                     }
                 }
+                //set text after load data from api
                 binding.tfSkill.setText(texttemp)
                 Log.d("texttemptest", texttemp)
 
@@ -198,9 +214,11 @@ class ProfileFragment : Fragment(), Skill {
             binding.tfSosmed.setText(it.data.jobseekerMedsos)
             binding.tfPorto.setText(it.data.jobseekerPortfolio)
             binding.tfBirth.setText(it.data.jobseekerDateOfBirth)
+
             if (!it.data.jobseekerResume.isNullOrEmpty()) {
                 binding.tfCV.setText(it.data.jobseekerResume)
             }
+
             binding.tfCompanyName.setText(it.data.jobsekerCompany)
             if (it.data.workStartYear != 0 && it.data.workEndYear != 0) {
                 binding.tfDateStart.setText(it.data.workStartYear.toString())
@@ -208,6 +226,7 @@ class ProfileFragment : Fragment(), Skill {
             }
 
             fullnameFocusListener()
+            birthFocusListener()
             addressFocusListener()
             professionFocusListener()
             skillFocusListener()
@@ -334,18 +353,20 @@ class ProfileFragment : Fragment(), Skill {
 
     private fun saveProfile() {
         binding.tilName.helperText = validName()
+        binding.tilBirth.helperText = validBirth()
         binding.tflAddress.helperText = validAddress()
         binding.tflProfession.helperText = validProfession()
         binding.tflSkill.helperText = validSkill()
         binding.tflResume.helperText = validCv()
 
         val validName = binding.tilName.helperText == null
+        val validBirth = binding.tilBirth.helperText == null
         val validAddress = binding.tflAddress.helperText == null
         val validProfession = binding.tflProfession.helperText == null
         val validSkill = binding.tflSkill.helperText == null
         val validResume = binding.tflResume.helperText == null
 
-        if (validName && validAddress && validProfession && validSkill && validResume) {
+        if (validName && validAddress && validProfession && validSkill && validResume && validBirth) {
             pb.ActiveButton()
             updateProfile()
         } else {
@@ -403,10 +424,30 @@ class ProfileFragment : Fragment(), Skill {
         return null
     }
 
+    private fun birthFocusListener() {
+        binding.tfBirth.setOnFocusChangeListener { _, focused ->
+            if (!focused) {
+                binding.tilBirth.helperText = validBirth()
+            } else {
+                binding.tilBirth.isHelperTextEnabled = false
+            }
+        }
+    }
+
+    private fun validBirth(): String? {
+        val birtText = binding.tfBirth.text.toString()
+        if (birtText.isNullOrEmpty()) {
+            return "Enter your date of birth"
+        }
+        return null
+    }
+
     private fun addressFocusListener() {
         binding.tfAddress.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflAddress.helperText = validAddress()
+            } else {
+                binding.tflAddress.isHelperTextEnabled = false
             }
         }
     }
@@ -423,13 +464,15 @@ class ProfileFragment : Fragment(), Skill {
         binding.tfProfession.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflProfession.helperText = validProfession()
+            } else {
+                binding.tflProfession.isHelperTextEnabled = false
             }
         }
     }
 
     private fun validProfession(): String? {
         val professionText = binding.tfProfession.text.toString()
-        if (professionText.isEmpty()) {
+        if (professionText.isNullOrEmpty()) {
             return "Enter your Current profession"
         }
         return null
@@ -439,13 +482,14 @@ class ProfileFragment : Fragment(), Skill {
         binding.tfSkill.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflSkill.helperText = validSkill()
+            } else {
+                binding.tflSkill.isHelperTextEnabled = false
             }
         }
     }
 
     private fun validSkill(): String? {
-        val userSkill = PrefsLogin.loadString(PrefsLoginConstant.SKILL, "")
-        val skillText = userSkill
+        val skillText = binding.tfAddress.text.toString()
         if (skillText.isNullOrEmpty()) {
             return "Choose your skills"
         }
@@ -456,6 +500,8 @@ class ProfileFragment : Fragment(), Skill {
         binding.tfCV.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.tflResume.helperText = validCv()
+            } else {
+                binding.tflResume.isHelperTextEnabled = false
             }
         }
     }
@@ -478,7 +524,7 @@ class ProfileFragment : Fragment(), Skill {
             alertLogout.setPositiveButton("Sure", { dialog: DialogInterface?, which: Int ->
                 val intentLogin = Intent(activity, LoginActivity::class.java)
                 startActivity(intentLogin)
-                activity?.finish()
+                activity?.finishAffinity()
             })
             alertLogout.setNegativeButton("Cancel", { dialog: DialogInterface?, which: Int -> })
             alertLogout.show()
@@ -506,8 +552,6 @@ class ProfileFragment : Fragment(), Skill {
         tempSkillApi = ""
         texttemp = ""
         tempSkill = arrayList as ArrayList<String>
-
-
         for (i in tempSkill.indices) {
             if (tempSkillApi.equals("")) {
                 tempSkillApi += tempSkill[i].toString()
@@ -516,7 +560,12 @@ class ProfileFragment : Fragment(), Skill {
             }
         }
         viewModelSkill.getSkill()
-
         Log.d("lastval", tempSkillApi)
+    }
+
+    fun updated(text: String){
+        binding.tfCV.setText(text)
+        Log.d("updatetext", text)
+        Snackbar.make(requireView(), "CV updated", Snackbar.LENGTH_SHORT).show()
     }
 }

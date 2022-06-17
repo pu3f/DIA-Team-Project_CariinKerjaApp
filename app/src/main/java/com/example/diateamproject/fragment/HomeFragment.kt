@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.diateamproject.R
 import com.example.diateamproject.activity.JobDetailsActivity
+import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.RecentJobActivity
 import com.example.diateamproject.activity.SearchActivity
 import com.example.diateamproject.adapter.BannerAdapter
@@ -27,6 +28,7 @@ import com.example.diateamproject.util.BannerItem
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.RecentJobViewModel
+import com.pixplicity.easyprefs.library.Prefs
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.abs
@@ -64,13 +66,27 @@ class HomeFragment : Fragment(){
         setObserver()
         action()
 
+        //check is login condition
+        val isLogin = Prefs.getBoolean(PrefsLoginConstant.IS_LOGIN, false)
+        if (isLogin) {
+            binding.cvGuest.cvHomeGuest.visibility = View.GONE
+        } else {
+            binding.cvGuest.cvHomeGuest.visibility = View.VISIBLE
+            binding.tvSearchTitle.setText("Login to find your dream job!")
+        }
+
+        binding.cvGuest.btnGetStarted.setOnClickListener {
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+        }
+
         //get jobseekerName from prefsLoginConstant
-        val username = PrefsLogin.loadString(PrefsLoginConstant.USERNAME, "userName")
-        binding.tvHello.text = "Hello, $username".uppercase(Locale.getDefault())
+        // of username = "" , default value = guest
+        val username = PrefsLogin.loadString(PrefsLoginConstant.USERNAME, "Guest")
+        binding.tvHello.text = "Hello, $username!".uppercase(Locale.getDefault())
         Log.d("data", "not null")
 
         binding.btnSearchHome.setOnClickListener {
-            startActivity(Intent(requireContext(), SearchActivity::class.java) )
+            startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
 
         viewPager = binding.vpBanner
@@ -89,11 +105,9 @@ class HomeFragment : Fragment(){
         compositePageTransformer.addTransformer { page, position ->
             val r = 1 - abs(position)
             page.scaleY = 0.85f + r * 0.15f
-//            page.scaleX = 0.85f + r * 0.15f
         }
 
         viewPager.setPageTransformer(compositePageTransformer)
-
 
         binding.tvShowMore.setOnClickListener {
             val intent = Intent(requireContext(), RecentJobActivity::class.java)

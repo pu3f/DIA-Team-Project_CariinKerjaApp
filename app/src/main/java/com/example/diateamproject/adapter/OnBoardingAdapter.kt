@@ -1,6 +1,7 @@
 package com.example.diateamproject.adapter
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.diateamproject.R
 import com.example.diateamproject.model.onboarding.OnBoardingData
+import com.example.diateamproject.util.ConvertHtml
 
 class OnBoardingAdapter(
     private var context: Context,
@@ -32,12 +34,10 @@ class OnBoardingAdapter(
         val title: TextView = view.findViewById(R.id.tvOnBoardTitle)
         val subTitle: TextView = view.findViewById(R.id.tvOnBoardSubTitle)
         val imageView: ImageView = view.findViewById(R.id.ivOnBoard)
-        val desc: TextView = view.findViewById(R.id.tvOnBoardDesc)
 
-        title.text = onBoardingDataList[position].title
+        title.text = Html.fromHtml(onBoardingDataList[position].title)
         subTitle.text = onBoardingDataList[position].subTitle
         imageView.setImageResource(onBoardingDataList[position].imageUrl)
-        desc.text = onBoardingDataList[position].desc
 
         container.addView(view)
 

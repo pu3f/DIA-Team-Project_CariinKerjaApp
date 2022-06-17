@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
+    android:clickable="true"
+    android:clipToPadding="false"
+    android:focusable="true"
     android:orientation="horizontal"
     android:outlineSpotShadowColor="@color/blue_primary"
     android:paddingHorizontal="16dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="16dp"
-    app:cardElevation="3dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:clipToPadding="false">
+    app:cardElevation="3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCardList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:background="?attr/selectableItemBackground">
+        android:background="?attr/selectableItemBackground"
+        android:padding="12dp">
 
         <ImageView
             android:id="@+id/ivJob"
@@ -35,11 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/jobPosition"
             android:textColor="@color/dark_black"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="Job Position"
             app:layout_constraintLeft_toRightOf="@id/ivJob"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,21 +48,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/companyName"
             android:textSize="12sp"
-            android:fontFamily="sans-serif"
             app:layout_constraintLeft_toRightOf="@id/ivJob"
-            app:layout_constraintTop_toBottomOf="@id/tvJobPosition"
-            android:text="Campany Name"/>
+            app:layout_constraintTop_toBottomOf="@id/tvJobPosition" />
 
         <TextView
             android:id="@+id/tvLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:paddingStart="0dp"
             android:paddingEnd="120dp"
-            android:text="Location"
-            android:textSize="10sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/companyLocation"
             android:textColor="@color/dark_black"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@id/tvPostDate"
             app:layout_constraintHorizontal_bias="0.031"
             app:layout_constraintStart_toEndOf="@id/ivJob"
@@ -72,13 +74,14 @@
             android:id="@+id/tvPostDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_regular"
             android:gravity="center"
-            android:textSize="12sp"
+            android:text="@string/createAt"
+            android:textColor="@color/dark_black"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="date"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

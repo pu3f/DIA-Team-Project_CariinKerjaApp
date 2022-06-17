@@ -28,8 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/jobDetail"
             android:textColor="@color/dark_black"
             android:textSize="20sp" />
@@ -57,8 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
-            android:fontFamily="sans-serif-black"
-            android:text="Job Position"
+            android:fontFamily="@font/montserrat_extrabold"
+            android:text="@string/jobPosition"
             android:textColor="@color/dark_black"
             android:textSize="16sp" />
 
@@ -69,8 +68,8 @@
             android:layout_below="@id/tvJobPosition"
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
-            android:fontFamily="sans-serif-medium"
-            android:text="Company Name"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/companyName"
             android:textSize="14sp" />
 
         <TextView
@@ -80,8 +79,8 @@
             android:layout_below="@id/tvCompanyName"
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
-            android:fontFamily="sans-serif"
-            android:text="Company location"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/companyLocation"
             android:textColor="@color/dark_black"
             android:textSize="12sp" />
 
@@ -93,12 +92,12 @@
             android:layout_marginStart="24dp"
             android:layout_toEndOf="@id/ivCompanyLogo"
             android:drawablePadding="4dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/dark_black"
+            android:fontFamily="@font/montserrat_semibold"
             android:gravity="center"
             android:paddingVertical="4dp"
-            android:text="Date created:"
-            android:textSize="12sp"
+            android:text="@string/dateCreated"
+            android:textColor="@color/dark_black"
+            android:textSize="11sp"
             app:drawableStartCompat="@drawable/ic_time" />
 
         <TextView
@@ -108,10 +107,10 @@
             android:layout_below="@id/tvLocation"
             android:layout_marginStart="4dp"
             android:layout_toEndOf="@id/tvDate"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/dark_black"
+            android:fontFamily="@font/montserrat_regular"
             android:paddingVertical="4dp"
-            android:text="date"
+            android:text="@string/date"
+            android:textColor="@color/dark_black"
             android:textSize="12sp" />
 
     </RelativeLayout>
@@ -120,7 +119,9 @@
         android:id="@+id/llJobType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:background="@drawable/bg_top_border"
         android:orientation="horizontal"
         android:paddingHorizontal="4dp"
@@ -131,9 +132,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="4dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/montserrat_semibold"
             android:textColor="@color/dark_black"
-            android:text="Type:"
+            android:text="@string/type"
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_job_type" />
 
@@ -141,20 +142,20 @@
             android:id="@+id/tvJobType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_regular"
             android:textColor="@color/dark_black"
             android:paddingHorizontal="4dp"
-            android:text="job type"
+            android:text="@string/jobType"
             android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/montserrat_semibold"
             android:textColor="@color/dark_black"
             android:paddingStart="12dp"
             android:paddingEnd="4dp"
-            android:text="Salary:"
+            android:text="@string/salary"
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_salary" />
 
@@ -162,28 +163,28 @@
             android:id="@+id/tvJobsalary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat_regular"
             android:textColor="@color/dark_black"
             android:paddingHorizontal="4dp"
-            android:text="salary range"
+            android:text="@string/salaryRange"
             android:textSize="12sp" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnApply"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/bg_button_primary"
-        android:fontFamily="sans-serif-black"
-        android:text="Apply"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/Apply"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:rippleColor="@color/white"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:focusable="true"
         android:clickable="true"/>
 
     <androidx.cardview.widget.CardView
@@ -210,17 +211,21 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabUnboundedRipple="true">
+                app:tabUnboundedRipple="true"
+                app:tabTextAppearance="@style/tab_text"
+                app:tabIndicatorColor="@color/white"
+                app:tabTextColor="@color/grey_medium"
+                app:tabSelectedTextColor="@color/medium_blue">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Job" />
+                    android:text="@string/job"/>
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Company" />
+                    android:text="@string/company" />
 
             </com.google.android.material.tabs.TabLayout>
 
