@@ -13,6 +13,7 @@
     <color name="blue_primary">#060684</color>
     <color name="grey">#E5E5E5</color>
     <color name="grey_light">#F3F3F3</color>
+    <color name="grey_medium">#C4C4C4</color>
     <color name="grey_dark">#838383</color>
     <color name="green">#27AE60</color>
     <color name="red">#EB5757</color>

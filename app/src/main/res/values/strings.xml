@@ -117,6 +117,13 @@
     <string name="benefitList">benefit list</string>
     <string name="tittleUploadNewCV">Want to upload new CV?</string>
     <string name="chooseFile">Choose File Here</string>
+    <string name="date">date</string>
+    <string name="type">Type:</string>
+    <string name="jobType">job type</string>
+    <string name="salary">Salary:</string>
+    <string name="salaryRange">salary range</string>
+    <string name="job">Job</string>
+    <string name="company">Company</string>
     <string-array name="degrees">
         <item>Senior High School</item>
         <item>Diploma</item>
