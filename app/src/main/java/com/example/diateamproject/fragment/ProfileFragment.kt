@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,23 +24,23 @@ import com.example.diateamproject.R
 import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.MenuActivity
 import com.example.diateamproject.databinding.FragmentProfileBinding
+import com.example.diateamproject.listener.Updated
+import com.example.diateamproject.model.allskills.Data
+import com.example.diateamproject.model.updateprofile.SkillData
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
+import com.example.diateamproject.viewmodel.SkillViewModel
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import androidx.core.widget.addTextChangedListener
-import com.example.diateamproject.model.allskills.Data
-import com.example.diateamproject.model.updateprofile.SkillData
-import com.example.diateamproject.viewmodel.SkillViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
 
 
-class ProfileFragment : Fragment(), Skill {
+class ProfileFragment : Fragment(), Skill,Updated {
     //view binding fragment declaration
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -61,6 +62,7 @@ class ProfileFragment : Fragment(), Skill {
     private val viewModelSkill: SkillViewModel by lazy {
         ViewModelProviders.of(this).get(SkillViewModel::class.java)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,7 +100,9 @@ class ProfileFragment : Fragment(), Skill {
         //show update cv dialog
         binding.tfCV.setOnClickListener {
             val cvFragment = UpdateCVFragment()
+            cvFragment.setCallback(this)
             cvFragment.show(requireFragmentManager(), "dialogUpdateCV")
+
 
 //            val supportFragmentManager = requireActivity().supportFragmentManager
 //            dialog.onUpdate = {
@@ -563,9 +567,10 @@ class ProfileFragment : Fragment(), Skill {
         Log.d("lastval", tempSkillApi)
     }
 
-    fun updated(text: String){
-        binding.tfCV.setText(text)
-        Log.d("updatetext", text)
+    override fun updatext(text: String) {
+                binding.tfCV.setText(text)
+        Log.d("updatetextrrrrrr", text)
         Snackbar.make(requireView(), "CV updated", Snackbar.LENGTH_SHORT).show()
+
     }
 }

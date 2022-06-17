@@ -19,6 +19,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentUpdatecvDialogBinding
+import com.example.diateamproject.listener.Updated
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -33,6 +34,7 @@ class UpdateCVFragment : DialogFragment() {
     private val binding get() = _binding!!
     private val userId = PrefsLogin.loadInt(PrefsLoginConstant.USERID, 0)
     private val REQUEST_FILE = 2
+   lateinit var listener:Updated
     private var selectedPdfUri: Uri? = null
     var onUpdate: (() -> Unit)? = null
     lateinit var pb: ProgressButtonUpdateCV
@@ -40,7 +42,9 @@ class UpdateCVFragment : DialogFragment() {
     private val viewModelProfile: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
-
+fun setCallback(updated: Updated){
+    this.listener = updated
+}
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -179,8 +183,10 @@ class UpdateCVFragment : DialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
+        listener?.updatext(name)
         super.onDismiss(dialog)
-        (targetFragment as ProfileFragment?)?.updated(name)
-        Log.d("updatetextxx", name)
+
     }
+
+
 }
