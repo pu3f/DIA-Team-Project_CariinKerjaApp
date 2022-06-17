@@ -10,15 +10,15 @@ import com.example.diateamproject.databinding.ChipSkillBinding
 import com.example.diateamproject.listener.OnItemClickListener
 import com.example.diateamproject.model.allskills.Data
 import com.example.diateamproject.model.updateprofile.SkillData
-import com.example.diateamproject.util.Testing
+import com.example.diateamproject.listener.UpdateSkill
 
-class SkillAdapter(var temp: ArrayList<String>, testing: Testing) :
+class SkillAdapter(var temp: ArrayList<String>, updateSkill: UpdateSkill) :
     RecyclerView.Adapter<SkillAdapter.ViewHolder>() {
     private var context: Context? = null
     var skillList = arrayListOf<Data>()
     var updateSkillList = arrayListOf<SkillData>()
     var onSelectedItemListener: OnItemClickListener? = null
-    var listener = testing
+    var listener = updateSkill
 
     inner class ViewHolder(val binding: ChipSkillBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
