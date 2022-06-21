@@ -59,7 +59,7 @@
             android:fontFamily="@font/montserrat_extrabold"
             android:text="@string/jobPosition"
             android:textColor="@color/dark_black"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvCompanyName"
@@ -115,6 +115,15 @@
 
     </RelativeLayout>
 
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_medium"
+        app:layout_constraintTop_toBottomOf="@id/rlJobById"
+        android:layout_marginVertical="1dp"
+        android:layout_marginHorizontal="16dp"/>
+
     <LinearLayout
         android:id="@+id/llJobType"
         android:layout_width="match_parent"
@@ -122,11 +131,10 @@
         android:layout_marginHorizontal="16dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:background="@drawable/bg_top_border"
         android:orientation="horizontal"
         android:paddingHorizontal="4dp"
         android:paddingVertical="8dp"
-        app:layout_constraintTop_toBottomOf="@id/rlJobById">
+        app:layout_constraintTop_toBottomOf="@id/line1">
 
         <TextView
             android:layout_width="wrap_content"
