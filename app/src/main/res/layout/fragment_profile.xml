@@ -128,15 +128,16 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tfBio"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="68dp"
                     android:fontFamily="@font/montserrat_regular"
                     android:gravity="top"
                     android:inputType="textMultiLine"
-                    android:lines="3"
+                    android:maxLength="500"
                     android:padding="10dp"
                     android:textColor="@color/dark_black"
                     android:textSize="12sp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:singleLine="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
