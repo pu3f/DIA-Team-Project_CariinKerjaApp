@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="1dp"
     android:clickable="true"
     android:clipToPadding="false"
     android:focusable="true"
@@ -32,42 +33,45 @@
 
         <TextView
             android:id="@+id/tvJobPosition"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/montserrat_bold"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="68dp"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="@string/jobPosition"
             android:textColor="@color/dark_black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintRight_toLeftOf="@id/tvPostDate"
             app:layout_constraintLeft_toRightOf="@id/ivJob"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvCompanyName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="68dp"
+            android:paddingBottom="4dp"
             android:fontFamily="@font/montserrat_medium"
             android:text="@string/companyName"
             android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@id/tvPostDate"
             app:layout_constraintLeft_toRightOf="@id/ivJob"
             app:layout_constraintTop_toBottomOf="@id/tvJobPosition" />
 
         <TextView
             android:id="@+id/tvLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="120dp"
             android:fontFamily="@font/montserrat_regular"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="68dp"
             android:text="@string/companyLocation"
             android:textColor="@color/dark_black"
             android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@id/tvPostDate"
-            app:layout_constraintHorizontal_bias="0.031"
-            app:layout_constraintStart_toEndOf="@id/ivJob"
+            app:layout_constraintLeft_toRightOf="@id/ivJob"
+            app:layout_constraintRight_toLeftOf="@id/tvPostDate"
             app:layout_constraintTop_toBottomOf="@id/tvCompanyName" />
 
         <TextView
@@ -81,6 +85,7 @@
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.031"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
