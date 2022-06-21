@@ -17,7 +17,7 @@ data class DataProfile(
     val jobseekerProfession: String,
     val jobseekerResume: String,
     val skills: List<SkillData>,
-    val jobsekerCompany: String,
+    val jobseekerCompany: String,
     val workStartYear: Int,
     val workEndYear: Int
 )
