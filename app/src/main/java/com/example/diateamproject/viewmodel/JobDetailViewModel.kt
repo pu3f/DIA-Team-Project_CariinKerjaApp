@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.diateamproject.data.di.DaggerAppComponent
 import com.example.diateamproject.data.repository.AppRepository
-import com.example.diateamproject.model.applicationstatus.ApplicationStatusResponse
 import com.example.diateamproject.model.jobbyid.JobByIdResponse
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
