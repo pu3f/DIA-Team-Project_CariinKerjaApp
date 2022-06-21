@@ -1,5 +1,6 @@
 package com.example.diateamproject.data.service
 
+import com.example.diateamproject.util.Path
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object AppRetrofit {
-    const val BASE_URL = "http://54.255.4.75:9091/"
+    const val BASE_URL = Path.BASE_URL
     val retrofitClient:Retrofit.Builder by lazy{
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)

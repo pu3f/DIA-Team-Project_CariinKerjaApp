@@ -2,6 +2,8 @@ package com.example.diateamproject.util
 
 class Path {
     companion object {
-        const val IMAGE_URL = "http://54.255.4.75:9091/resources/"
+        const val BASE_URL = "https://toptalentapp.com:9091/"
+        const val IMAGE_URL = "https://toptalentapp.com:9091/resources/"
     }
+
 }
