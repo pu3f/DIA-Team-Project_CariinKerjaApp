@@ -22,6 +22,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.pixplicity.easyprefs.library.Prefs
 import java.text.NumberFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class JobDetailsActivity : AppCompatActivity() {
@@ -78,12 +80,17 @@ class JobDetailsActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener { onBackPressed() }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NewApi")
     private fun setObserver() {
         viewModelJobDetail.listJobResponse().observe(this, Observer {
             val jobName = it.data.jobName
             Log.d("testDetail", "==== $jobName")
-            val date = it.data.createdAt.substringBefore(" ")
+            val date = it.data.createdAt
+            val formatter: DateTimeFormatter =
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
+            val dateTime: LocalDateTime = LocalDateTime.parse(date, formatter)
+            val formatter2: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+
             val companyImage = it.data.recruiterImage
             val salary = it.data.jobSalary
             val salaryFormat = currencyFormatter.format(salary.toDouble())
@@ -92,7 +99,7 @@ class JobDetailsActivity : AppCompatActivity() {
             binding.tvJobPosition.text = jobName
             binding.tvCompanyName.text = it.data.recruiterCompany
             binding.tvLocation.text = it.data.jobAddress
-            binding.tvCreateAt.text = date
+            binding.tvCreateAt.text = dateTime.format(formatter2)
             binding.tvJobType.text = it.data.jobPosition
             binding.tvJobsalary.text =
                 salaryFormat.replace("Rp", "IDR ", true).substringBefore(",")
