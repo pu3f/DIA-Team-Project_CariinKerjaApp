@@ -1,5 +1,6 @@
 package com.example.diateamproject.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -9,9 +10,11 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
@@ -22,7 +25,6 @@ import com.bumptech.glide.Glide
 import com.example.diateamproject.R
 import com.example.diateamproject.activity.LoginActivity
 import com.example.diateamproject.activity.MenuActivity
-import com.example.diateamproject.databinding.FragmentProfileBinding
 import com.example.diateamproject.util.*
 import com.example.diateamproject.viewmodel.ProfileViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -32,6 +34,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import androidx.core.widget.addTextChangedListener
+import com.example.diateamproject.databinding.FragmentProfileBinding
 import com.example.diateamproject.listener.Skill
 import com.example.diateamproject.listener.Updated
 import com.example.diateamproject.model.allskills.Data
@@ -39,6 +42,8 @@ import com.example.diateamproject.model.updateprofile.SkillData
 import com.example.diateamproject.viewmodel.SkillViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProfileFragment : Fragment(), Skill, Updated {
     //view binding fragment declaration
@@ -161,6 +166,7 @@ class ProfileFragment : Fragment(), Skill, Updated {
             }
         })
         viewModelProfile.responseProfile().observe(viewLifecycleOwner, Observer {
+            binding.tfBio.enableScrollText()
             binding.tfBio.setText(it.data.jobseekerAbout)
             binding.tfName.setText(it.data.jobseekerName)
             binding.tfEmail.setText(it.data.jobseekerEmail)
@@ -207,7 +213,7 @@ class ProfileFragment : Fragment(), Skill, Updated {
                 binding.tfCV.setText(it.data.jobseekerResume)
             }
 
-            binding.tfCompanyName.setText(it.data.jobsekerCompany)
+            binding.tfCompanyName.setText(it.data.jobseekerCompany)
             if (it.data.workStartYear != 0 && it.data.workEndYear != 0) {
                 binding.tfDateStart.setText(it.data.workStartYear.toString())
                 binding.tfDateEnd.setText(it.data.workEndYear.toString())
@@ -564,5 +570,23 @@ class ProfileFragment : Fragment(), Skill, Updated {
 
     override fun showSnackBar() {
         Snackbar.make(requireView(), "CV updated", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun EditText.enableScrollText()
+    {
+        overScrollMode = View.OVER_SCROLL_ALWAYS
+        scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
+        isVerticalScrollBarEnabled = true
+        setOnTouchListener { view, event ->
+            if (view is EditText) {
+                if(!view.text.isNullOrEmpty()) {
+                    view.parent.requestDisallowInterceptTouchEvent(true)
+                    when (event.action and MotionEvent.ACTION_MASK) {
+                        MotionEvent.ACTION_UP -> view.parent.requestDisallowInterceptTouchEvent(false)
+                    }
+                }
+            }
+            false
+        }
     }
 }
