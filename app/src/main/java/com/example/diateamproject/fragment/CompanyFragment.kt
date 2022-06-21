@@ -1,11 +1,14 @@
 package com.example.diateamproject.fragment
 
+import android.R
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.diateamproject.databinding.FragmentCompanyBinding
@@ -13,6 +16,7 @@ import com.example.diateamproject.util.ConvertHtml
 import com.example.diateamproject.util.PrefsLogin
 import com.example.diateamproject.util.PrefsLoginConstant
 import com.example.diateamproject.viewmodel.JobDetailViewModel
+
 
 class CompanyFragment : Fragment() {
     private var _binding: FragmentCompanyBinding? = null
@@ -25,7 +29,7 @@ class CompanyFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentCompanyBinding.inflate(inflater, container, false)
@@ -52,43 +56,51 @@ class CompanyFragment : Fragment() {
             val linkedin = it.data.recruiterLinkedin
             val fb = it.data.recruiterFb
 
-            if (aboutCompany.isNullOrEmpty() || aboutCompany == ("")) {
+            if (aboutCompany.isNullOrEmpty() || aboutCompany == ("") || aboutCompany == ("null")) {
                 binding.tvAboutCompany.text = "-"
             } else {
                 binding.tvAboutCompany.text = aboutCompany
             }
-            if (industries.isNullOrEmpty() || industries == ("")) {
+
+            if (industries.isNullOrEmpty() || industries == ("") || industries == ("null")) {
                 binding.tvIndustries.text = "-"
             } else {
                 binding.tvIndustries.text = industries
             }
-            if (employee.isNullOrEmpty() || employee == ("")) {
+
+            if (employee.isNullOrEmpty() || employee == ("") || employee == ("null")) {
                 binding.tvEmployee.text = "-"
             } else {
                 binding.tvEmployee.text = employee
             }
-            if (culture.isNullOrEmpty() || culture == ("")) {
+
+            if (culture.isNullOrEmpty() || culture == ("") || culture == ("null")) {
                 binding.tvCulture.text = "-"
             } else {
                 binding.tvCulture.text = convertHtml.convertHtmlString(culture)
             }
-            if (website.isNullOrEmpty() || website == ("")) {
+
+            if (website.isNullOrEmpty() || website == ("") || website == ("null")) {
                 binding.ivLink.visibility = View.GONE
                 binding.tvWebsite.text = "-"
             } else {
-                binding.tvWebsite.text = website
+                binding.tvWebsite.setText(website)
+                binding.tvWebsite.movementMethod = LinkMovementMethod.getInstance()
             }
-            if (linkedin.isNullOrEmpty() ||linkedin == ("")) {
+
+            if (linkedin.isNullOrEmpty() || linkedin == ("") || linkedin == ("null")) {
                 binding.llLinkedin.visibility = View.GONE
             } else {
                 binding.tvLinkedin.text = linkedin
             }
-            if (fb.isNullOrEmpty() || fb == ("")) {
+
+            if (fb.isNullOrEmpty() || fb == ("") || fb == ("null")) {
                 binding.llFb.visibility = View.GONE
             } else {
                 binding.tvFb.text = fb
             }
-            if (ig.isNullOrEmpty() || ig == ("")) {
+
+            if (ig.isNullOrEmpty() || ig == ("") || ig == ("null")) {
                 binding.llIg.visibility = View.GONE
             } else {
                 binding.tvIg.text = ig
