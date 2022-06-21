@@ -123,10 +123,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:autoLink="web"
+                android:clickable="true"
+                android:focusable="true"
                 android:fontFamily="@font/montserrat_regular"
+                android:linksClickable="true"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="11sp"/>
+                android:textColorLink="@color/dark_black"
+                android:textSize="11sp" />
 
         </LinearLayout>
         <LinearLayout
@@ -150,7 +155,12 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="11sp"/>
+                android:textSize="11sp"
+                android:linksClickable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:autoLink="web"
+                android:textColorLink="@color/dark_black"/>
 
         </LinearLayout>
         <LinearLayout
@@ -174,7 +184,12 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="11sp"/>
+                android:textSize="11sp"
+                android:linksClickable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:autoLink="web"
+                android:textColorLink="@color/dark_black"/>
 
         </LinearLayout>
         <LinearLayout
@@ -198,7 +213,12 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sosmedLink"
                 android:textColor="@color/dark_black"
-                android:textSize="11sp"/>
+                android:textSize="11sp"
+                android:linksClickable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:autoLink="web"
+                android:textColorLink="@color/dark_black"/>
 
         </LinearLayout>
 
